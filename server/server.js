@@ -74,7 +74,45 @@ app.post("/register", (req, res) => {
             });
         });
 });
-// --------------------------------------------------------------------------------------------------------------------------------
+
+// --------------------------------------------- LOGIN ---------------------------------------------------
+
+app.post("/login", (req, res) => {
+    db.findUser(req.body.email)
+        .then((result) => {
+            console.log("findUser result/LOGIN", result);
+            return bcrypt
+                .compare(req.body.password, result.rows[0].password)
+                .then(function (isCorrect) {
+                    if (isCorrect) {
+                        console.log("correct! result,rows[0]", result.rows[0]);
+                        req.session.userId = result.rows[0].id;
+                        res.json({ success: true });
+                    } else {
+                        console.log("WRONG!");
+                        res.json({
+                            success: false,
+                            error: true,
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.json({
+                        success: false,
+                        error: true,
+                    });
+                });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        });
+});
+// ----------------------------------------------------Logout----------------------------------------------------------------------------
 
 app.get("/logout", (req, res) => {
     req.session = null;

@@ -1,20 +1,17 @@
 import { Component } from "react";
-
 import { Link } from "react-router-dom";
 
-export default class Registration extends Component {
+export default class Login extends Component {
     constructor() {
         super();
         this.state = { error: false };
-        // this.handleChange = this.handleChange.bind(this); (other optin instead of arrow function)
     }
 
     handleChange(e) {
         console.log(e.target.value);
-        //ARROW FUNCTIONS KEEP THE MEANING OF "THIS" instead of having to binf it inside constructor
+
         this.setState(
             {
-                //left side DYNAMIC thanks to []
                 [e.target.name]: e.target.value,
             },
             () => console.log("this.state:", this.state)
@@ -23,7 +20,7 @@ export default class Registration extends Component {
 
     handleSubmit() {
         console.log("submit was pressed");
-        fetch("/register", {
+        fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +29,7 @@ export default class Registration extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("data from POST/register: ", data);
+                console.log("data from POST/login: ", data);
 
                 if (data.success) {
                     location.reload();
@@ -53,23 +50,12 @@ export default class Registration extends Component {
     render() {
         return (
             <div>
-                <h1>This is the registration component</h1>
+                <h1>This is the Login COmponent</h1>
 
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>
                 )}
-                <input
-                    type="text"
-                    name="first"
-                    placeholder="first"
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <input
-                    type="text"
-                    name="last"
-                    placeholder="last"
-                    onChange={(e) => this.handleChange(e)}
-                />
+
                 <input
                     type="email"
                     name="email"
@@ -82,21 +68,12 @@ export default class Registration extends Component {
                     placeholder="password"
                     onChange={(e) => this.handleChange(e)}
                 />
-                <button onClick={() => this.handleSubmit()}>Submit</button>
+                <button onClick={() => this.handleSubmit()}>Login</button>
 
-                <Link to="/login">Click here to Log in!</Link>
+                <Link to="/">
+                    <p> Click here to sign up</p>
+                </Link>
             </div>
         );
     }
 }
-
-// PART3
-//secrets json.. copy paste spiced credentials form aws in there
-// to verify adress go trhough aws
-
-//we can do this for conditional rendering
-//{this.state.view.1 && (<p></p>)
-//}
-
-//OR
-//if (this.state.view === 1) // in notes
