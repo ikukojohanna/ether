@@ -34,3 +34,31 @@ module.exports.findUser = (email) => {
     const param = [email];
     return db.query(q, param);
 };
+
+//---------------------------------------------------------STORE SECRET CODE---------------------------------------------
+module.exports.storeCode = (email, code) => {
+    const q = `INSERT INTO codes (user_email, secret_code) 
+        VALUES ($1, $2)
+        RETURNING *;`;
+    const param = [email, code];
+    return db.query(q, param);
+};
+//---------------------------------------------------------COMPARE EMAILS FOR RESET PASSWORD---------------------------------------------
+
+module.exports.compareCodes = (email) => {
+    const q = `SELECT secret_code  FROM codes
+WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+AND user_email = $1`;
+    const param = [email];
+    return db.query(q, param);
+};
+
+//---------------------------------------------------------Update password---------------------------------------------
+module.exports.updatePassword = (password, email) => {
+    const q = `UPDATE users
+SET password = $1
+WHERE email= $2
+ RETURNING *;`;
+    const param = [password, email];
+    return db.query(q, param);
+};

@@ -20,6 +20,9 @@ const COOKIE_SECRET =
 const compression = require("compression");
 
 const path = require("path");
+const cryptoRandomString = require("crypto-random-string");
+
+const { sendEmail } = require("./ses");
 
 // --------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------  MIDDLEWARE -------------------------------------------------------
@@ -112,12 +115,120 @@ app.post("/login", (req, res) => {
             });
         });
 });
+
+// --------------------------------------------- Reset Password ---------------------------------------------------
+app.post("/password/reset/start", (req, res) => {
+    // console.log("email sends here", req.body.email);
+
+    // HERE CHECK THAT EMAIL IS IN THE USERS TABLE... NOT NULL??
+
+    db.findUser(req.body.email)
+        .then((result) => {
+            //console.log("findUser result/RESET PASSWORD", result);
+
+            if (result.rowCount === 0) {
+                res.json({
+                    success: false,
+                    error: true,
+                });
+            } else {
+                const secretCode = cryptoRandomString({
+                    length: 6,
+                });
+                // console.log("secretCode", secretCode);
+                // console.log("req.body.email", req.body.email);
+
+                db.storeCode(req.body.email, secretCode)
+                    .then(
+                        (result) =>
+                            console.log(
+                                "email and code successfully stored",
+                                result
+                            ),
+                        sendEmail(req.body.email, secretCode, "hello"),
+                        res.json({
+                            success: true,
+                            error: true,
+                        })
+                    )
+                    .catch((err) => {
+                        console.log(err);
+                        res.json({
+                            success: false,
+                            error: true,
+                        });
+                    });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        });
+});
+app.post("/password/reset/verify", (req, res) => {
+    //console.log("reset code ", req.body.code);
+    //console.log(" new passsword POST", req.body.newPassword);
+    //  console.log(" new passswordEMAIL", req.body.email);
+    //here do error
+    db.compareCodes(req.body.email).then((result) => {
+        // console.log("result from compareCodes", result);
+        //filter through result.rows to see if contains the code
+        // if(result.rows)
+        console.log("code1", result.rows[result.rows.length - 1]);
+        console.log("code2", req.body.code);
+        if (result.rows[result.rows.length - 1].secret_code === req.body.code) {
+            //here we hash passwrod and send it to database
+            console.log("the codes MATCH");
+            bcrypt
+                .hash(req.body.newPassword)
+                .then((hash) => {
+                    console.log(hash);
+                    db.updatePassword(hash, req.body.email)
+                        .then((results) => {
+                            console.log(
+                                "reuslts from password update",
+                                results
+                            );
+                            // req.session.userId = results.rows[0].id;
+                            // res.redirect("/profile");
+                            req.session.userId = results.rows[0].id;
+
+                            res.json({ success: true });
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            res.json({
+                                success: false,
+                                error: true,
+                            });
+                        });
+                })
+                .catch((err) => {
+                    console.log("bcrypt went wrong", err);
+                    res.json({
+                        success: false,
+                        error: true,
+                    });
+                });
+        } else {
+            res.json({
+                success: false,
+                error: true,
+            });
+        }
+    });
+    // here query and compare code and emails
+});
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
 
 app.get("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/");
+    res.redirect("/"); //
 });
+
 // server.js
 app.get("/user/id.json", function (req, res) {
     //for now bled out but we will use later.

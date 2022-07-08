@@ -73,6 +73,8 @@ export default class Login extends Component {
                 <Link to="/">
                     <p> Click here to sign up</p>
                 </Link>
+
+                <Link to="/reset">Reset Password</Link>
             </div>
         );
     }
