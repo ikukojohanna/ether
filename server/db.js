@@ -65,7 +65,7 @@ WHERE email= $2
 
 // --------------------------------------------- Get User data ---------------------------------------------------
 module.exports.getUserData = (userId) => {
-    const q = `SELECT first, last, imageurl
+    const q = `SELECT first, last, imageurl, bio
     FROM users
     WHERE id = $1`;
     const param = [userId];
@@ -80,5 +80,17 @@ module.exports.uploadImg = (url, userId) => {
     RETURNING imageurl`;
 
     const param = [url, userId];
+    return db.query(q, param);
+};
+
+// --------------------------------------------- Update BIO ---------------------------------------------------
+
+module.exports.updateBio = (bio, userId) => {
+    const q = `UPDATE users
+    SET bio= $1 
+    WHERE id = $2
+    RETURNING bio`;
+
+    const param = [bio, userId];
     return db.query(q, param);
 };

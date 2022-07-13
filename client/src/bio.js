@@ -1,3 +1,101 @@
+import { Component } from "react";
+
+export default class Bio extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showTextArea: false,
+            draftBio: "",
+        };
+    }
+
+    //methods
+    editBio() {
+        console.log("editing bio");
+        this.setState({
+            showTextArea: true,
+            draftBio: this.props.bio,
+        });
+    }
+
+    handleChange(e) {
+        console.log(e.target.value);
+        //ARROW FUNCTIONS KEEP THE MEANING OF "THIS" instead of having to binf it inside constructor
+        this.setState(
+            {
+                //left side DYNAMIC thanks to []
+                [e.target.name]: e.target.value,
+            },
+            () => console.log("this.state:", this.state)
+        );
+    }
+
+    handleSubmit() {
+        console.log("submit in BIO was pressed");
+
+        fetch("/updateBio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            //body: JSON.stringify(this.state),
+            // send along (this.state.draftBio
+
+            body: JSON.stringify(this.state),
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(
+                    "data from fetch post /updateBio: ",
+                    data.updatedBio.bio
+                );
+
+                this.props.setBioInBio(data.updatedBio.bio);
+                this.setState({
+                    showTextArea: false,
+                });
+            })
+            .catch((err) => {
+                console.log("error handleSubmit ", err);
+                this.setState({
+                    error: true,
+                });
+            });
+    }
+
+    render() {
+        return (
+            <div className="biodiv">
+                {!this.state.showTextArea && !this.props.bio && (
+                    <div>
+                        <button onClick={() => this.editBio()}>Add bio</button>
+                    </div>
+                )}
+
+                {!this.state.showTextArea && this.props.bio && (
+                    <div>
+                        <p>{this.props.bio}</p>
+                        <button onClick={() => this.editBio()}>Edit Bio</button>
+                    </div>
+                )}
+
+                {this.state.showTextArea && (
+                    <div>
+                        <textarea
+                            name="draftBio"
+                            placeholder={this.state.bio}
+                            onChange={(e) => this.handleChange(e)}
+                        ></textarea>
+                        <button onClick={() => this.handleSubmit()}>
+                            Submit
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
 /*
 
 //BIO EDITOR ..

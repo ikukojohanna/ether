@@ -52,8 +52,8 @@ export default class Registration extends Component {
 
     render() {
         return (
-            <div>
-                <h1>This is the registration component</h1>
+            <div className="registrationdiv">
+                <h1>Register</h1>
 
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>

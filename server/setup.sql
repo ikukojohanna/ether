@@ -15,6 +15,8 @@ DROP TABLE IF EXISTS codes;
 ALTER TABLE users 
 ADD imageUrl TEXT;
 
+ALTER TABLE users 
+ADD bio TEXT;
 
    CREATE TABLE codes ( 
       id SERIAL PRIMARY KEY,

@@ -19,7 +19,7 @@ import Uploader from "./uploader";
 
 //import { BrowserRouter } from "react-router-dom";
 import ProfilePic from "./profilepic";
-
+import Profile from "./profile";
 export default class App extends Component {
     constructor() {
         super();
@@ -30,7 +30,7 @@ export default class App extends Component {
             imageUrl: "https", // going to be string
             //once we have information we pass it down to procile pic component
             uploaderIsVisible: false,
-            officialBio: "",
+            bio: "",
         };
     }
 
@@ -49,6 +49,7 @@ export default class App extends Component {
                     first: data.userData.first,
                     last: data.userData.last,
                     imageUrl: data.userData.imageurl,
+                    bio: data.userData.bio,
                 });
             })
             .catch((err) => {
@@ -83,12 +84,15 @@ export default class App extends Component {
         });
     }
 
-    /*
     setBio(officialBio) {
+        console.log("setbio has been triggered");
+        this.setState({
+            bio: officialBio,
+        });
         // this funciton is in charge of receiving official bio from bio editior
         //and updating its state with it
         //watch with props... this.props.funciton (this.props.fucntion in class component... props.funciont in funtion component)
-    }*/
+    }
     render() {
         return (
             <div className="appdiv">
@@ -99,10 +103,24 @@ export default class App extends Component {
                     first={this.state.first}
                     last={this.state.last}
                     imageUrl={this.state.imageUrl}
+                    passDownToggleModal={() => {
+                        this.toggleModal();
+                    }}
                 />
-                <h2 onClick={() => this.toggleModal()}>
-                    click here to toggle uploader visible
-                </h2>
+                <h2 onClick={() => this.toggleModal()}>update profile pic</h2>
+
+                <Profile
+                    first={this.state.first}
+                    last={this.state.last}
+                    imageUrl={this.state.imageUrl}
+                    id={this.state.id}
+                    image={this.state.image}
+                    onClick={this.showUploader}
+                    bio={this.state.bio}
+                    setBioInProfile={(arg) => {
+                        this.setBio(arg);
+                    }}
+                />
 
                 {this.state.uploaderIsVisible && (
                     <Uploader

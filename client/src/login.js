@@ -49,8 +49,8 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
-                <h1>This is the Login COmponent</h1>
+            <div className="logindiv">
+                <h1>Login</h1>
 
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>

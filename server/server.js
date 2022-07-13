@@ -297,6 +297,41 @@ app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
         });
 });
 
+// ----------------------------------------------------UPDATE BIO----------------------------------------------------------------------------
+
+app.post("/updateBio", (req, res) => {
+    console.log("body from post updateBIO", req.body.draftBio);
+    console.log("req.session.userId", req.session.userId);
+
+    db.updateBio(req.body.draftBio, req.session.userId)
+        .then((result) => {
+            console.log("reusult updateBIO query", result.rows[0]);
+            res.json({
+                updatedBio: result.rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log("error in post request for updateBio", err);
+        });
+    /*  if (req.body) {
+        db.updateBio(req.body.bio, req.session.userId)
+            .then((result) => {
+                res.json({
+                    success: true,
+                    payload: result.rows[0],
+                });
+            })
+            .catch((err) => {
+                console.log("error is ", err);
+            });
+    } else {
+        console.log("error in updting user's bio ", err);
+        res.json({
+            success: false,
+            error: true,
+        });
+    }*/
+});
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
 
 app.get("/logout", (req, res) => {

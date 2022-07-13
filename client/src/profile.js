@@ -1,14 +1,27 @@
 import ProfilePic from "./profilepic";
-
+import Bio from "./bio";
 export default function Profile(props) {
     return (
-        <div className="container">
-            <h1>this is the profile component</h1>
-            <h2>my name is {props.first}</h2>
-            <ProfilePic imageUrl={props.imageUrl} />
+        <div className="profilediv">
+            <h1>Your Profile</h1>
+            <h2>
+                {props.first} {props.last}:{" "}
+            </h2>
+            <ProfilePic
+                first={props.first}
+                last={props.last}
+                imageUrl={props.imageUrl}
+            />
+            <Bio
+                bio={props.bio}
+                setBioInBio={(arg) => props.setBioInProfile(arg)}
+            />
         </div>
     );
 }
+
+//now we havre access to
+//props.setBioInProfile()
 
 //or destructuring... {first}
 //update presentational from yesterdaa yto profilepic

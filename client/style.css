@@ -11,7 +11,40 @@ body {
     width: auto;
 }
 
+.profilediv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+}
+.biodiv {
+    background-color: bisque;
+}
 .appdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.registrationdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logindiv {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -118,4 +151,16 @@ button {
     font-weight: 600;
     border-radius: 5px;
     font-family: "Libre Baskerville", serif;
+}
+
+button:hover {
+    cursor: pointer;
+}
+button:active {
+    background-color: aquamarine;
+    padding-top: 2px;
+}
+
+img.container {
+    height: 200px;
 }
