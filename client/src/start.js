@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 //represents logged out user experience
 
 import Welcome from "./welcome";
+import App from "./app";
 
 // here we need to make a fetch request to server. to check if user is registered, or logged in
 //by checking users cookiew
@@ -21,7 +22,7 @@ fetch("/user/id.json")
             //this means user is logged in/registered
             //browser had right cookie.... show logo
             ReactDOM.render(
-                <img id="logo" src="/logo.jpg" alt="logo" />, //get your own logo and put it in public
+                <App />, //get your own logo and put it in public
                 document.querySelector("main")
                 //location.reload()
             );
@@ -29,9 +30,6 @@ fetch("/user/id.json")
     })
     .catch((err) => {
         console.log("error fetch user/id ", err);
-        this.setState({
-            error: true,
-        });
     });
 
 //when export without default one would write:

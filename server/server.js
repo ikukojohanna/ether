@@ -23,6 +23,38 @@ const path = require("path");
 const cryptoRandomString = require("crypto-random-string");
 
 const { sendEmail } = require("./ses");
+const s3 = require("./s3");
+//multer interprets form requests that are not of type urlencoded but multipartFormDatan (mostly used for file uploads)
+const multer = require("multer");
+
+const uidSafe = require("uid-safe");
+
+//----------------------------------------------------------Multer Setup--------------------------------------------------------------------
+
+const storage = multer.diskStorage({
+    destination(req, file, callback) {
+        callback(null, path.join(__dirname, "uploads"));
+    },
+    filename(req, file, callback) {
+        //create random name 24 characters long
+        uidSafe(24).then((randomString) => {
+            console.log("file: ", file);
+            // extname method to get original extension
+            const extname = path.extname(file.originalname);
+            callback(null, `${randomString}${extname}`);
+        });
+    },
+});
+
+//creating uploader funtionality
+const uploader = multer({
+    storage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
+//------------------------------------------------------------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------  MIDDLEWARE -------------------------------------------------------
@@ -222,6 +254,49 @@ app.post("/password/reset/verify", (req, res) => {
     });
     // here query and compare code and emails
 });
+// --------------------------------------------- Get User data ---------------------------------------------------
+
+app.get("/user", (req, res) => {
+    db.getUserData(req.session.userId)
+        .then((results) => {
+            const userData = results.rows[0];
+            res.json({
+                success: true,
+                userData,
+            });
+        })
+        .catch((err) => {
+            console.log("error while getting user data", err);
+            res.json({
+                success: false,
+                error: true,
+            });
+        });
+});
+
+// ----------------------------------------------------ImageUpload----------------------------------------------------------------------------
+
+app.post("/upload", uploader.single("image"), s3.upload, (req, res) => {
+    console.log("IN UPLOAD");
+    console.log("req.body: ", req.body);
+    console.log("req.file", req.file);
+    console.log("req.file.filename", req.file.filename);
+    const url = "https://s3.amazonaws.com/spicedling/" + req.file.filename;
+    console.log("url", url);
+
+    db.uploadImg(url, req.session.userId)
+        .then((result) => {
+            console.log("result after upload image", result.rows[0]);
+            res.json({
+                sucess: true,
+                uploadedImg: result.rows[0],
+            });
+        })
+        .catch((err) => {
+            console.log("error in POST request/upload", err);
+        });
+});
+
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
 
 app.get("/logout", (req, res) => {

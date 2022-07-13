@@ -62,3 +62,23 @@ WHERE email= $2
     const param = [password, email];
     return db.query(q, param);
 };
+
+// --------------------------------------------- Get User data ---------------------------------------------------
+module.exports.getUserData = (userId) => {
+    const q = `SELECT first, last, imageurl
+    FROM users
+    WHERE id = $1`;
+    const param = [userId];
+    return db.query(q, param);
+};
+// --------------------------------------------- Uploade profile picture---------------------------------------------------
+
+module.exports.uploadImg = (url, userId) => {
+    const q = `UPDATE users
+    SET imageUrl = $1 
+    WHERE id = $2
+    RETURNING imageurl`;
+
+    const param = [url, userId];
+    return db.query(q, param);
+};

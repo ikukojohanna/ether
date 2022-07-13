@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 208, 90);
+    background-color: rgb(182, 182, 182);
 }
 
 .some-class {
@@ -9,4 +9,113 @@ body {
 #logo {
     height: 200px;
     width: auto;
+}
+
+.appdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic {
+    height: 100px;
+    width: 100px;
+    top: 0%;
+    right: 0;
+    position: absolute;
+    border-radius: 50%;
+    margin: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uploaderdiv {
+    position: fixed;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: azure;
+}
+.close {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    cursor: pointer;
+}
+
+form {
+    border-radius: 10px;
+
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    margin: 1%;
+    padding: 15px;
+    border: 0;
+
+    color: black;
+    border-radius: 10px;
+    font-size: 15px;
+
+    background-color: hsla(236, 33%, 100%, 0.623);
+    box-shadow: 0 0 15px 1px #27294d45;
+    border-radius: 10px;
+    outline: none;
+}
+
+#chooseImg {
+    display: none;
+}
+label {
+    cursor: pointer;
+    margin: 10px;
+    background-color: hsla(236, 33%, 100%, 0.623);
+    box-shadow: 0 0 15px 1px #27294d45;
+
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+label:hover {
+    background-color: #ccc;
+}
+
+label:visited {
+    background-color: yellow;
+}
+
+button {
+    /* remove default behavior */
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: 0 0 15px 4px rgba(255, 0, 0, 0.06);
+
+    /* usual styles */
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    background-color: #000000;
+    color: rgb(209, 211, 228);
+    font-weight: 600;
+    border-radius: 5px;
+    font-family: "Libre Baskerville", serif;
 }

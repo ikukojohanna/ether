@@ -1,4 +1,6 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS codes;
+
 
    CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -6,10 +8,14 @@ DROP TABLE IF EXISTS users;
     last VARCHAR NOT NULL CHECK (last != ''),
     email VARCHAR NOT NULL CHECK (email !='') UNIQUE, 
     password VARCHAR NOT NULL CHECK (password !='')
+    imageUrl TEXT,
 
    );
 
-DROP TABLE IF EXISTS codes;
+ALTER TABLE users 
+ADD imageUrl TEXT;
+
+
    CREATE TABLE codes ( 
       id SERIAL PRIMARY KEY,
       user_email VARCHAR REFERENCES users(email),
