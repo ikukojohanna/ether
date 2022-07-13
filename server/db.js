@@ -94,3 +94,11 @@ module.exports.updateBio = (bio, userId) => {
     const param = [bio, userId];
     return db.query(q, param);
 };
+
+// --------------------------------------------- find other users---------------------------------------------------
+
+module.exports.getRecentUsers = () => {
+    return db.query(`SELECT * FROM users
+ORDER BY id DESC
+LIMIT 3;`);
+};

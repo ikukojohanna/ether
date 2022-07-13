@@ -332,6 +332,26 @@ app.post("/updateBio", (req, res) => {
         });
     }*/
 });
+
+// ----------------------------------------------------find recent users----------------------------------------------------------------------------
+
+app.get("/recent-users", (req, res) => {
+    console.log("/otherusers has been hit");
+    db.getRecentUsers().then((result) => {
+        const getOtherUsers = result.rows;
+        console.log("getrecentusers result:", getOtherUsers);
+        res.json(getOtherUsers);
+    });
+
+    //res.render only works with express handlebars
+    //res.json is what u use when u work with frameworks
+    //here is where server only becomes middleman between our app and the database
+
+    // we are telling multer:
+    //when a form is being made...
+    //have a look if there is a image with name image. if yes store in uploads directory
+});
+
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
 
 app.get("/logout", (req, res) => {

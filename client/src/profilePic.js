@@ -9,7 +9,7 @@
 
 export default function ProfilePic(props) {
     console.log("props, info being passsed down from app:", props);
-    props.imageUrl = props.imageUrl || "/default.jpg";
+    //props.imageUrl = props.imageUrl || "/default.jpg";
 
     return (
         <div>
@@ -17,7 +17,7 @@ export default function ProfilePic(props) {
                 className="profile-pic"
                 src={props.imageUrl}
                 alt={props.first + props.last}
-                onClick={() => this.props.passDownToggleModal()}
+                onClick={() => props.passDownToggleModal()}
             />
         </div>
     );

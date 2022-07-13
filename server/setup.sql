@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS codes;
     email VARCHAR NOT NULL CHECK (email !='') UNIQUE, 
     password VARCHAR NOT NULL CHECK (password !='')
     imageUrl TEXT,
-
+bio TEXT,
    );
 
 ALTER TABLE users 

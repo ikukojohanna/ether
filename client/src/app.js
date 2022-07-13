@@ -12,7 +12,8 @@
 //3-make logo as own component
 
 //
-
+import { BrowserRouter, Route } from "react-router-dom";
+import FindPeople from "./findPeople";
 import { Component } from "react";
 import Logo from "./logo";
 import Uploader from "./uploader";
@@ -109,18 +110,27 @@ export default class App extends Component {
                 />
                 <h2 onClick={() => this.toggleModal()}>update profile pic</h2>
 
-                <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                    id={this.state.id}
-                    image={this.state.image}
-                    onClick={this.showUploader}
-                    bio={this.state.bio}
-                    setBioInProfile={(arg) => {
-                        this.setBio(arg);
-                    }}
-                />
+                <BrowserRouter>
+                    <div>
+                        <Route exact path="/">
+                            <Profile
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.imageUrl}
+                                id={this.state.id}
+                                image={this.state.image}
+                                onClick={this.showUploader}
+                                bio={this.state.bio}
+                                setBioInProfile={(arg) => {
+                                    this.setBio(arg);
+                                }}
+                            />
+                        </Route>
+                        <Route path="/find-people">
+                            <FindPeople />
+                        </Route>
+                    </div>
+                </BrowserRouter>
 
                 {this.state.uploaderIsVisible && (
                     <Uploader
@@ -188,3 +198,25 @@ export default class App extends Component {
          last={this.state.last}
          imageUrl={this.state.imageUrl}
      />;*/
+/*   <BrowserRouter>
+                    <div>
+                        <Route exact path="/">
+                            <Profile
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.imageUrl}
+                                id={this.state.id}
+                                image={this.state.image}
+                                onClick={this.showUploader}
+                                bio={this.state.bio}
+                                setBioInProfile={(arg) => {
+                                    this.setBio(arg);
+                                }}
+                            />
+                        </Route>
+                        <Route path="/find-people">
+                            <FindPeople />
+                        </Route>
+                    </div>
+                </BrowserRouter>
+*/

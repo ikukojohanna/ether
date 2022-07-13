@@ -1,5 +1,7 @@
 import ProfilePic from "./profilepic";
 import Bio from "./bio";
+import { Link } from "react-router-dom";
+
 export default function Profile(props) {
     return (
         <div className="profilediv">
@@ -7,6 +9,7 @@ export default function Profile(props) {
             <h2>
                 {props.first} {props.last}:{" "}
             </h2>
+
             <ProfilePic
                 first={props.first}
                 last={props.last}
@@ -16,6 +19,8 @@ export default function Profile(props) {
                 bio={props.bio}
                 setBioInBio={(arg) => props.setBioInProfile(arg)}
             />
+
+            <Link to="/find-people">find people</Link>
         </div>
     );
 }
