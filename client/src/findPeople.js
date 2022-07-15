@@ -5,26 +5,39 @@ export default function FindPeople() {
     console.log("find people component here");
 
     const [searchUsers, setsearchUsers] = useState("");
+    //recent users doens't only include the 3 most recent ones.. change name?
     const [recentUsers, setRecentUsers] = useState([]);
 
     useEffect(() => {
         //this loads when component mounts
         //useEffect second argument....empty array to make it only happen once... can also put id...
+        let abort = false;
+        (async () => {
+            try {
+                console.log("searchInput right now", searchUsers);
+                const respBody = await fetch(
+                    "/users/?findUsers=" + searchUsers
+                );
+                const data = await respBody.json();
+                console.log("data", data);
+                if (!abort) {
+                    setRecentUsers(data);
+                } else {
+                    console.log("ignore don't run a a state update");
+                    //error message?
+                }
+            } catch (err) {
+                console.log("err on fetch spicedworld");
+            }
+        })(); // this closes the async iife
 
-        fetch("/recent-users")
-            .then((resp) => resp.json()) //sending response from server to client side
-            .then((data) => {
-                console.log("response from fetch /recent-users", data);
-                //here use async await
-                //STOPPPEDDD HERE WEITERMACHEN
-                setRecentUsers(data);
-                //all the properties of data become direct properties of "this"
-                //if anything is changed it data it will automatically be updated... UI will update to reflect the changes
-                //leads to faster, smoother user experience
-            });
-
-        console.log(`"${searchUsers}" has been rendered!`);
-    }, []);
+        return () => {
+            // this function runs, whenever there is another useEffect that gets
+            // triggered after the initial one
+            console.log("cleanup running");
+            abort = true;
+        };
+    }, [searchUsers]);
 
     //here fetch request to match users to input
 
@@ -32,12 +45,9 @@ export default function FindPeople() {
         <div>
             <h1>FIND PEOPLE COMPONENT</h1>
 
-            <Link to="/">back to your profile</Link>
-
-            <strong>{searchUsers}</strong>
-
             <input
                 onChange={(e) => setsearchUsers(e.target.value)}
+                name="findUsers"
                 value={searchUsers}
                 placeholder="search for people"
             />
@@ -45,8 +55,11 @@ export default function FindPeople() {
             {recentUsers &&
                 recentUsers.map((recentUser, idx) => {
                     return (
-                        <div key={idx}>
-                            <img src={recentUser.imageurl} />
+                        <div className="recentUsersdiv" key={idx}>
+                            <img
+                                className="recentUsersImg"
+                                src={recentUser.imageurl}
+                            />
                             <h3>
                                 {recentUser.first}
                                 {recentUser.last}
@@ -54,6 +67,10 @@ export default function FindPeople() {
                         </div>
                     );
                 })}
+
+            <Link to="/">back to your profile</Link>
+
+            <strong>{searchUsers}</strong>
         </div>
     );
 }

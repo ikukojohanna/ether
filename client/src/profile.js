@@ -1,4 +1,4 @@
-import ProfilePic from "./profilepic";
+//import ProfilePic from "./profilepic";
 import Bio from "./bio";
 import { Link } from "react-router-dom";
 
@@ -6,15 +6,13 @@ export default function Profile(props) {
     return (
         <div className="profilediv">
             <h1>Your Profile</h1>
+
+            <img id="profilepicProfile" src={props.imageUrl}></img>
+
             <h2>
-                {props.first} {props.last}:{" "}
+                {props.first} {props.last}:
             </h2>
 
-            <ProfilePic
-                first={props.first}
-                last={props.last}
-                imageUrl={props.imageUrl}
-            />
             <Bio
                 bio={props.bio}
                 setBioInBio={(arg) => props.setBioInProfile(arg)}
@@ -46,3 +44,5 @@ export default function Profile(props) {
 //USE STATE... class component... for editor
 //conditional rendering
 //if
+
+//<ProfilePic first={props.first} last={props.last} imageUrl={props.imageUrl} />;

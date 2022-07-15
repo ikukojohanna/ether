@@ -97,7 +97,7 @@ export default class App extends Component {
     render() {
         return (
             <div className="appdiv">
-                <h1>Hey {this.state.first}!Welcome to </h1>
+                <h1>Welcome to the</h1>
                 <Logo />
 
                 <ProfilePic
@@ -108,7 +108,6 @@ export default class App extends Component {
                         this.toggleModal();
                     }}
                 />
-                <h2 onClick={() => this.toggleModal()}>update profile pic</h2>
 
                 <BrowserRouter>
                     <div>

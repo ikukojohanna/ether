@@ -102,3 +102,12 @@ module.exports.getRecentUsers = () => {
 ORDER BY id DESC
 LIMIT 3;`);
 };
+
+// --------------------------------------------- match users---------------------------------------------------
+
+module.exports.matchUsers = (val) => {
+    const q = `SELECT * FROM users
+    WHERE first ILIKE $1`;
+    const param = [val + "%"];
+    return db.query(q, param);
+};
