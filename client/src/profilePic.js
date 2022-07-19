@@ -9,7 +9,7 @@
 
 export default function ProfilePic(props) {
     console.log("props, info being passsed down from app:", props);
-    props.imageUrl = props.imageUrl || "default.png";
+    //props.imageUrl = props.imageUrl || "/default.jpg";
 
     return (
         <div>

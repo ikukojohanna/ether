@@ -30,8 +30,19 @@ h1 {
 
     margin: 5% 0 5% 0;
 }
+
+a {
+    color: white;
+}
+
+a:visited {
+    color: white;
+}
 .biodiv {
-    background-color: bisque;
+    background-color: rgba(255, 255, 255, 0.063);
+    width: 50%;
+    height: 100%;
+    padding: 5%;
 }
 .bio {
     display: inline;

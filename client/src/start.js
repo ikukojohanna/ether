@@ -8,7 +8,20 @@ import Welcome from "./welcome";
 import App from "./app";
 
 // here we need to make a fetch request to server. to check if user is registered, or logged in
-//by checking users cookiew
+//by checking users cooki
+
+//----------------------------------------- REDUX SETUP ------------------------------------
+import { createStore, applyMiddleware } from "redux";
+import * as immutableState from "redux-immutable-state-invariant";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+import { Provider } from "react-redux";
+import rootReducer from "./redux/reducer";
+
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(immutableState.default()))
+);
 
 // start.js
 fetch("/user/id.json")
@@ -22,7 +35,15 @@ fetch("/user/id.json")
             //this means user is logged in/registered
             //browser had right cookie.... show logo
             ReactDOM.render(
-                <App />, //get your own logo and put it in public
+                //we have to wrap APP in our provider.. this gives access to the reader store.
+                //and pass down access to store
+
+                <Provider store={store}>
+                    <App />
+                </Provider>,
+
+                //after this you have access to redux
+
                 document.querySelector("main")
                 //location.reload()
             );

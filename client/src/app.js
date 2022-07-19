@@ -17,6 +17,7 @@ import FindPeople from "./findPeople";
 import { Component } from "react";
 import Logo from "./logo";
 import Uploader from "./uploader";
+import OtherProfile from "./otherProfile";
 
 //import { BrowserRouter } from "react-router-dom";
 import ProfilePic from "./profilepic";
@@ -127,6 +128,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/find-people">
                             <FindPeople />
+                        </Route>
+                        <Route path="/user/:otherUserId">
+                            <OtherProfile />
                         </Route>
                     </div>
                 </BrowserRouter>

@@ -14,7 +14,6 @@ export default function FindPeople() {
         let abort = false;
         (async () => {
             try {
-                console.log("searchInput right now", searchUsers);
                 const respBody = await fetch(
                     "/users/?findUsers=" + searchUsers
                 );
@@ -56,14 +55,16 @@ export default function FindPeople() {
                 recentUsers.map((recentUser, idx) => {
                     return (
                         <div className="recentUsersdiv" key={idx}>
-                            <img
-                                className="recentUsersImg"
-                                src={recentUser.imageurl}
-                            />
-                            <h3>
-                                {recentUser.first}
-                                {recentUser.last}
-                            </h3>
+                            <Link to={`/user/${recentUser.id}`}>
+                                <img
+                                    className="recentUsersImg"
+                                    src={recentUser.imageurl}
+                                />
+                                <h3>
+                                    {recentUser.first}
+                                    {recentUser.last}
+                                </h3>
+                            </Link>
                         </div>
                     );
                 })}

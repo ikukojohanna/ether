@@ -352,23 +352,104 @@ app.get("/users/", (req, res) => {
     }
 });
 
-// ----------------------------------------------------search users----------------------------------------------------------------------------
-/*
-app.get("/users/:search", (req, res) => {
-    console.log("req.params", req.params);
-    db.matchUsers(req.param.search).then((result) => {
-        const findUsers = result.rows;
-        res.json(findUsers);
-    });
-});*/
+// ---------------------------------------------------- other profile----------------------------------------------------------------------------
+app.get("/api/user/:id", (req, res) => {
+    // console.log("req.params.id", req.params.id);
+    // console.log("req.session.userId", req.session.userId);
 
-//res.render only works with express handlebars
-//res.json is what u use when u work with frameworks
-//here is where server only becomes middleman between our app and the database
+    if (req.params.id == req.session.userId) {
+        return res.json({
+            currentUserId: req.session.userId,
+        });
+    }
 
-// we are telling multer:
-//when a form is being made...
-//have a look if there is a image with name image. if yes store in uploads directory
+    db.getUserData(req.params.id)
+        .then((result) => {
+            if (result.rows[0]) {
+                res.json(result.rows[0]);
+            } else {
+                console.log("no user match");
+                res.json({ noMatch: true });
+            }
+        })
+        .catch((err) => {
+            console.log("error in get request otherprofile: ", err);
+        });
+});
+
+// --------------------------------------------------- Friend Button ----------------------------------------------------------------------------
+
+//get relationship infos:
+app.get("/api/relationship/:id", (req, res) => {
+    // console.log("req.params.id", req.params.id);
+    //  console.log("req.session.userId", req.session.userId);
+
+    db.getFriendship(req.session.userId, req.params.id)
+        .then((result) => {
+            console.log("result.rows", result.rows);
+            if (result.rows[0]) {
+                res.json(result.rows[0]);
+            } else {
+                res.json({ notFriends: true });
+            }
+        })
+        .catch((err) => {
+            console.log("error in get request friend button", err);
+        });
+});
+
+app.post("/api/friendButton/:id", (req, res) => {
+    console.log("req.params.id", req.params.id);
+    console.log("req.session.userId", req.session.userId);
+    console.log("req.body.buttonText", req.body.buttonText);
+
+    if (req.body.buttonText === "Make Friend Request") {
+        console.log("make freind request");
+        db.requestFriendship(req.session.userId, req.params.id)
+            .then((result) => {
+                // console.log("result.rows", result.rows);
+                //send back result so we can change button text accordingly
+                res.json({
+                    resultRequest: result.rows[0],
+                    buttonText: "Cancel friend request",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else if (req.body.buttonText === "Accept friend request") {
+        console.log("Accept friend request");
+        db.acceptFriendship(req.session.userId, req.params.id)
+            .then((result) => {
+                console.log("result.rows", result.rows);
+                //send back result so we can change button text accordingly
+                res.json({
+                    resultAccept: result.rows[0],
+                    buttonText: "End Friendship",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else if (
+        req.body.buttonText === "Cancel friend request" ||
+        req.body.buttonText === "End Friendship"
+    ) {
+        console.log("Cancel friend request");
+        db.cancelFriendship(req.session.userId, req.params.id)
+            .then((result) => {
+                console.log("result.rows", result.rows);
+                //send back result so we can change button text accordingly
+                res.json({
+                    resultCancel: result.rows[0],
+                    buttonText: "Make Friend Request",
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
 
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
 
