@@ -1,5 +1,12 @@
 /*
 
+//slice file that will be responsible for any change made inside friend component
+
+
+
+
+
+
 //src/redux/friends/slice.js
 import { useEffect } from "react";
 import { makeFriend } from "./redux/friends/slice";

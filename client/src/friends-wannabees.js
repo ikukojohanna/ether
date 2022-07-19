@@ -1,32 +1,27 @@
-//slice file that will be responsible for any change made inside friend component
-
-//don't use buttons from part 8 because they are local state. IN THIS COMPONENT THEY ARE REDUX.
-//MAKE NEW BUTTONS
-
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-//query that gives back friends and wannabees.... given by andrea
-//gives back large object with all infos
+import { makeFriend } from "./redux/friends/slice";
 
-//NEED TO CReATE ROUTE IN APP:JS FOR THIS COMPONENT!! in order to work
+//NNED TO CREATE LINK IN NAV TO GO THERE
+
 export default function FriendsAndsWannabees() {
+    //get acces to dispatch function:
     const dispatch = useDispatch();
 
     //friends and wannabees are in global state... need access to it here too. so we need useselector
     //use selector takes callback and object we pass to it is WHOLE OBJECT
     //filter because we need to filter out wannabees from firewnds
 
-
     //FRIENDS is what you call property in REDUX object IN ROOT REDUCER
     const wannabees = useSelector(
-        (state) => state.friends.filter(!friend.accepted) // we need to define condition of accepted
+        (state) => state.friends.filter((friend) => !friend.accepted) // we need to define condition of accepted
     );
 
     //if you need different parts from global sate u can use useselector several times
     //use filter again
 
-    const friends = useSelector((state) =>
-        state.friends.filter(friend.accepted) //?
+    const friends = useSelector(
+        (state) => state.friends.filter((friend) => friend.accepted) //?
     );
 
     //get all of our friends and wannabees when the component mounts
@@ -41,32 +36,29 @@ export default function FriendsAndsWannabees() {
         // ----- dispatch(receiveFriendsAndWannabees(yourDataFromServer));
     }, []);
 
-const handleAccept = (id) => {
-    //step1 make a post request to update the db
-    //step2 dispatch the action to update the global state
-    dispatch(makeFriend(id));¨
-    //for make friend
-//two action creators... need to devine in slice.js}
-
-
+    const handleAccept = (id) => {
+        //step1 make a post request to update the db
+        //step2 dispatch the action to update the global state
+        dispatch(makeFriend(id));
+        //for make friend
+        //two action creators... need to devine in slice.js}
+    };
 
     return (
         <section>
-            <h1>Friends and wannabees component with redux</h1>
-
-
-            {/**display friends here */}
-            <h1> wannabees component with redux</h1>
-
-{wannabees && wannabees.map(wannabee) => {
-    return (
-        <div key={wanna.id}>
-            <button onClick={() => handleAccept(wannabee.id)}>Accept friedshipt</button>
-        </div>
-    );
-}}
-
-            
+            <h1>Friends</h1>
+            {/* Display your friends */}
+            {friends.map()}
+            <h1>Wannabees</h1>
+            {wannabees.map((wannabee) => {
+                return (
+                    <div key={wannabee.id}>
+                        <button onClick={() => handleAccept(wannabee.id)}>
+                            Accept Friendship
+                        </button>
+                    </div>
+                );
+            })}
         </section>
     );
 }
@@ -90,9 +82,6 @@ const handleAccept = (id) => {
 
 //reuse database of accept and delete can use from part 8
 //BUT NEW BUTTON
-
-
-
 
 //DB QUERY IN NOTES::::
 

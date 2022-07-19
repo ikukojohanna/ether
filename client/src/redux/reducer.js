@@ -1,14 +1,11 @@
-//this is the ROOT reducer... combines all the midi reducers into a big one
+//ROOT reducer
+//combines all the sub-reducers into one
 
 import { combineReducers } from "redux";
 
-//getting access to firends mini reducer
+//get access to friendsAndWannabeesReducer
 import friendsAndsWannabeesReducer from "./friends/slice";
 
-//global state is an object
-//every time we add a new sub reducer we need to add it into rootReducer
-
-// mini reducers inside this object.
 const rootReducer = combineReducers({
     friends: friendsAndsWannabeesReducer,
 });

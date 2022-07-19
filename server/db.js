@@ -151,3 +151,16 @@ module.exports.cancelFriendship = (currentUser, otherUser) => {
     const param = [currentUser, otherUser];
     return db.query(q, param);
 };
+
+// --------------------------------------------- get friends and wannabees ---------------------------------------------------
+
+module.exports.getFriendsWannabees = (currentUser) => {
+    const q = `SELECT users.id, first, last, image, accepted
+        FROM friendships
+        JOIN users
+        ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`;
+    const param = [currentUser];
+    return db.query(q, param);
+};

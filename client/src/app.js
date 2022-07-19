@@ -18,6 +18,7 @@ import { Component } from "react";
 import Logo from "./logo";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
+import FriendsAndsWannabees from "./friends-wannabees";
 
 //import { BrowserRouter } from "react-router-dom";
 import ProfilePic from "./profilepic";
@@ -131,6 +132,9 @@ export default class App extends Component {
                         </Route>
                         <Route path="/user/:otherUserId">
                             <OtherProfile />
+                        </Route>
+                        <Route path="/friends-wannabees">
+                            <FriendsAndsWannabees />
                         </Route>
                     </div>
                 </BrowserRouter>

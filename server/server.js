@@ -398,6 +398,7 @@ app.get("/api/relationship/:id", (req, res) => {
         });
 });
 
+//make,accept,cancel friendship:
 app.post("/api/friendButton/:id", (req, res) => {
     console.log("req.params.id", req.params.id);
     console.log("req.session.userId", req.session.userId);
@@ -407,7 +408,6 @@ app.post("/api/friendButton/:id", (req, res) => {
         console.log("make freind request");
         db.requestFriendship(req.session.userId, req.params.id)
             .then((result) => {
-                // console.log("result.rows", result.rows);
                 //send back result so we can change button text accordingly
                 res.json({
                     resultRequest: result.rows[0],
@@ -449,6 +449,20 @@ app.post("/api/friendButton/:id", (req, res) => {
                 console.log(err);
             });
     }
+});
+
+// --------------------------------------------------- get friends and wannabees ----------------------------------------------------------------------------
+
+//ERROR HERE
+app.get("/friends-wannabees", (req, res) => {
+    db.getFriendsWannabees(req.session.userId)
+        .then((result) => {
+            console.log("result.rows", result.rows);
+            res.json(result.rows);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 // ----------------------------------------------------Logout----------------------------------------------------------------------------
