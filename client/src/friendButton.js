@@ -1,8 +1,4 @@
 import { useState, useEffect } from "react";
-//import { Link } from "react-router-dom";
-//import { useHistory, useParams } from "react-router";
-
-//import { useHistory, useParams } from "react-router";
 
 export default function FriendButton(props) {
     //figure out buttentext moment we navigate to /user/some-number
@@ -10,7 +6,6 @@ export default function FriendButton(props) {
 
     useEffect(() => {
         //make a fetch request to our server to figure out the intial status of our friendship
-        // console.log("props.otherUserId", props.otherUserId);
 
         (async () => {
             try {
@@ -78,5 +73,3 @@ export default function FriendButton(props) {
         </div>
     );
 }
-
-//click even on button that triggers funtin

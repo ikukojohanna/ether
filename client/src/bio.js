@@ -80,8 +80,9 @@ export default class Bio extends Component {
                 )}
 
                 {this.state.showTextArea && (
-                    <div>
+                    <div className="draftBio">
                         <textarea
+                            className="textAreaBio"
                             name="draftBio"
                             placeholder={this.state.bio}
                             onChange={(e) => this.handleChange(e)}

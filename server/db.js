@@ -155,7 +155,7 @@ module.exports.cancelFriendship = (currentUser, otherUser) => {
 // --------------------------------------------- get friends and wannabees ---------------------------------------------------
 
 module.exports.getFriendsWannabees = (currentUser) => {
-    const q = `SELECT users.id, first, last, image, accepted
+    const q = `SELECT users.id, first, last, imageUrl, accepted
         FROM friendships
         JOIN users
         ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)

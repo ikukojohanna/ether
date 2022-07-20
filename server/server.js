@@ -29,6 +29,20 @@ const multer = require("multer");
 
 const uidSafe = require("uid-safe");
 
+//----------------------------------------------------------SOCKET IO SETUP--------------------------------------------------------------------
+/*
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+
+app.get("/", function (req, res) {
+    // just a normal route
+    res.sendStatus(200);
+});
+*/
+
 //----------------------------------------------------------Multer Setup--------------------------------------------------------------------
 
 const storage = multer.diskStorage({
@@ -377,9 +391,11 @@ app.get("/api/user/:id", (req, res) => {
         });
 });
 
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------- Friend Button ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 
-//get relationship infos:
+//------------------------------------------------------------------------------- get relationship infos:
 app.get("/api/relationship/:id", (req, res) => {
     // console.log("req.params.id", req.params.id);
     //  console.log("req.session.userId", req.session.userId);
@@ -398,14 +414,14 @@ app.get("/api/relationship/:id", (req, res) => {
         });
 });
 
-//make,accept,cancel friendship:
+//------------------------------------------------------------------------------- make,accept,cancel friendship:
 app.post("/api/friendButton/:id", (req, res) => {
-    console.log("req.params.id", req.params.id);
-    console.log("req.session.userId", req.session.userId);
-    console.log("req.body.buttonText", req.body.buttonText);
+    // console.log("req.params.id", req.params.id);
+    //console.log("req.session.userId", req.session.userId);
+    //console.log("req.body.buttonText", req.body.buttonText);
 
     if (req.body.buttonText === "Make Friend Request") {
-        console.log("make freind request");
+        // console.log("make freind request");
         db.requestFriendship(req.session.userId, req.params.id)
             .then((result) => {
                 //send back result so we can change button text accordingly
@@ -421,7 +437,7 @@ app.post("/api/friendButton/:id", (req, res) => {
         console.log("Accept friend request");
         db.acceptFriendship(req.session.userId, req.params.id)
             .then((result) => {
-                console.log("result.rows", result.rows);
+                // console.log("result.rows", result.rows);
                 //send back result so we can change button text accordingly
                 res.json({
                     resultAccept: result.rows[0],
@@ -438,7 +454,7 @@ app.post("/api/friendButton/:id", (req, res) => {
         console.log("Cancel friend request");
         db.cancelFriendship(req.session.userId, req.params.id)
             .then((result) => {
-                console.log("result.rows", result.rows);
+                // console.log("result.rows", result.rows);
                 //send back result so we can change button text accordingly
                 res.json({
                     resultCancel: result.rows[0],
@@ -450,18 +466,20 @@ app.post("/api/friendButton/:id", (req, res) => {
             });
     }
 });
-
-// --------------------------------------------------- get friends and wannabees ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------- get friends and wannabees ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------------------
 
 //ERROR HERE
-app.get("/friends-wannabees", (req, res) => {
+app.get("/friendswannabees.json", (req, res) => {
+    console.log("app get friends wannabees launched");
     db.getFriendsWannabees(req.session.userId)
         .then((result) => {
-            console.log("result.rows", result.rows);
+            //  console.log("result.rows", result.rows);
             res.json(result.rows);
         })
         .catch((err) => {
-            console.log(err);
+            console.log("error while getting friends and wannabees", err);
         });
 });
 

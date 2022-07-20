@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { makeFriend } from "./redux/friends/slice";
 
-//NNED TO CREATE LINK IN NAV TO GO THERE
+//import functions from slice(subreducer)
+import { makeFriend } from "./redux/friends/slice";
+import { unfriend } from "./redux/friends/slice";
+import { receiveFriendsAndWannabees } from "./redux/friends/slice";
 
 export default function FriendsAndsWannabees() {
     //get acces to dispatch function:
@@ -13,6 +15,7 @@ export default function FriendsAndsWannabees() {
     //filter because we need to filter out wannabees from firewnds
 
     //FRIENDS is what you call property in REDUX object IN ROOT REDUCER
+
     const wannabees = useSelector(
         (state) => state.friends.filter((friend) => !friend.accepted) // we need to define condition of accepted
     );
@@ -26,39 +29,118 @@ export default function FriendsAndsWannabees() {
 
     //get all of our friends and wannabees when the component mounts
     useEffect(() => {
-        //step 1.. make a get request to fetch friends and wannabees
-        //when get data back:
-        //step 2.. dispatch an action creator and pass to it data you just got back
-        //this will start the process of adding your friends and wannabees (big array of objects containing both)
-        //receiveFriendsAndWannabees is the action creator
-        //this needs to be defines in slice.js
-        //and imported in this files
-        // ----- dispatch(receiveFriendsAndWannabees(yourDataFromServer));
+        (async () => {
+            try {
+                //step 1.. make a get request to fetch friends and wannabees
+                const resp = await fetch(`/friendswannabees.json`);
+                const data = await resp.json();
+                console.log("data after fetch friends wannabees", data);
+                //when get data back:
+                //step 2.. dispatch an action creator and pass to it data you just got back
+
+                //this will start the process of adding your friends and wannabees (big array of objects containing both)
+                //receiveFriendsAndWannabees is the action creator
+                //this needs to be defined in slice.js
+                //and imported in this files
+
+                dispatch(receiveFriendsAndWannabees(data));
+            } catch (err) {
+                console.log("error fetch FriendButton", err);
+            }
+        })();
     }, []);
 
     const handleAccept = (id) => {
+        console.log("handleaccept has been pressed", id);
+
+        try {
+            (async () => {
+                const resp = await fetch(`/api/friendButton/` + id, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        buttonText: "Accept friend request",
+                    }),
+                });
+                const data = await resp.json();
+                console.log("data after ACCEPT friendbutton", data);
+                dispatch(makeFriend(id));
+            })();
+        } catch (err) {
+            console.log("error in posting users' relationship ", err);
+        }
         //step1 make a post request to update the db
         //step2 dispatch the action to update the global state
-        dispatch(makeFriend(id));
+    };
+
+    const handleUnfriend = (id) => {
+        console.log("handleunfriend has been pressed", id);
+
+        try {
+            (async () => {
+                const resp = await fetch(`/api/friendButton/` + id, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ buttonText: "End Friendship" }),
+                });
+                const data = await resp.json();
+                console.log("data after  UNFRIEND friendbutton", data);
+                dispatch(unfriend(id));
+            })();
+        } catch (err) {
+            console.log("error in posting users' relationship ", err);
+        }
+        //step1 make a post request to update the db
+        //step2 dispatch the action to update the global state
         //for make friend
         //two action creators... need to devine in slice.js}
     };
-
     return (
-        <section>
-            <h1>Friends</h1>
-            {/* Display your friends */}
-            {friends.map()}
-            <h1>Wannabees</h1>
-            {wannabees.map((wannabee) => {
-                return (
-                    <div key={wannabee.id}>
-                        <button onClick={() => handleAccept(wannabee.id)}>
-                            Accept Friendship
-                        </button>
-                    </div>
-                );
-            })}
+        <section className="friendsAndWannabees">
+            <h1 className="title">Friends</h1>
+
+            <div className="friends">
+                {/* Display your friends */}
+                {friends?.map((friend) => {
+                    return (
+                        <div className="friend" key={friend.id}>
+                            <img className="friendImg" src={friend.imageurl} />
+                            <p>
+                                {friend.first}
+                                {friend.last}
+                            </p>
+                            <button onClick={() => handleUnfriend(friend.id)}>
+                                Unfriend
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
+            <h1 className="title">Wannabees</h1>
+
+            <div className="wannabees">
+                {wannabees?.map((wannabee) => {
+                    return (
+                        <div className="wannabee" key={wannabee.id}>
+                            <img
+                                className="wannabeeImg"
+                                src={wannabee.imageurl}
+                            />
+                            <p>
+                                {wannabee.first}
+                                {wannabee.last}
+                            </p>
+                            <button onClick={() => handleAccept(wannabee.id)}>
+                                Accept Friendship
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
         </section>
     );
 }
@@ -82,15 +164,3 @@ export default function FriendsAndsWannabees() {
 
 //reuse database of accept and delete can use from part 8
 //BUT NEW BUTTON
-
-//DB QUERY IN NOTES::::
-
-//we are getting all friends and want ot be out friends
-//we need information from 2 palces. users and friendshipts
-//join ... we need accepted value fvrom friendshcips
-//ON acceppted false... pleople that sent requests
-//2 OR because either me or you sent request
-//need to make sure that capture friendhsipts regardless of who sent request
-
-//if you are receiving empty array... make some friends on social network
-//make sure you have food amount... to test out funcitonlaity

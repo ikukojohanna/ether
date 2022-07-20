@@ -29,10 +29,10 @@ export default class Login extends Component {
         })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("data from POST/login: ", data);
+                // console.log("data from POST/login: ", data);
 
                 if (data.success) {
-                    location.reload();
+                    location.replace("/");
                 } else {
                     this.setState({
                         error: true,

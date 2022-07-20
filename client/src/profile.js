@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 export default function Profile(props) {
     return (
         <div className="profilediv">
+            <header>
+                <Link to="/friendswannabees">
+                    <p> Friends and Wannabees</p>
+                </Link>
+                <Link to="/find-people">Find People</Link>
+                <Link to="/logout">Logout</Link>
+            </header>
             <h1>Your Profile</h1>
 
             <img id="profilepicProfile" src={props.imageUrl}></img>
@@ -17,8 +24,6 @@ export default function Profile(props) {
                 bio={props.bio}
                 setBioInBio={(arg) => props.setBioInProfile(arg)}
             />
-
-            <Link to="/find-people">find people</Link>
         </div>
     );
 }

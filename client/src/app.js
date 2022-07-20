@@ -1,17 +1,6 @@
-//logged in experience. someone who logged in or just registered
-//APP:JS IS ENTRY POINT
-//we want to render information about user... we have userIc
-//the second app.js loads i want to talk to server again and request every information about user
-//fetch request to users
-//lycle cycle method from react: "componentdidmount"... works with classes
-//its going to automatically run WHEN component first renders
+//APP.js is ENTRY POINT
+//logged in experience.
 
-//part 4... 3 components that live inside app.js
-//1- profile pic - default image if just registered.  - function component because no state, no life cycle
-//2- uploader - initially hidden. when we click on profile piucture  becomes visible
-//3-make logo as own component
-
-//
 import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findPeople";
 import { Component } from "react";
@@ -20,7 +9,6 @@ import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
 
-//import { BrowserRouter } from "react-router-dom";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 export default class App extends Component {
@@ -36,6 +24,9 @@ export default class App extends Component {
             bio: "",
         };
     }
+
+    //lycle cycle method from react: "componentdidmount"... works with classes
+    //its going to automatically run WHEN component first renders
 
     componentDidMount() {
         console.log("app mounted");
@@ -72,15 +63,11 @@ export default class App extends Component {
 
     toggleModal() {
         console.log("togglemodal is runnin");
-        //easy way to say ... if true do flase... if false dso true... always do opposite
+        //easy way to say ... if true do flase... if false do true... always do opposite
         this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible });
     }
-    //nmethodinApp
     setProfilePic(arg) {
         console.log("methos is running in app and arg is passed to it: ", arg);
-        //this method will be upload picture funcitonality
-        //fn expects you to pass it something
-        //when it gets it... it updates state
 
         this.setState({
             imageUrl: arg,
@@ -92,10 +79,8 @@ export default class App extends Component {
         this.setState({
             bio: officialBio,
         });
-        // this funciton is in charge of receiving official bio from bio editior
-        //and updating its state with it
-        //watch with props... this.props.funciton (this.props.fucntion in class component... props.funciont in funtion component)
     }
+
     render() {
         return (
             <div className="appdiv">
@@ -133,7 +118,7 @@ export default class App extends Component {
                         <Route path="/user/:otherUserId">
                             <OtherProfile />
                         </Route>
-                        <Route path="/friends-wannabees">
+                        <Route path="/friendswannabees">
                             <FriendsAndsWannabees />
                         </Route>
                     </div>
@@ -151,79 +136,3 @@ export default class App extends Component {
         );
     }
 }
-
-//syntax to pass down information in props:
-/*
- for part 5:
-  
-    <ProfilePic
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                />
-               <Profile
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                />
-*/
-
-/*
- */
-//BUT !!!!!!!!! h2 onlcik..... should be image... that that lives INSIDE REPRESENRTATIONAL... profile pic component
-//YOU WANT TO LISTEN FOR CLICK event on picture... so pass togglemodal as a prop to profile pic component
-
-//---------------------- PART 5
-// <profile /> is CONTAINER for update bio stuff,
-
-//------------------------------ PART 6....
-//problem with browser router
-//use switch? the second that switch finds component that matches its  path
-//it goes with that and wont go on to find another component to render
-//not the same as switch in js
-//switch is our low level protection to ONLY RENDER one route. and not all of them
-//dont put jsx elements inside swith?
-
-//
-//WHENEver you have path that is universally true... like / in front
-//all of the paths with / in it will ge trendered.
-
-//------------------------------ HOOKS
-
-//dont use in loops, conditionals or nested functions
-
-//always calll them on the top scope of your function
-
-//hooks give functions the life cycle methods, and state( and other things) that we usually had in calsses
-//every Hook starts with keyword use... lowercase
-
-/*
-
-
-     <ProfilePic
-         first={this.state.first}
-         last={this.state.last}
-         imageUrl={this.state.imageUrl}
-     />;*/
-/*   <BrowserRouter>
-                    <div>
-                        <Route exact path="/">
-                            <Profile
-                                first={this.state.first}
-                                last={this.state.last}
-                                imageUrl={this.state.imageUrl}
-                                id={this.state.id}
-                                image={this.state.image}
-                                onClick={this.showUploader}
-                                bio={this.state.bio}
-                                setBioInProfile={(arg) => {
-                                    this.setBio(arg);
-                                }}
-                            />
-                        </Route>
-                        <Route path="/find-people">
-                            <FindPeople />
-                        </Route>
-                    </div>
-                </BrowserRouter>
-*/
