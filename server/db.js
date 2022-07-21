@@ -164,3 +164,12 @@ module.exports.getFriendsWannabees = (currentUser) => {
     const param = [currentUser];
     return db.query(q, param);
 };
+
+// --------------------------------------------- get chat history ---------------------------------------------------
+
+module.exports.getMessages = () => {
+    return db.query(`SELECT * FROM messages
+    ORDER BY id DESC
+
+LIMIT 10;`);
+};

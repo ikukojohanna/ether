@@ -2,6 +2,9 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import App from "./app";
 
+//----------------------------------------- Initializing IO socket------------------------------------------------------------------------
+import { init } from "./socket";
+
 //----------------------------------------- REDUX SETUP ------------------------------------------------------------------------
 
 import { createStore, applyMiddleware } from "redux";
@@ -24,6 +27,9 @@ fetch("/user/id.json")
             //injecting elements into main in index.html
             ReactDOM.render(<Welcome />, document.querySelector("main"));
         } else {
+            //initialize websocket connection and pass the store to it...
+            init(store);
+
             ReactDOM.render(
                 //REDUX: wrap App in Provider to pass down accessto reader store
                 <Provider store={store}>

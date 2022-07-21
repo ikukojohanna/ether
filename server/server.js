@@ -30,18 +30,23 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 
 //----------------------------------------------------------SOCKET IO SETUP--------------------------------------------------------------------
-/*
+
+//create server... pass app to that server
 const server = require("http").Server(app);
+
 const io = require("socket.io")(server, {
+    //we have to say on which url we allow communication: everyhting that starts with.... localhost 3000
+    //should you be deploying this... need to change this url. because we need to allow external communication!
+    //CHANGE REQUEST HEADERS
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
 
-app.get("/", function (req, res) {
-    // just a normal route
-    res.sendStatus(200);
+// we need to funnel userID in socket to know who is on the page... tell io to use cookiesession middleware
+
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
-*/
 
 //----------------------------------------------------------Multer Setup--------------------------------------------------------------------
 
@@ -83,14 +88,18 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //add cookie when user successfully registers... etc etc
 
 //---------------------------------------- COOKIE SESSION SET UP ----------------------------------
-app.use(
-    cookieSession({
-        secret: COOKIE_SECRET,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-        //-------- prevent Cross-site request forgeries
-        sameSite: true,
-    })
-);
+
+const cookieSessionMiddleware = cookieSession({
+    secret: COOKIE_SECRET,
+    maxAge: 1000 * 60 * 60 * 24 * 14,
+    //-------- prevent Cross-site request forgeries
+    sameSite: true,
+});
+app.use(cookieSessionMiddleware);
+
+// -----------------------------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------ROUTES--------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 
 // -----------------------------------------------------------REGISTER---------------------------------------------------------------------
 
@@ -492,13 +501,8 @@ app.get("/logout", (req, res) => {
 
 // server.js
 app.get("/user/id.json", function (req, res) {
-    //for now bled out but we will use later.
-    /* res.json({
-        userId: req.session.userId, // this is going to be cookie.. sending back to react START.js
-    });*/
-
     res.json({
-        userId: req.session.userId, // if it was number... logo shows
+        userId: req.session.userId,
     });
 });
 
@@ -511,6 +515,50 @@ app.get("*", function (req, res) {
 //theres lines of code that makes sure  requests are sent to server
 //but we will NEVEr open 3001
 
-app.listen(process.env.PORT || 3001, function () {
+//SERVERbecause sockets can't use an express server we need to have the lisstening to be done by a node server.... not app.listen but server.listen
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+// BELOW CODE FOR MY SOCKET COMMUNICATION
+io.on("connection", function (socket) {
+    //below only exists when cookieseesion is passed to io
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+    const userId = socket.request.session.userId;
+    console.log(
+        //socket id is every socket connection.. everytime i open new tab i get new socket.id
+        `user with Id: ${userId}and socket.id ${socket.id}, just connected`
+    );
+    //in here we do out emitting on every new connection
+    //like when the user fist connects we want to sent them the chat history
+
+    // make db query?
+
+    db.getMessages()
+        .then((result) => {
+            console.log("result.rows", result.rows);
+            const messages = result.rows;
+            socket.emit("last-10-messages", {
+                messages: messages,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+    //1 get messages from database
+    //2 send them over to the socket that just connected
+
+    socket.on("new-message", (newMsg) => {
+        console.log("received a new msg from client", newMsg);
+        //first we want to know who sent message
+        console.log("author of message was user with id:", userId);
+        //2nd add this msg to chats table
+        //3 want to retrieve user infos about the author
+        //4 compose message object that contains user info and message
+        // 5 send back to all connect sockets, that there is a new message
+        io.emit("add-new-message", newMsg);
+    });
 });

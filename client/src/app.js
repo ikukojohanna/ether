@@ -8,6 +8,7 @@ import Logo from "./logo";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
+import Chat from "./chat";
 
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
@@ -98,6 +99,10 @@ export default class App extends Component {
 
                 <BrowserRouter>
                     <div>
+                        <Route path="/chat">
+                            <Chat />
+                        </Route>
+
                         <Route exact path="/">
                             <Profile
                                 first={this.state.first}

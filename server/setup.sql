@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS codes;
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS messages;
 
 
 
@@ -11,7 +12,7 @@ DROP TABLE IF EXISTS friendships;
     email VARCHAR NOT NULL CHECK (email !='') UNIQUE, 
     password VARCHAR NOT NULL CHECK (password !='')
     imageUrl TEXT,
-bio TEXT,
+   bio TEXT,
    );
 
 ALTER TABLE users 
@@ -34,3 +35,15 @@ ADD bio TEXT;
       recipient_id INT REFERENCES users(id) NOT NULL,
       accepted BOOLEAN DEFAULT false
   );
+
+ CREATE TABLE messages (
+   id SERIAL PRIMARY KEY,
+   user_id INT REFERENCES users(id) NOT NULL,
+   message TEXT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+
+   );
+
+
+INSERT INTO messages (user_id, message) 
+ VALUES (68, 'Hallo lisa');

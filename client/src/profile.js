@@ -6,6 +6,7 @@ export default function Profile(props) {
     return (
         <div className="profilediv">
             <header>
+                <Link to="/chat">Chat with other users</Link>
                 <Link to="/friendswannabees">
                     <p> Friends and Wannabees</p>
                 </Link>

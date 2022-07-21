@@ -312,3 +312,10 @@ button:active {
     width: 100px;
     border-radius: 50%;
 }
+.container-chat {
+    height: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #a4101065;
+}
