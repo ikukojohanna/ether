@@ -30,6 +30,7 @@ header {
     height: 100px;
     width: auto;
 }
+/* ----------------------------------------------------- PROFILE  -----------------------------------------------------*/
 
 .profilediv {
     display: flex;
@@ -312,10 +313,35 @@ button:active {
     width: 100px;
     border-radius: 50%;
 }
+/* ----------------------------------------------------- CHAT -----------------------------------------------------*/
+
+.chatdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(32, 40, 67, 0.166);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.585);
+    border-radius: 50px;
+
+    width: 90vw;
+    height: 50vh;
+
+    margin: 5% 0 5% 0;
+}
 .container-chat {
-    height: 400px;
+    height: 80%;
+    width: 80%;
     overflow: auto;
     display: flex;
-    flex-direction: column-reverse;
-    background-color: #a4101065;
+    flex-direction: column;
+    background-color: #ffffff65;
+    margin: 3%;
+}
+
+.messageImg {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }

@@ -538,7 +538,7 @@ io.on("connection", function (socket) {
 
     db.getMessages()
         .then((result) => {
-            console.log("result.rows", result.rows);
+            console.log("result.rows in getMessages", result.rows);
             const messages = result.rows;
             socket.emit("last-10-messages", {
                 messages: messages,
@@ -548,17 +548,75 @@ io.on("connection", function (socket) {
             console.log(err);
         });
 
-    //1 get messages from database
-    //2 send them over to the socket that just connected
-
     socket.on("new-message", (newMsg) => {
         console.log("received a new msg from client", newMsg);
         //first we want to know who sent message
         console.log("author of message was user with id:", userId);
         //2nd add this msg to chats table
-        //3 want to retrieve user infos about the author
-        //4 compose message object that contains user info and message
-        // 5 send back to all connect sockets, that there is a new message
-        io.emit("add-new-message", newMsg);
+        db.addMessage(userId, newMsg)
+            .then((result) => {
+                console.log("result.rows", result.rows);
+                const resultAddMessage = result.rows[0];
+                console.log("resultAddMessafe", resultAddMessage);
+                //const messages = result.rows;
+                /*socket.emit("last-10-messages", {
+                    messages: messages,
+                });*/
+
+                //3 want to retrieve user infos about the author
+                db.getUserData(userId)
+                    .then((result) => {
+                        console.log("result.rows", result.rows);
+                        //4 compose message object that contains user info and message
+
+                        const messageObject = {
+                            first: result.rows[0].first,
+                            last: result.rows[0].last,
+                            imageurl: result.rows[0].imageurl,
+                            message: resultAddMessage.message,
+                            id: resultAddMessage.id,
+                            user_id: resultAddMessage.userId,
+                        };
+                        // 5 send back to all connect sockets, that there is a new message
+                        console.log("messageObject", messageObject);
+                        io.emit("add-new-message", messageObject);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     });
 });
+
+/*
+//--------------------------- LIST OF ONLINE USERS
+// keep track of object where you aadd and remove your users
+//will start off empty
+const users = {
+    //usser id 7 connects... and then socket id. but if several sockets has to be array
+    7: ["kdjfhgjsdh", "idhfklsjdhfl"],
+    11: ["kdfjhslkjdhflkjd"],
+};
+
+//listend on connect event... update list of users.. and when disconnet.... remove socket it
+
+//maintain obejct in background
+
+//
+
+const onlineUsers = Object.keys(users);
+console.log("onlineUsers", onlineUsers);
+
+//once you mantain list of users... you want to fetch information about themto display somewhere
+//once could: reuse getuser by ID
+//OR make use of sql keyword that is ANY
+
+SELECT * FORM users WHERE id= ANY($1)
+
+//the value you provide is not a value any more but a list of values
+//pass it the list of onlineUsers
+
+db.query(`SELECT * FROM users WHERE id=ANY($1)`, [onlineUsers])*/

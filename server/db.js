@@ -168,8 +168,20 @@ module.exports.getFriendsWannabees = (currentUser) => {
 // --------------------------------------------- get chat history ---------------------------------------------------
 
 module.exports.getMessages = () => {
-    return db.query(`SELECT * FROM messages
-    ORDER BY id DESC
-
+    return db.query(`SELECT messages.id, messages.user_id, messages.message, users.first, users.last, users.imageUrl
+     FROM messages
+     JOIN users ON (user_id = users.id)
+    ORDER BY messages.id DESC
 LIMIT 10;`);
+};
+
+// --------------------------------------------- add new message ---------------------------------------------------
+
+module.exports.addMessage = (currentUser, message) => {
+    const q = `INSERT INTO messages (user_id, message)
+     VALUES ($1, $2)
+      RETURNING *
+    `;
+    const param = [currentUser, message];
+    return db.query(q, param);
 };

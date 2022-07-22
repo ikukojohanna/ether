@@ -1,18 +1,26 @@
 import { useSelector } from "react-redux";
 import { socket } from "./socket";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 export default function Chat() {
     const messages = useSelector((state) => state.messages);
-    console.log("messages in chat", messages);
+    const chatContainerRef = useRef();
 
-    //Says state is undefinded
+    console.log("messages in chat component", messages);
 
     useEffect(() => {
-        console.log("chat just mounted");
-        console.log("messages retrieved:", messages);
-        //  dispatch(messagesReceived(messages));
-    }, []);
+        console.log("chatContainerRef", chatContainerRef);
+        console.log("scrollTop", chatContainerRef.current.scrollTop);
+        console.log("clientHeight", chatContainerRef.current.clientHeight);
+        console.log("scrollHeight", chatContainerRef.current.scrollHeight);
+        // on first mount and every time a new message gets added
+        // we want to adjust our elements scrollTop to be the scrollHeight minus height
+        // of the element, as that means we are scrolled to the bottom msg
+        chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight -
+            chatContainerRef.current.clientHeight;
+    }, [messages]);
 
     const keyCheck = (e) => {
         // console.log("what was pressed:", e.key);
@@ -27,28 +35,35 @@ export default function Chat() {
     };
     return (
         <>
-            <h1>Welcome to chat</h1>
-
-            <div className="container-chat">
-                {/* Display your friends */}
-                {messages?.map((message) => {
-                    return (
-                        <div key={message.id}>
-                            <p>
-                                {message.id}.-
-                                {message.message}
-                            </p>
-                        </div>
-                    );
-                })}
-            </div>
-            <div className="chatTextarea">
-                <textarea
-                    onKeyDown={keyCheck}
-                    className="textAreaChat"
-                    name="textAreaChat"
-                    placeholder="Chime in, and add messages here"
-                ></textarea>
+            <div className="chatdiv">
+                <div className="container-chat" ref={chatContainerRef}>
+                    {/* Display your friends */}
+                    {messages.map((message) => {
+                        return (
+                            <div key={message.id}>
+                                <Link to={`/user/${message.user_id}`}>
+                                    <img
+                                        className="messageImg"
+                                        src={message.imageurl}
+                                    />{" "}
+                                </Link>{" "}
+                                <p>
+                                    {message.id}
+                                    {message.first}
+                                    {message.last} said: {message.message}
+                                </p>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="chatTextarea">
+                    <textarea
+                        onKeyDown={keyCheck}
+                        className="textAreaChat"
+                        name="textAreaChat"
+                        placeholder="Chime in, and add messages here"
+                    ></textarea>
+                </div>
             </div>
         </>
     );
