@@ -185,3 +185,13 @@ module.exports.addMessage = (currentUser, message) => {
     const param = [currentUser, message];
     return db.query(q, param);
 };
+
+// --------------------------------------------- get list of online users---------------------------------------------------
+/*
+db.query(
+    `
+    SELECT * FROM users WHERE id=ANY($1)
+`,
+    [onlineUsers]
+);
+*/

@@ -520,7 +520,10 @@ server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-// BELOW CODE FOR MY SOCKET COMMUNICATION
+// ---------------------------------------------------------- SOCKET COMMUNICATION -----------
+
+const users = {};
+
 io.on("connection", function (socket) {
     //below only exists when cookieseesion is passed to io
     if (!socket.request.session.userId) {
@@ -531,14 +534,29 @@ io.on("connection", function (socket) {
         //socket id is every socket connection.. everytime i open new tab i get new socket.id
         `user with Id: ${userId}and socket.id ${socket.id}, just connected`
     );
-    //in here we do out emitting on every new connection
-    //like when the user fist connects we want to sent them the chat history
+    //users[userId] = users[userId] || [];
+    //same line as above but shorter:
+    users[userId] ||= [];
 
-    // make db query?
+    users[userId] = [...users[userId], socket.id];
+
+    console.log("users", users);
+
+    const onlineUsers = Object.keys(users);
+
+    console.log("onlineUsers:\t", onlineUsers);
+
+    //db query to compare list of users with online user?
+
+    socket.on("disconnect", () => {
+        console.log(`socket with socket.id ${socket.id} disconnected`);
+        users[userId] = users[userId].filter((element) => element != socket.id);
+        console.log("users after deletion", users);
+    });
 
     db.getMessages()
         .then((result) => {
-            console.log("result.rows in getMessages", result.rows);
+            // console.log("result.rows in getMessages", result.rows);
             const messages = result.rows;
             socket.emit("last-10-messages", {
                 messages: messages,
