@@ -66,6 +66,9 @@ export default class Bio extends Component {
     render() {
         return (
             <div className="biodiv">
+                <h1>
+                    {this.props.first} {this.props.last}
+                </h1>
                 {!this.state.showTextArea && !this.props.bio && (
                     <div>
                         <button onClick={() => this.editBio()}>Add bio</button>
@@ -75,6 +78,7 @@ export default class Bio extends Component {
                 {!this.state.showTextArea && this.props.bio && (
                     <div>
                         <p>{this.props.bio}</p>
+
                         <button onClick={() => this.editBio()}>Edit Bio</button>
                     </div>
                 )}

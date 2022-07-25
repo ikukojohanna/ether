@@ -4,7 +4,6 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findPeople";
 import { Component } from "react";
-import Logo from "./logo";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
@@ -96,34 +95,35 @@ export default class App extends Component {
         return (
             <div className="appdiv">
                 <BrowserRouter>
-                    <h1>Welcome to the</h1>
-                    <Logo />
-
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl || "/default.png"}
-                        passDownToggleModal={() => {
-                            this.toggleModal();
-                        }}
-                    />
                     <div id="navbar">
+                        <img id="logonav" src="/theether.png" />
+
                         <Link to="/find-people">
-                            <h3>Search Users</h3>
+                            <h3 className="navh3">Find Users</h3>
                         </Link>
                         <Link to="/friendswannabees">
-                            <h3>Your Friends</h3>
+                            <h3 className="navh3">Friends</h3>
                         </Link>
                         <Link to="/chat">
-                            <h3>Chat</h3>
+                            <h3 className="navh3">Chat</h3>
                         </Link>
                         <Link to="/">
-                            <h3>Your Profile</h3>
+                            <h3 className="navh3">My Profile</h3>
                         </Link>
 
                         <Link to="/">
-                            <h3 onClick={() => this.logout()}>Logout </h3>
+                            <h3 className="navh3" onClick={() => this.logout()}>
+                                Logout{" "}
+                            </h3>
                         </Link>
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.imageUrl || "/default.png"}
+                            passDownToggleModal={() => {
+                                this.toggleModal();
+                            }}
+                        />
                     </div>
                     <div>
                         <Route path="/chat">
@@ -167,6 +167,27 @@ export default class App extends Component {
                         setProfilePic={(arg) => this.setProfilePic(arg)}
                     />
                 )}
+
+                <div className="ticker-wrap">
+                    <div className="ticker">
+                        <div className="ticker__item">
+                            The Ether is nowhere and everywhere.
+                        </div>
+                        <div className="ticker__item">
+                            The Ether has no precise location, but can be heard
+                            from many different places.
+                        </div>
+                        <div className="ticker__item">
+                            The Ether is virtually omnipresent and capable of
+                            purifying life from boredom and pain.
+                        </div>
+                        <div className="ticker__item">
+                            The Ether is weightless, transparent, frictionless,
+                            undetectable chemically or physically, and literally
+                            permeating all matter and space.
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

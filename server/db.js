@@ -100,14 +100,15 @@ module.exports.updateBio = (bio, userId) => {
 module.exports.getRecentUsers = () => {
     return db.query(`SELECT * FROM users
 ORDER BY id DESC
-LIMIT 3;`);
+LIMIT 12;`);
 };
 
 // --------------------------------------------- match users---------------------------------------------------
 
 module.exports.matchUsers = (val) => {
     const q = `SELECT * FROM users
-    WHERE first ILIKE $1`;
+    WHERE first ILIKE $1
+    LIMIT 12`;
     const param = [val + "%"];
     return db.query(q, param);
 };
@@ -160,7 +161,8 @@ module.exports.getFriendsWannabees = (currentUser) => {
         JOIN users
         ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
         OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
-        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`;
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+      `;
     const param = [currentUser];
     return db.query(q, param);
 };

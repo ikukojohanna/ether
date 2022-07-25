@@ -41,36 +41,35 @@ export default function FindPeople() {
     //here fetch request to match users to input
 
     return (
-        <div>
-            <h1>FIND PEOPLE COMPONENT</h1>
-
+        <div className="searchdiv">
             <input
+                className="searchinput"
                 onChange={(e) => setsearchUsers(e.target.value)}
                 name="findUsers"
                 value={searchUsers}
-                placeholder="search for people"
+                placeholder="Search Users"
             />
-
-            {recentUsers &&
-                recentUsers.map((recentUser, idx) => {
-                    return (
-                        <div className="recentUsersdiv" key={idx}>
-                            <Link to={`/user/${recentUser.id}`}>
-                                <img
-                                    className="recentUsersImg"
-                                    src={recentUser.imageurl}
-                                />
-                                <h3>
-                                    {recentUser.first} {recentUser.last}
-                                </h3>
-                            </Link>
-                        </div>
-                    );
-                })}
-
-            <Link to="/">back to your profile</Link>
-
-            <strong>{searchUsers}</strong>
+            <div className="searchresult">
+                {recentUsers &&
+                    recentUsers.map((recentUser, idx) => {
+                        return (
+                            <div className="recentUsersdiv" key={idx}>
+                                <Link to={`/user/${recentUser.id}`}>
+                                    <img
+                                        className="recentUsersImg"
+                                        src={
+                                            recentUser.imageurl ||
+                                            "/default.png"
+                                        }
+                                    />
+                                    <p>
+                                        {recentUser.first} {recentUser.last}
+                                    </p>
+                                </Link>
+                            </div>
+                        );
+                    })}
+            </div>
         </div>
     );
 }

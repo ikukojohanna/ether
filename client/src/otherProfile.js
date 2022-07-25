@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import FriendButton from "./friendButton";
 
 import { useHistory, useParams } from "react-router";
@@ -49,27 +48,26 @@ export default function OtherProfile() {
     }, []);
 
     return (
-        <div>
-            {!user && (
-                <div>
-                    <h1>Something went wrong.</h1>
-                    <Link to="/">Go back to your profile</Link>
-                </div>
-            )}
-
+        <>
             {user && (
-                <div>
-                    <h1>
-                        {user.first} {user.last}
-                    </h1>
+                <div className="otherprofilediv">
+                    <div className="otherprofilepicdiv">
+                        <img
+                            className="otherprofileimg"
+                            src={user.imageurl || "/default.png"}
+                        />
+                    </div>
+                    <div className="otherprofilebio">
+                        <h1>
+                            {user.first} {user.last}
+                        </h1>
 
-                    <h2>{user.bio} </h2>
-                    <img className="otherprofileimg" src={user.imageurl} />
-                    <Link to="/">Go back to your profile</Link>
+                        <h2>{user.bio} </h2>
 
-                    <FriendButton otherUserId={otherUserId} />
+                        <FriendButton otherUserId={otherUserId} />
+                    </div>
                 </div>
             )}
-        </div>
+        </>
     );
 }

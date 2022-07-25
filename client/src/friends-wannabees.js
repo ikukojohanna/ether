@@ -97,51 +97,68 @@ export default function FriendsAndsWannabees() {
         //step1 make a post request to update the db
         //step2 dispatch the action to update the global state
         //for make friend
-        //two action creators... need to devine in slice.js}
+        //two action creat ors... need to devine in slice.js}
     };
     return (
-        <section className="friendsAndWannabees">
-            <h1 className="title">Friends</h1>
-
+        <div className="friendsAndWannabeesdiv">
             <div className="friends">
-                {/* Display your friends */}
-                {friends?.map((friend) => {
-                    return (
-                        <div className="friend" key={friend.id}>
-                            <img className="friendImg" src={friend.imageurl} />
-                            <p>
-                                {friend.first}
-                                {friend.last}
-                            </p>
-                            <button onClick={() => handleUnfriend(friend.id)}>
-                                Unfriend
-                            </button>
-                        </div>
-                    );
-                })}
+                <h1 className="title">Friends</h1>
+                <div className="friendlist">
+                    {/* Display your friends */}
+                    {friends?.map((friend) => {
+                        return (
+                            <div className="friend" key={friend.id}>
+                                <img
+                                    className="friendImg"
+                                    src={friend.imageurl}
+                                />
+                                <div className="friendtext">
+                                    <p>
+                                        {friend.first} {friend.last}
+                                    </p>
+                                    <button
+                                        onClick={() =>
+                                            handleUnfriend(friend.id)
+                                        }
+                                    >
+                                        Unfriend
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-            <h1 className="title">Wannabees</h1>
 
             <div className="wannabees">
-                {wannabees?.map((wannabee) => {
-                    return (
-                        <div className="wannabee" key={wannabee.id}>
-                            <img
-                                className="wannabeeImg"
-                                src={wannabee.imageurl}
-                            />
-                            <p>
-                                {wannabee.first}
-                                {wannabee.last}
-                            </p>
-                            <button onClick={() => handleAccept(wannabee.id)}>
-                                Accept Friendship
-                            </button>
-                        </div>
-                    );
-                })}
+                <h1 className="title">Wannabees</h1>
+                <div className="wannabeelist">
+                    {wannabees?.map((wannabee) => {
+                        return (
+                            <div className="wannabee" key={wannabee.id}>
+                                <img
+                                    className="wannabeeImg"
+                                    src={wannabee.imageurl}
+                                />
+                                <div className="wannabeetext">
+                                    <p>
+                                        {wannabee.first}
+                                        {wannabee.last}
+                                    </p>
+                                    <button
+                                        onClick={() =>
+                                            handleAccept(wannabee.id)
+                                        }
+                                    >
+                                        Accept
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-        </section>
+        </div>
     );
 }
 

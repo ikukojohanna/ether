@@ -4,18 +4,17 @@ import Bio from "./bio";
 export default function Profile(props) {
     return (
         <div className="profilediv">
-            <h1>Your Profile</h1>
-            <img
-                id="profilepicProfile"
-                src={props.imageUrl || "/default.png"}
-                onClick={() => props.passDownToggleModal()}
-            ></img>
-
-            <h2>
-                {props.first} {props.last}:
-            </h2>
+            <div className="profilepicdiv">
+                <img
+                    id="profilepicProfile"
+                    src={props.imageUrl || "/default.png"}
+                    onClick={() => props.passDownToggleModal()}
+                ></img>
+            </div>
             <Bio
                 bio={props.bio}
+                first={props.first}
+                last={props.last}
                 setBioInBio={(arg) => props.setBioInProfile(arg)}
             />
         </div>

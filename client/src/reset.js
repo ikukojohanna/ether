@@ -87,7 +87,7 @@ export default class ResetPassword extends Component {
     render() {
         return (
             <div>
-                <h1>This is the ResetPassword Component</h1>
+                <h2> Reset Password</h2>
 
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>
@@ -95,11 +95,10 @@ export default class ResetPassword extends Component {
 
                 {this.state.view === 1 && (
                     <div>
-                        <h1>view1</h1>
                         <input
                             type="email"
                             name="email"
-                            placeholder="email"
+                            placeholder="Your Email"
                             onChange={(e) => this.handleChange(e)}
                         />
                         <button onClick={() => this.submitEmail()}>
@@ -109,7 +108,6 @@ export default class ResetPassword extends Component {
                 )}
                 {this.state.view === 2 && (
                     <div>
-                        <h1>view2</h1>
                         <input
                             type="text"
                             name="code"

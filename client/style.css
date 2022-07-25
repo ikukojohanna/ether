@@ -1,15 +1,26 @@
-html {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 body {
     background-image: url("/space.jpg");
     color: rgb(239, 241, 255);
     font-family: Georgia, "Times New Roman", Times, serif;
+    overflow: hidden;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
+img {
+    object-fit: cover;
+}
+
+a:hover {
+    cursor: pointer;
+    font-style: italic;
+}
+a:visited {
+    color: white;
+}
 /*------------- WELCOME ----------------*/
 
 #welcome {
@@ -26,6 +37,8 @@ body {
 /*------------- LOGIN ----------------*/
 
 .logindiv {
+    border-radius: 30px;
+
     width: 50vw;
     height: 60vh;
     background-color: rgba(32, 40, 67, 0.131);
@@ -33,7 +46,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
@@ -49,7 +62,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 40vw;
 }
 
 .links a {
@@ -78,7 +90,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 h1 {
@@ -98,9 +110,23 @@ h3 {
     font-style: normal;
     font-size: 16px;
     font-weight: 100;
-
+    width: 10rem;
+    text-align: center;
     margin: 5%;
 }
+
+/*------------- APP JS----------------*/
+.appdiv {
+    margin-top: 6%;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #navbar {
     position: absolute;
     top: 0;
@@ -116,11 +142,37 @@ h3 {
     padding: 0.2%;
 }
 
+#logonav {
+    height: 4rem;
+    padding: 2rem;
+}
+
 #logo {
     height: 100px;
     width: auto;
     margin-top: 3%;
     margin-bottom: 10%;
+}
+
+.profile-pic {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+
+    top: 5%;
+    right: 2%;
+    margin: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(32, 40, 67, 0.178);
+    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
+}
+
+.profile-pic:hover {
+    cursor: pointer;
 }
 /* ----------------------------------------------------- PROFILE  -----------------------------------------------------*/
 
@@ -130,35 +182,42 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(32, 40, 67, 0.166);
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.585);
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
 
     width: 90vw;
-    height: 50vh;
+    height: 70vh;
 
-    margin: 5% 0 5% 0;
+    margin: 2% 0 5% 0;
 }
 
-a {
-    color: white;
-    text-decoration: none;
-}
-
-a:hover {
-    cursor: pointer;
-    font-style: italic;
-}
-a:visited {
-    color: white;
+.profilepicdiv {
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .biodiv {
+    height: 90%;
     width: 50%;
-    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    background-color: rgba(75, 85, 117, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 0 50px 50px 0;
     padding: 5%;
 }
 .bio {
     display: inline;
+}
+
+.biodiv p {
+    line-height: 2;
 }
 
 .draftBio {
@@ -176,85 +235,239 @@ textarea {
 }
 .textAreaBio {
     width: 80%;
-    height: 80%;
+    height: 60%;
     background-color: #00000065;
     color: aliceblue;
     border: none;
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.629);
     padding: 2%;
-}
-.appdiv {
-    margin-top: 6%;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.registrationdiv {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.logindiv {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.profile-pic {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-
-    top: 5%;
-    right: 2%;
-    position: absolute;
-    margin: 5%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(32, 40, 67, 0.178);
-    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
+    margin-top: 5%;
 }
 
 #profilepicProfile {
-    height: 200px;
-    width: 200px;
+    height: 300px;
+    width: 300px;
     float: left;
     display: inline;
     background-color: rgba(32, 40, 67, 0.178);
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.457);
+    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
     border-radius: 50%;
 }
 #profilepicProfile:hover {
     cursor: pointer;
 }
 
-.profile-pic:hover {
-    cursor: pointer;
+/* ----------------------------------------------------- BIO -----------------------------------------------------*/
+
+.biodiv button {
+    margin-left: 0;
+    margin-top: 5%;
 }
 
-.recentUsersdiv {
+/* ----------------------------------------------------- Friends -----------------------------------------------------*/
+.friendsAndWannabeesdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 50px;
+
+    width: 90vw;
+    height: 70vh;
+
+    margin: 2% 0 5% 0;
+}
+
+.friendlist {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+.title {
+    text-align: center;
+    margin: 5%;
+}
+
+/* friends */
+.friends {
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    width: 50%;
+    height: 100%;
+
+    border-radius: 50px 0 0 50px;
+}
+
+.friend {
+    margin: 1%;
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.345);
+    width: 15rem;
+    height: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.friendtext {
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    margin: 5%;
+}
+.friendtext button {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    height: 10%;
+    width: 70%;
+    font-size: 15px;
+    padding: 1rem;
+    text-align: center;
+}
+.friendtext p {
+    margin: 3%;
+}
+.friendImg {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin: 7%;
+}
+
+/* wannabees */
+.wannabees {
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    width: 50%;
+    height: 100%;
+
+    border-radius: 0 50px 50px 0;
+}
+
+.wannabeelist {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+.wannabeetext {
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    margin: 5%;
+}
+.wannabeetext button {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    height: 10%;
+    width: 70%;
+    font-size: 15px;
+    padding: 1rem;
+    text-align: center;
+}
+.wannabeetext p {
+    margin: 3%;
+}
+
+.wannabee {
+    margin: 1%;
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.345);
+    width: 15rem;
+    height: 5rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.wannabeeImg {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin: 7%;
+}
+
+/* ----------------------------------------------------- Search -----------------------------------------------------*/
+
+.searchdiv {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 50px;
+
+    width: 90vw;
+    height: 70vh;
+
+    margin: 2% 0 5% 0;
+}
+.searchinput {
+    width: 40%;
+    margin: 2%;
+}
+.searchresult {
+    width: 90%;
+    height: 70%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
 }
+
+.recentUsersdiv a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin: 1rem;
+    height: 9rem;
+    width: 9rem;
+}
+.recentUsersdiv p {
+    font-size: 14px;
+}
+
 .recentUsersImg {
-    height: 100px;
-    width: 100px;
+    height: 4rem;
+    width: 4rem;
     border-radius: 50%;
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
 }
 
 .uploaderdiv {
@@ -295,13 +508,30 @@ input {
     border: 0;
     width: 40%;
 
-    color: black;
+    color: aliceblue;
     font-size: 15px;
 
-    background-color: hsla(236, 33%, 100%, 0.623);
-    box-shadow: 0 0 15px 1px #27294d45;
+    background-color: rgba(255, 255, 255, 0.059) !important;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.349);
     border-radius: 10px;
     outline: none;
+}
+
+/* Avoid autofill styling INPUT*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(4, 10, 102) inset !important;
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+::placeholder {
+    color: rgb(255, 255, 255);
+    opacity: 0.7;
+}
+
+input :active {
+    background-color: rgba(255, 255, 255, 0.059);
 }
 
 #chooseImg {
@@ -353,93 +583,295 @@ button:active {
     background-color: rgba(0, 13, 63, 0.598);
     padding-top: 2px;
 }
+/* -----------------------------------------------------Other Profile-----------------------------------------------------*/
 
-/* ----------------------------------------------------- FRIENDS AND WANNABEES  -----------------------------------------------------*/
-.title {
-    text-align: center;
-    margin: 5%;
+.otherprofilediv {
+    display: flex;
+    flex-direction: row;
+
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 50px;
+
+    width: 90vw;
+    height: 70vh;
+
+    margin: 2% 0 5% 0;
 }
 
-.friendsAndWannabees {
+.otherprofilepicdiv {
+    width: 40%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    margin: auto;
-}
-
-/* friends */
-.friends {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
+    border-radius: 50px 0 0 50px;
 }
-
-.friend {
-    margin: 2%;
-}
-
-.friendImg {
-    height: 100px;
-    width: 100px;
+.otherprofileimg {
+    height: 300px;
+    width: 300px;
+    float: left;
+    display: inline;
+    background-color: rgba(32, 40, 67, 0.178);
+    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
     border-radius: 50%;
 }
 
-/* wannabees */
-.wannabees {
+.otherprofilebio {
+    height: auto;
+    width: 50%;
+    overflow: auto;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    background-color: rgba(75, 85, 117, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 0 50px 50px 0;
+    padding: 5%;
 }
-
-.wannabee {
-    margin: 2%;
+.otherprofilebio h2 {
+    margin-left: 0;
 }
-
-.wannabeeImg {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+.otherprofilebio button {
+    margin-left: 0;
 }
 /* ----------------------------------------------------- CHAT -----------------------------------------------------*/
 
 .chatdiv {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
-    background-color: rgba(32, 40, 67, 0.166);
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.585);
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
 
     width: 90vw;
-    height: 50vh;
+    height: 70vh;
 
-    margin: 5% 0 5% 0;
+    margin: 2% 0 5% 0;
 }
 .container-chat {
-    height: 80%;
-    width: 80%;
+    height: 90%;
+    width: 50%;
     overflow: auto;
     display: flex;
     flex-direction: column;
-    background-color: #ffffff65;
-    margin: 3%;
+    background-color: rgba(75, 85, 117, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 50px 0 0 50px;
+    padding: 5%;
 }
 
+.chatline {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.chatline a {
+    margin: 2%;
+}
 .messageImg {
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
 }
 
+.chattext {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    width: 80%;
+}
+.chatname {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-left: 2%;
+}
+.chatmessage {
+    font-size: 15px;
+    margin-top: 0.5 rem;
+    padding: 3%;
+    background-color: rgba(240, 248, 255, 0.285);
+    border-radius: 0 50px 50px 50px;
+    width: fit-content;
+}
 .onlineImg {
     height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.chatright {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.textAreaChat {
+    border-radius: 0 0 50px 0;
+    height: 20%;
+    width: 90%;
+    background-color: rgba(240, 248, 255, 0.217);
+    padding: 5%;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border: none;
+    color: aliceblue;
+}
+
+.container-online {
+    height: 80%;
+    width: 90%;
+    padding: 5%;
+
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(75, 85, 117, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 0 50px 0 0;
+}
+
+.onlineusersdiv {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: baseline;
+}
+
+.onlineusersdiv a {
+    margin: 5%;
+}
+.onlineuserli {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: center;
+    font-size: 15px;
+}
+.titleandspot {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+/* ----------------------------------------------------- GREEN DOT -----------------------------------------------------*/
+
+.ring-container {
+    position: relative;
+    margin-left: 10%;
+}
+
+.circle {
+    width: 15px;
+    height: 15px;
+    background-color: #62bd19;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+}
+
+.ringring {
+    border: 3px solid #62bd19;
+    -webkit-border-radius: 30px;
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    left: -12px;
+    top: -12px;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0;
+}
+@-webkit-keyframes pulsate {
+    0% {
+        -webkit-transform: scale(0.1, 0.1);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1.2, 1.2);
+        opacity: 0;
+    }
+}
+/* ----------------------------------------------------- TICKER -----------------------------------------------------*/
+
+@-webkit-keyframes ticker {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+    }
+
+    100% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@keyframes ticker {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        visibility: visible;
+    }
+
+    100% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.ticker-wrap {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 3rem;
+    background-color: rgba(#000, 0.9);
+    padding-left: 200vw;
+    box-sizing: content-box;
+}
+
+.ticker {
+    display: inline-block;
+    height: 4rem;
+    line-height: 4rem;
+    white-space: nowrap;
+    padding-right: 100%;
+    box-sizing: content-box;
+
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-name: ticker;
+    animation-name: ticker;
+    -webkit-animation-duration: 40s;
+    animation-duration: 40s;
+}
+
+.ticker__item {
+    display: inline-block;
+    text-shadow: white;
+    padding: 0 5rem;
+    color: rgba(255, 255, 255, 0.703);
+    letter-spacing: 0.3em;
 }

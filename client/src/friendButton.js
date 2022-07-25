@@ -68,7 +68,6 @@ export default function FriendButton(props) {
 
     return (
         <div>
-            <h1>this is the friend button component</h1>
             <button onClick={() => handleFriendButton()}>{buttonText}</button>
         </div>
     );

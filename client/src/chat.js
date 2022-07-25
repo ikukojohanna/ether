@@ -38,52 +38,64 @@ export default function Chat() {
     return (
         <>
             <div className="chatdiv">
-                <h1>chat</h1>
-
                 <div className="container-chat" ref={chatContainerRef}>
-                    {/* Display your friends */}
                     {messages.map((message) => {
                         return (
-                            <div key={message.id}>
+                            <div className="chatline" key={message.id}>
                                 <Link to={`/user/${message.user_id}`}>
                                     <img
                                         className="messageImg"
-                                        src={message.imageurl}
-                                    />{" "}
-                                </Link>{" "}
-                                <p>
-                                    {message.id} {message.first} {message.last}{" "}
-                                    said: {message.message}
-                                </p>
+                                        src={message.imageurl || "/default.png"}
+                                    />
+                                </Link>
+
+                                <div className="chattext">
+                                    <p className="chatname">
+                                        {message.first} {message.last}
+                                    </p>
+                                    <p className="chatmessage">
+                                        {message.message}
+                                    </p>
+                                </div>
                             </div>
                         );
                     })}
                 </div>
-                <div className="chatTextarea">
+                <div className="chatright">
+                    <div className="container-online">
+                        <div className="titleandspot">
+                            <h2>Online Users</h2>
+                            <div className="ring-container">
+                                <div className="ringring"></div>
+                                <div className="circle"></div>
+                            </div>
+                        </div>
+
+                        <div className="onlineusersdiv">
+                            {onlineUsers.map((user) => {
+                                return (
+                                    <div className="onlineuserli" key={user.id}>
+                                        <Link to={`/user/${user.id}`}>
+                                            <img
+                                                className="onlineImg"
+                                                src={user.imageurl}
+                                            />{" "}
+                                        </Link>{" "}
+                                        <p>
+                                            {user.first} {user.last}
+                                        </p>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
                     <textarea
                         onKeyDown={keyCheck}
                         className="textAreaChat"
                         name="textAreaChat"
-                        placeholder="Chime in, and add messages here"
+                        placeholder="Your message..."
                     ></textarea>
-                </div>
-                <div className="container-online">
-                    <h1>list of online users</h1>
-                    {onlineUsers.map((user) => {
-                        return (
-                            <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
-                                    <img
-                                        className="onlineImg"
-                                        src={user.imageurl}
-                                    />{" "}
-                                </Link>{" "}
-                                <p>
-                                    {user.first} {user.last}
-                                </p>
-                            </div>
-                        );
-                    })}
                 </div>
             </div>
         </>

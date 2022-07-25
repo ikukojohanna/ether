@@ -485,7 +485,6 @@ app.post("/api/friendButton/:id", (req, res) => {
 // --------------------------------------------------- get friends and wannabees ----------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------------------
 
-//ERROR HERE
 app.get("/friendswannabees.json", (req, res) => {
     console.log("app get friends wannabees launched");
     db.getFriendsWannabees(req.session.userId)
