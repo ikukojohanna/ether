@@ -49,32 +49,34 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="logindiv">
-                <h1>Login</h1>
-
+            <div>
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>
                 )}
-
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <button onClick={() => this.handleSubmit()}>Login</button>
-
-                <Link to="/">
-                    <p> Click here to sign up</p>
-                </Link>
-
-                <Link to="/reset">Reset Password</Link>
+                <div className="logindiv">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        onChange={(e) => this.handleChange(e)}
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        onChange={(e) => this.handleChange(e)}
+                    />
+                    <button onClick={() => this.handleSubmit()}>Login</button>
+                    <div className="links">
+                        <Link to="/reset">
+                            <p>Forgot your password?</p>
+                        </Link>
+                        <img id="line" src="/linie.png" />
+                        <Link to="/">
+                            <p>Sign up</p>
+                        </Link>
+                    </div>
+                </div>
             </div>
         );
     }

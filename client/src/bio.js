@@ -84,7 +84,7 @@ export default class Bio extends Component {
                         <textarea
                             className="textAreaBio"
                             name="draftBio"
-                            placeholder={this.state.bio}
+                            placeholder={this.props.bio}
                             onChange={(e) => this.handleChange(e)}
                         ></textarea>
                         <button onClick={() => this.handleSubmit()}>

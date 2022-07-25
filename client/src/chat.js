@@ -52,9 +52,8 @@ export default function Chat() {
                                     />{" "}
                                 </Link>{" "}
                                 <p>
-                                    {message.id}
-                                    {message.first}
-                                    {message.last} said: {message.message}
+                                    {message.id} {message.first} {message.last}{" "}
+                                    said: {message.message}
                                 </p>
                             </div>
                         );
@@ -80,8 +79,7 @@ export default function Chat() {
                                     />{" "}
                                 </Link>{" "}
                                 <p>
-                                    {user.first}
-                                    {user.last}
+                                    {user.first} {user.last}
                                 </p>
                             </div>
                         );

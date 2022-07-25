@@ -1,26 +1,19 @@
 //import ProfilePic from "./profilepic";
 import Bio from "./bio";
-import { Link } from "react-router-dom";
 
 export default function Profile(props) {
     return (
         <div className="profilediv">
-            <header>
-                <Link to="/chat">Chat with other users</Link>
-                <Link to="/friendswannabees">
-                    <p> Friends and Wannabees</p>
-                </Link>
-                <Link to="/find-people">Find People</Link>
-                <Link to="/logout">Logout</Link>
-            </header>
             <h1>Your Profile</h1>
-
-            <img id="profilepicProfile" src={props.imageUrl}></img>
+            <img
+                id="profilepicProfile"
+                src={props.imageUrl || "/default.png"}
+                onClick={() => props.passDownToggleModal()}
+            ></img>
 
             <h2>
                 {props.first} {props.last}:
             </h2>
-
             <Bio
                 bio={props.bio}
                 setBioInBio={(arg) => props.setBioInProfile(arg)}
@@ -28,6 +21,13 @@ export default function Profile(props) {
         </div>
     );
 }
+/*
+<ProfilePic
+    first={props.first}
+    last={props.last}
+    imageUrl={props.imageUrl}
+    alt={`${props.first} ${props.last}`}
+/>;*/
 
 //now we havre access to
 //props.setBioInProfile()

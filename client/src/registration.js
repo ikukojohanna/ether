@@ -53,7 +53,7 @@ export default class Registration extends Component {
     render() {
         return (
             <div className="registrationdiv">
-                <h1>Register</h1>
+                <h2>Register</h2>
 
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>
@@ -61,30 +61,33 @@ export default class Registration extends Component {
                 <input
                     type="text"
                     name="first"
-                    placeholder="first"
+                    placeholder="First Name"
                     onChange={(e) => this.handleChange(e)}
                 />
                 <input
                     type="text"
                     name="last"
-                    placeholder="last"
+                    placeholder="Last Name"
                     onChange={(e) => this.handleChange(e)}
                 />
                 <input
                     type="email"
                     name="email"
-                    placeholder="email"
+                    placeholder="Your Email"
                     onChange={(e) => this.handleChange(e)}
                 />
                 <input
                     type="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="Password"
                     onChange={(e) => this.handleChange(e)}
                 />
                 <button onClick={() => this.handleSubmit()}>Submit</button>
+                <img id="line" src="/linie.png" />
 
-                <Link to="/login">Click here to Log in!</Link>
+                <Link to="/login">
+                    <p> Log in</p>
+                </Link>
             </div>
         );
     }

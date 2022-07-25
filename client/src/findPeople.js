@@ -61,8 +61,7 @@ export default function FindPeople() {
                                     src={recentUser.imageurl}
                                 />
                                 <h3>
-                                    {recentUser.first}
-                                    {recentUser.last}
+                                    {recentUser.first} {recentUser.last}
                                 </h3>
                             </Link>
                         </div>

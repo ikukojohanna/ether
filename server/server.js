@@ -101,6 +101,13 @@ app.use(cookieSessionMiddleware);
 // -----------------------------------------------------------ROUTES--------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
 
+//fetch.start
+
+app.get("/user/id.json", (req, res) => {
+    res.json({
+        userId: req.session.userId,
+    });
+});
 // -----------------------------------------------------------REGISTER---------------------------------------------------------------------
 
 app.post("/register", (req, res) => {
@@ -113,7 +120,6 @@ app.post("/register", (req, res) => {
                 .then((results) => {
                     console.log(results);
                     req.session.userId = results.rows[0].id;
-                    // res.redirect("/profile");
                     res.json({ success: true });
                 })
                 .catch((err) => {
@@ -496,8 +502,13 @@ app.get("/friendswannabees.json", (req, res) => {
 
 app.get("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/"); //
+    res.json({ success: true });
 });
+/*
+app.get("/logout", (req, res) => {
+    req.session = null;
+    location.replace("/");
+});*/
 
 // server.js
 app.get("/user/id.json", function (req, res) {

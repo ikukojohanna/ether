@@ -9,6 +9,7 @@ import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
 import Chat from "./chat";
+import { Link } from "react-router-dom";
 
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
@@ -69,7 +70,6 @@ export default class App extends Component {
     }
     setProfilePic(arg) {
         console.log("methos is running in app and arg is passed to it: ", arg);
-
         this.setState({
             imageUrl: arg,
         });
@@ -82,22 +82,49 @@ export default class App extends Component {
         });
     }
 
+    logout() {
+        fetch("/logout")
+            .then((resp) => resp.json())
+            .then(() => {
+                location.reload();
+            })
+            .catch((err) => {
+                console.log("error in logout ", err);
+            });
+    }
     render() {
         return (
             <div className="appdiv">
-                <h1>Welcome to the</h1>
-                <Logo />
-
-                <ProfilePic
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                    passDownToggleModal={() => {
-                        this.toggleModal();
-                    }}
-                />
-
                 <BrowserRouter>
+                    <h1>Welcome to the</h1>
+                    <Logo />
+
+                    <ProfilePic
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl || "/default.png"}
+                        passDownToggleModal={() => {
+                            this.toggleModal();
+                        }}
+                    />
+                    <div id="navbar">
+                        <Link to="/find-people">
+                            <h3>Search Users</h3>
+                        </Link>
+                        <Link to="/friendswannabees">
+                            <h3>Your Friends</h3>
+                        </Link>
+                        <Link to="/chat">
+                            <h3>Chat</h3>
+                        </Link>
+                        <Link to="/">
+                            <h3>Your Profile</h3>
+                        </Link>
+
+                        <Link to="/">
+                            <h3 onClick={() => this.logout()}>Logout </h3>
+                        </Link>
+                    </div>
                     <div>
                         <Route path="/chat">
                             <Chat />
@@ -109,14 +136,17 @@ export default class App extends Component {
                                 last={this.state.last}
                                 imageUrl={this.state.imageUrl}
                                 id={this.state.id}
-                                image={this.state.image}
                                 onClick={this.showUploader}
                                 bio={this.state.bio}
                                 setBioInProfile={(arg) => {
                                     this.setBio(arg);
                                 }}
+                                passDownToggleModal={() => {
+                                    this.toggleModal();
+                                }}
                             />
                         </Route>
+
                         <Route path="/find-people">
                             <FindPeople />
                         </Route>
