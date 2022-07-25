@@ -531,7 +531,6 @@ io.on("connection", function (socket) {
     }
     const userId = socket.request.session.userId;
     console.log(
-        //socket id is every socket connection.. everytime i open new tab i get new socket.id
         `user with Id: ${userId}and socket.id ${socket.id}, just connected`
     );
     //users[userId] = users[userId] || [];
@@ -542,15 +541,68 @@ io.on("connection", function (socket) {
 
     console.log("users", users);
 
-    const onlineUsers = Object.keys(users);
+    (async () => {
+        try {
+            const online = Object.keys(users);
+            const result = await db.getOnlineUsers(online);
+            const onlineUsers = result.rows;
+            io.emit("online-users", onlineUsers);
 
-    console.log("onlineUsers:\t", onlineUsers);
+            /*
+            .then((result) => {
+                  
+                    console.log("onlineUsers:\t", online);
+                    // console.log("result from getONlineusers", result.rows);
+                    const onlineUsers = result.rows;
+                    io.emit("online-users", onlineUsers);
 
-    //db query to compare list of users with online user?
+                
+            })
+            .catch((err) => {
+                console.log("error while getting online users", err);
+            });*/
+        } catch (err) {
+            console.log("error while getting online users", err);
+        }
+    })();
 
     socket.on("disconnect", () => {
         console.log(`socket with socket.id ${socket.id} disconnected`);
+
         users[userId] = users[userId].filter((element) => element != socket.id);
+        users[userId] = users[userId].filter((element) => element != []);
+
+        if (!users[userId].length) {
+            //console.log("it's an empty array");
+            delete users[userId];
+        }
+        //do query again? !!!!!
+
+        (async () => {
+            try {
+                const online = Object.keys(users);
+                const result = await db.getOnlineUsers(online);
+                const onlineUsers = result.rows;
+                io.emit("online-users", onlineUsers);
+
+                /*
+            .then((result) => {
+                  
+                    console.log("onlineUsers:\t", online);
+                    // console.log("result from getONlineusers", result.rows);
+                    const onlineUsers = result.rows;
+                    io.emit("online-users", onlineUsers);
+
+                
+            })
+            .catch((err) => {
+                console.log("error while getting online users", err);
+            });*/
+            } catch (err) {
+                console.log("error while getting online users", err);
+            }
+        })();
+
         console.log("users after deletion", users);
     });
 

@@ -345,3 +345,7 @@ button:active {
     width: 30px;
     border-radius: 50%;
 }
+
+.onlineImg {
+    height: 50px;
+}

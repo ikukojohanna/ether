@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 
 export default function Chat() {
     const messages = useSelector((state) => state.messages);
+    const onlineUsers = useSelector((state) => state.online);
     const chatContainerRef = useRef();
 
     console.log("messages in chat component", messages);
+    console.log("onlineusers in chat component", onlineUsers);
 
     useEffect(() => {
         console.log("chatContainerRef", chatContainerRef);
@@ -36,6 +38,8 @@ export default function Chat() {
     return (
         <>
             <div className="chatdiv">
+                <h1>chat</h1>
+
                 <div className="container-chat" ref={chatContainerRef}>
                     {/* Display your friends */}
                     {messages.map((message) => {
@@ -63,6 +67,25 @@ export default function Chat() {
                         name="textAreaChat"
                         placeholder="Chime in, and add messages here"
                     ></textarea>
+                </div>
+                <div className="container-online">
+                    <h1>list of online users</h1>
+                    {onlineUsers.map((user) => {
+                        return (
+                            <div key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <img
+                                        className="onlineImg"
+                                        src={user.imageurl}
+                                    />{" "}
+                                </Link>{" "}
+                                <p>
+                                    {user.first}
+                                    {user.last}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </>
