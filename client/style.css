@@ -1,17 +1,13 @@
 /*------ CANVAS ------*/
 
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: #63bd1937;
-    z-index: 0;
-}
-
 .canvasdiv {
     overflow: scroll;
+}
+
+.fiberdiv {
+    height: 90vh;
+    width: 100vw;
+    border: #62bd19 5px dotted;
 }
 /*------ REST OF CODE-------*/
 

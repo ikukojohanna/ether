@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
-export default function Canvas() {
+export default function ThreeTry() {
     console.log("canvas component mounted");
     const canvas = useRef(null);
     const fov = 100;
