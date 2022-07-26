@@ -9,6 +9,7 @@ import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
 import Chat from "./chat";
 import { Link } from "react-router-dom";
+import Canvas from "./canvas";
 
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
@@ -126,6 +127,11 @@ export default class App extends Component {
                         />
                     </div>
                     <div>
+                        <Route path="/canvas">
+                            <Canvas
+                                imageUrl={this.state.imageUrl || "/default.png"}
+                            />
+                        </Route>
                         <Route path="/chat">
                             <Chat />
                         </Route>
