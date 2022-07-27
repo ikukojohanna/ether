@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import * as THREE from "three";
 
 export default function ThreeTry() {
@@ -13,11 +13,11 @@ export default function ThreeTry() {
     // Scroll Animation
 
     //const cameraPositionX = camera.position.x;
-
+    /*
     const [cameraPositionX, setCameraPositionX] = useState(0);
     const [cameraPositionY, setCameraPositionY] = useState(0);
     const [cameraPositionZ, setCameraPositionZ] = useState(0);
-
+*/
     //useState for scrolling??
     /*function moveCamera() {
         camera.position.z += 0.05;
@@ -27,7 +27,7 @@ export default function ThreeTry() {
 
     window.onscroll = moveCamera;
     moveCamera();*/
-
+    /*
     function handleScroll() {
         console.log("scrolling happening");
         console.log(camera.position);
@@ -38,7 +38,7 @@ export default function ThreeTry() {
     }
     useEffect(() => {
         document.addEventListener("scroll", handleScroll);
-    }, []);
+    }, []);*/
 
     useEffect(() => {
         console.log("useEffect got called");
@@ -64,9 +64,9 @@ export default function ThreeTry() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         //camera.position.setZ(300);
         // camera.position.setX(100);
-        camera.position.z = cameraPositionZ;
+        /*camera.position.z = cameraPositionZ;
         camera.position.x = cameraPositionX;
-        camera.rotation.y = cameraPositionY;
+        camera.rotation.y = cameraPositionY;*/
         // Torus
 
         const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -205,6 +205,10 @@ export default function ThreeTry() {
             jeff.rotation.x += 0.005;
             jeff.rotation.y += 0.005;
 
+            camera.position.z += 0.01;
+            camera.position.x += 0.01;
+            camera.rotation.y += 0.0002;
+
             renderer.render(scene, camera);
         }
         animate();
@@ -218,14 +222,14 @@ export default function ThreeTry() {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };*/
-    }, [cameraPositionX, cameraPositionY, cameraPositionZ]);
+    });
     //[cameraPosition]
     return (
-        <div onScroll={handleScroll} className="canvasdiv">
-            <h1>this is the canvas component</h1>
-            <canvas ref={canvas} onClick={() => handleScroll()}></canvas>{" "}
+        <div className="canvasdiv">
+            <canvas ref={canvas}></canvas>{" "}
         </div>
     );
 }
 
 //WHICH VALUE IN SETCAMERAPOSITION ON SCRLL??
+// [cameraPositionX, cameraPositionY, cameraPositionZ]

@@ -533,8 +533,17 @@ server.listen(process.env.PORT || 3001, function () {
 // ---------------------------------------------------------- SOCKET COMMUNICATION -----------
 
 const users = {};
+const messages = {
+    general: [],
+    random: [],
+    jokes: [],
+    javascript: [],
+};
 
 io.on("connection", function (socket) {
+    //---- conect ----
+    socket.join("General");
+    console.log("general has been joined on connection");
     //below only exists when cookieseesion is passed to io
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -549,7 +558,7 @@ io.on("connection", function (socket) {
 
     users[userId] = [...users[userId], socket.id];
 
-    console.log("users", users);
+    //console.log("users", users);
 
     (async () => {
         try {
@@ -557,24 +566,74 @@ io.on("connection", function (socket) {
             const result = await db.getOnlineUsers(online);
             const onlineUsers = result.rows;
             io.emit("online-users", onlineUsers);
-
-            /*
-            .then((result) => {
-                  
-                    console.log("onlineUsers:\t", online);
-                    // console.log("result from getONlineusers", result.rows);
-                    const onlineUsers = result.rows;
-                    io.emit("online-users", onlineUsers);
-
-                
-            })
-            .catch((err) => {
-                console.log("error while getting online users", err);
-            });*/
         } catch (err) {
             console.log("error while getting online users", err);
         }
     })();
+
+    //---- rooms ----
+
+    socket.on("join-room", (roomName) => {
+        socket.join(roomName);
+        console.log(
+            `user with Id: ${userId}and socket.id ${socket.id} room joined`,
+            roomName
+        );
+
+        console.log("socket.rooms", socket.rooms);
+        socket.to(roomName).emit(`Thanks for joingin! ${roomName}`);
+
+        //cb(messages[roomName]); //this callback gives you back the past messages of the room you just joined
+        //with callback your sever side code in evoking function that was defined client side
+
+        //socket.emit("joined", messages[roomName]);.... return to this code.
+        //problem with line above is:
+        //in my server side code i have to come up with new event name
+        //in client side i need to set up new event listener
+    });
+
+    // make a socket..leave option?
+
+    socket.on(
+        "send message",
+        //to is either room name or socket id
+        //sending message only to room or socket id depending on what your passing in
+        ({ content, to, sender, chatName, isChannel }) => {
+            //message to a ROOM
+            //room name will be the same for every dingle user
+            if (isChannel) {
+                const payload = {
+                    content,
+                    chatName,
+                    sender,
+                };
+
+                socket, to(to).emit("new message", payload);
+            }
+            //DM to a user
+            //private  "chat" will be called different for both users... the name of the other person
+            else {
+                const payload = {
+                    content,
+                    chatName: sender,
+                    sender,
+                };
+                socket, to(to).emit("new message", payload);
+            }
+            //checking that chatName(room) exists
+            if (messages[chatName]) {
+                messages[chatName].push({
+                    sender,
+                    content, //gettin messages retroactively if joining chat alter
+                });
+            }
+        }
+    );
+
+    //---- disconnect ----
+    socket.on("disconnecting", () => {
+        console.log("SET WHEN DISCONNECTING", socket.rooms); // the Set contains at least the socket ID
+    });
 
     socket.on("disconnect", () => {
         console.log(`socket with socket.id ${socket.id} disconnected`);
@@ -586,7 +645,6 @@ io.on("connection", function (socket) {
             //console.log("it's an empty array");
             delete users[userId];
         }
-        //do query again? !!!!!
 
         (async () => {
             try {
@@ -671,32 +729,4 @@ io.on("connection", function (socket) {
     });
 });
 
-/*
-//--------------------------- LIST OF ONLINE USERS
-// keep track of object where you aadd and remove your users
-//will start off empty
-const users = {
-    //usser id 7 connects... and then socket id. but if several sockets has to be array
-    7: ["kdjfhgjsdh", "idhfklsjdhfl"],
-    11: ["kdfjhslkjdhflkjd"],
-};
-
-//listend on connect event... update list of users.. and when disconnet.... remove socket it
-
-//maintain obejct in background
-
-//
-
-const onlineUsers = Object.keys(users);
-console.log("onlineUsers", onlineUsers);
-
-//once you mantain list of users... you want to fetch information about themto display somewhere
-//once could: reuse getuser by ID
-//OR make use of sql keyword that is ANY
-
-SELECT * FORM users WHERE id= ANY($1)
-
-//the value you provide is not a value any more but a list of values
-//pass it the list of onlineUsers
-
-db.query(`SELECT * FROM users WHERE id=ANY($1)`, [onlineUsers])*/
+//---------------------------  SOCKET ROOMS!

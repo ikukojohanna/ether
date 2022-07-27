@@ -7,15 +7,17 @@ export default function Chat() {
     const messages = useSelector((state) => state.messages);
     const onlineUsers = useSelector((state) => state.online);
     const chatContainerRef = useRef();
+    /*
+    const rooms = [
+        { name: "general" },
+        { name: "Arakis" },
+        { name: "Solaris" },
+    ];*/
 
-    console.log("messages in chat component", messages);
-    console.log("onlineusers in chat component", onlineUsers);
+    //console.log("messages in chat component", messages);
+    //console.log("onlineusers in chat component", onlineUsers);
 
     useEffect(() => {
-        console.log("chatContainerRef", chatContainerRef);
-        console.log("scrollTop", chatContainerRef.current.scrollTop);
-        console.log("clientHeight", chatContainerRef.current.clientHeight);
-        console.log("scrollHeight", chatContainerRef.current.scrollHeight);
         // on first mount and every time a new message gets added
         // we want to adjust our elements scrollTop to be the scrollHeight minus height
         // of the element, as that means we are scrolled to the bottom msg
@@ -28,16 +30,37 @@ export default function Chat() {
         // console.log("what was pressed:", e.key);
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log("what's the value of our input field", e.target.value);
+            //  console.log("what's the value of our input field", e.target.value);
             // time to let the server there is a new message
             socket.emit("new-message", e.target.value);
             // after emitting our msg, we clear the textarea
             e.target.value = "";
         }
     };
+
+    const handleClickGeneral = () => {
+        console.log("General has been clicked");
+        socket.emit("join-room", "General");
+    };
+
+    const handleClickArakis = () => {
+        console.log("Arakis has been clicked");
+        socket.emit("join-room", "Arakis");
+    };
+    const handleClickSolaris = () => {
+        console.log("Solaris has been clicked");
+        socket.emit("join-room", "Solaris");
+    };
+
     return (
         <>
             <div className="chatdiv">
+                <div className="container-rooms">
+                    <p onClick={handleClickGeneral}>General</p>
+                    <p onClick={handleClickArakis}>Arakis</p>
+                    <p onClick={handleClickSolaris}>Solaris</p>
+                </div>
+
                 <div className="container-chat" ref={chatContainerRef}>
                     {messages.map((message) => {
                         return (
@@ -65,10 +88,6 @@ export default function Chat() {
                     <div className="container-online">
                         <div className="titleandspot">
                             <h2>Online Users</h2>
-                            <div className="ring-container">
-                                <div className="ringring"></div>
-                                <div className="circle"></div>
-                            </div>
                         </div>
 
                         <div className="onlineusersdiv">
@@ -80,6 +99,10 @@ export default function Chat() {
                                                 className="onlineImg"
                                                 src={user.imageurl}
                                             />{" "}
+                                            <div className="ring-container">
+                                                <div className="ringring"></div>
+                                                <div className="circle"></div>
+                                            </div>
                                         </Link>{" "}
                                         <p>
                                             {user.first} {user.last}
@@ -102,12 +125,10 @@ export default function Chat() {
     );
 }
 
-/*
-When the user hits the enter key in this <textarea> or presses a "send" button,
- a 'chatMessage' event should be emitted. This means that the socket object will have 
- to be imported so that its emit method can be called.
-
-
- <button onClick={() => this.handleSubmit()}>Submit</button>
-
-*/
+/* {rooms.map((room) => {
+                        return (
+                            <div className="channel" key={room.name}>
+                                <p onClick={handleRoomClick()}>{room.name}</p>
+                            </div>
+                        );
+                    })}*/

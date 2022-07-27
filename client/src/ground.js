@@ -1,17 +1,20 @@
+import { useEffect } from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { MeshReflectorMaterial } from "@react-three/drei";
+import { LinearEncoding, RepeatWrapping, TextureLoader } from "three";
 
 export function Ground() {
     // thanks to https://polyhaven.com/a/rough_plasterbrick_05 !
 
-    // `process` is NODE global variable, it is available only during build time of your project
-    //use new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG']); `??
+    //CANT ACCESS PUBLIC FOLDER???
 
-    /*const [roughness, normal] = useLoader(TextureLoader, [
-        process.env.PUBLIC_URL + "textures/terrain-roughness.jpg",
-        process.env.PUBLIC_URL + "textures/terrain-normal.jpg",
-    ]);*/
+    const [roughness, normal] = useLoader(TextureLoader, [
+        "https://raw.githubusercontent.com/Domenicobrz/R3F-in-practice/main/car-show/public/textures/terrain-roughness.jpg",
 
-    /*useEffect(() => {
+        "https://raw.githubusercontent.com/Domenicobrz/R3F-in-practice/main/car-show/public/textures/terrain-normal.jpg",
+    ]);
+
+    useEffect(() => {
         [normal, roughness].forEach((t) => {
             t.wrapS = RepeatWrapping;
             t.wrapT = RepeatWrapping;
@@ -20,14 +23,22 @@ export function Ground() {
         });
 
         normal.encoding = LinearEncoding;
-    }, [normal, roughness]);*/
+    }, [normal, roughness]);
+
+    useFrame((state) => {
+        let t = -state.clock.getElapsedTime() * 0.128;
+        roughness.offset.set(0, t % 1);
+        normal.offset.set(0, t % 1);
+    });
 
     return (
         <mesh rotation-x={-Math.PI * 0.5} castShadow receiveShadow>
             <planeGeometry args={[30, 30]} />
             <MeshReflectorMaterial
                 envMapIntensity={0}
+                normalMap={normal}
                 normalScale={[0.15, 0.15]}
+                roughnessMap={roughness}
                 dithering={true}
                 color={[0.015, 0.015, 0.015]}
                 roughness={0.7}

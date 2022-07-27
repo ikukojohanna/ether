@@ -11,7 +11,7 @@ import Chat from "./chat";
 import { Link } from "react-router-dom";
 import ThreeTry from "./threetry";
 import FiberTry from "./fibertry";
-
+import FiberIsland from "./island";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 export default class App extends Component {
@@ -136,6 +136,10 @@ export default class App extends Component {
                         <Route path="/fibertry">
                             <FiberTry />
                         </Route>
+
+                        <Route path="/island">
+                            <FiberIsland />
+                        </Route>
                         <Route path="/chat">
                             <Chat />
                         </Route>
@@ -166,6 +170,7 @@ export default class App extends Component {
                         <Route path="/friendswannabees">
                             <FriendsAndsWannabees />
                         </Route>
+                        <ThreeTry />
                     </div>
                 </BrowserRouter>
 
@@ -202,3 +207,5 @@ export default class App extends Component {
         );
     }
 }
+
+/* für social netwwork upload.... x    <ThreeTry />*/

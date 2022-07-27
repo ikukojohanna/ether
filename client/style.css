@@ -3,18 +3,32 @@
 .canvasdiv {
     overflow: scroll;
 }
+canvas {
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-color: #62bd19;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
 .fiberdiv {
-    height: 90vh;
+    position: absolute;
+    height: 100vh;
     width: 100vw;
-    border: #62bd19 5px dotted;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
+
 /*------ REST OF CODE-------*/
 
 body {
     background-image: url("/space.jpg");
     color: rgb(239, 241, 255);
     font-family: Georgia, "Times New Roman", Times, serif;
+    overflow: hidden;
 }
 
 a {
@@ -45,6 +59,7 @@ a:visited {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 /*------------- LOGIN ----------------*/
 
@@ -110,6 +125,7 @@ h1 {
     font-weight: 100;
     margin-top: 0;
     margin-bottom: 1%;
+    z-index: 1;
 }
 h2 {
     font-size: 18px;
@@ -164,6 +180,7 @@ h3 {
     width: auto;
     margin-top: 3%;
     margin-bottom: 10%;
+    z-index: 1;
 }
 
 .profile-pic {
@@ -197,6 +214,7 @@ h3 {
     background-color: rgba(32, 40, 67, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
+    z-index: 1;
 
     width: 90vw;
     height: 70vh;
@@ -794,8 +812,8 @@ button:active {
     background-color: #62bd19;
     border-radius: 50%;
     position: absolute;
-    top: -5px;
-    left: -5px;
+    top: -15px;
+    left: 30px;
 }
 
 .ringring {
@@ -804,8 +822,8 @@ button:active {
     height: 25px;
     width: 25px;
     position: absolute;
-    left: -12px;
-    top: -12px;
+    top: -22px;
+    left: 23px;
     -webkit-animation: pulsate 1s ease-out;
     -webkit-animation-iteration-count: infinite;
     opacity: 0;
