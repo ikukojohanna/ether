@@ -169,22 +169,25 @@ module.exports.getFriendsWannabees = (currentUser) => {
 
 // --------------------------------------------- get chat history ---------------------------------------------------
 
-module.exports.getMessages = () => {
-    return db.query(`SELECT messages.id, messages.user_id, messages.message, users.first, users.last, users.imageUrl
+module.exports.getMessages = (roomName) => {
+    const q = `SELECT messages.id, messages.room, messages.user_id, messages.message, users.first, users.last, users.imageUrl
      FROM messages
      JOIN users ON (user_id = users.id)
+     WHERE messages.room = $1
     ORDER BY messages.id DESC
-LIMIT 10;`);
+LIMIT 10;`;
+    const param = [roomName];
+    return db.query(q, param);
 };
 
 // --------------------------------------------- add new message ---------------------------------------------------
 
-module.exports.addMessage = (currentUser, message) => {
-    const q = `INSERT INTO messages (user_id, message)
-     VALUES ($1, $2)
+module.exports.addMessage = (currentUser, room, message) => {
+    const q = `INSERT INTO messages (user_id, room, message)
+     VALUES ($1, $2, $3)
       RETURNING *
     `;
-    const param = [currentUser, message];
+    const param = [currentUser, room, message];
     return db.query(q, param);
 };
 

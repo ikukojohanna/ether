@@ -19,6 +19,7 @@ export default function Chatrooms() {
     //console.log("messages in chat component", messages);
     //console.log("onlineusers in chat component", onlineUsers);
     console.log("rooms in chat component", rooms);
+    console.log("rooms.room in chat component", rooms.room);
 
     useEffect(() => {
         // on first mount and every time a new message gets added
@@ -28,7 +29,7 @@ export default function Chatrooms() {
         chatContainerRef.current.scrollTop =
             chatContainerRef.current.scrollHeight -
             chatContainerRef.current.clientHeight;
-    }, [messages]);
+    }, [messages, rooms]);
 
     const keyCheck = (e) => {
         // console.log("what was pressed:", e.key);
@@ -36,7 +37,15 @@ export default function Chatrooms() {
             e.preventDefault();
             //  console.log("what's the value of our input field", e.target.value);
             // time to let the server there is a new message
-            socket.emit("new-message", e.target.value);
+            console.log("rooms.room inside keycheck", rooms.room);
+
+            const keyCheckObject = {
+                message: e.target.value,
+                room: rooms.room,
+            };
+
+            console.log("keyCheckObject", keyCheckObject);
+            socket.emit("new-message", keyCheckObject);
             // after emitting our msg, we clear the textarea
             e.target.value = "";
         }
@@ -45,10 +54,22 @@ export default function Chatrooms() {
     return (
         <>
             <div className="container-chat" ref={chatContainerRef}>
-                {rooms.map((room) => {
+                {messages.map((message) => {
                     return (
-                        <div className="chatline" key={room.messages}>
-                            {room.messages}
+                        <div className="chatline" key={message.id}>
+                            <Link to={`/user/${message.user_id}`}>
+                                <img
+                                    className="messageImg"
+                                    src={message.imageurl || "/default.png"}
+                                />
+                            </Link>
+
+                            <div className="chattext">
+                                <p className="chatname">
+                                    {message.first} {message.last}
+                                </p>
+                                <p className="chatmessage">{message.message}</p>
+                            </div>
                         </div>
                     );
                 })}
@@ -56,7 +77,8 @@ export default function Chatrooms() {
             <div className="chatright">
                 <div className="container-online">
                     <div className="titleandspot">
-                        <h2>Online Users</h2>
+                        <h2> WELCOME TO {rooms.room} CHATROOM!</h2>
+                        <h2>Other online users:</h2>
                     </div>
 
                     <div className="onlineusersdiv">
@@ -102,24 +124,9 @@ export default function Chatrooms() {
                     })}*/
 
 /*
- {messages.map((message) => {
-                    return (
-                        <div className="chatline" key={message.id}>
-                            <Link to={`/user/${message.user_id}`}>
-                                <img
-                                    className="messageImg"
-                                    src={message.imageurl || "/default.png"}
-                                />
-                            </Link>
-
-                            <div className="chattext">
-                                <p className="chatname">
-                                    {message.first} {message.last}
-                                </p>
-                                <p className="chatmessage">{message.message}</p>
-                            </div>
-                        </div>
-                    );
-                })}
-
+   {rooms.room && (
+                    <div className="chatline" key={rooms.messages}>
+                        {rooms.messages}
+                    </div>
+                )}
 */

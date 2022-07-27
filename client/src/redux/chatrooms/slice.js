@@ -6,7 +6,7 @@ export default function chatroomsReducer(rooms = [], action) {
         //depense on if we want user to stay "online" in chat room or not when changing room
         // rooms = [...rooms, action.payload.rooms];
 
-        rooms = [action.payload.rooms];
+        rooms = action.payload.rooms;
     }
 
     return rooms;

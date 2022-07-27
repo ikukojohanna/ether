@@ -38,12 +38,12 @@ ADD bio TEXT;
 
  CREATE TABLE messages (
    id SERIAL PRIMARY KEY,
+   room VARCHAR, 
    user_id INT REFERENCES users(id) NOT NULL,
    message TEXT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 
    );
 
-
-INSERT INTO messages (user_id, message) 
- VALUES (68, 'Hallo lisa');
+INSERT INTO messages (user_id, message, room) 
+ VALUES (23, 'HI artificial message 6', 'general');

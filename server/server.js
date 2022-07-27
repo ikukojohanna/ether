@@ -542,9 +542,6 @@ const messages = {
 };
 
 io.on("connection", function (socket) {
-    //---- conect ----
-    socket.join("General");
-    console.log("general has been joined on connection");
     //below only exists when cookieseesion is passed to io
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -553,6 +550,28 @@ io.on("connection", function (socket) {
     console.log(
         `user with Id: ${userId}and socket.id ${socket.id}, just connected`
     );
+
+    //---- conect ----
+    socket.join("general");
+    socket.emit("joined", { room: "general" });
+
+    console.log("general has been joined on connection");
+
+    db.getMessages("general")
+        .then((result) => {
+            console.log("result.rows in getMessages", result.rows);
+            const messages = result.rows;
+            socket.emit("last-10-messages", {
+                messages: messages,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+    //ONE BIG TABLE? DB QUERIES TO GET SPECFIC ONES
+    //FOR DM... ADD RECIPIENT COLUMN... ORR IS ROOM CO:UM THE RECIPIEN?
+
     //users[userId] = users[userId] || [];
     //same line as above but shorter:
     users[userId] ||= [];
@@ -582,6 +601,19 @@ io.on("connection", function (socket) {
             `user with Id: ${userId}and socket.id ${socket.id} room joined`,
             roomName
         );
+
+        db.getMessages(roomName)
+            .then((result) => {
+                // console.log("result.rows in getMessages", result.rows);
+                const messages = result.rows;
+                socket.emit("last-10-messages", {
+                    messages: messages,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
         //db query to add user to db???? or to get past messages from chat?
 
         //cb(messages[roomName]); //this callback gives you back the past messages of the room you just joined
@@ -684,32 +716,20 @@ io.on("connection", function (socket) {
         console.log("users after deletion", users);
     });
 
-    db.getMessages()
-        .then((result) => {
-            // console.log("result.rows in getMessages", result.rows);
-            const messages = result.rows;
-            socket.emit("last-10-messages", {
-                messages: messages,
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
     socket.on("new-message", (newMsg) => {
         console.log("received a new msg from client", newMsg);
         //first we want to know who sent message
         console.log("author of message was user with id:", userId);
+
+        console.log("received a new msg from client ROOM", newMsg.room);
+        console.log("received a new msg from client MESSAGE", newMsg.message);
+
         //2nd add this msg to chats table
-        db.addMessage(userId, newMsg)
+        db.addMessage(userId, newMsg.room, newMsg.message)
             .then((result) => {
                 console.log("result.rows", result.rows);
                 const resultAddMessage = result.rows[0];
                 console.log("resultAddMessafe", resultAddMessage);
-                //const messages = result.rows;
-                /*socket.emit("last-10-messages", {
-                    messages: messages,
-                });*/
 
                 //3 want to retrieve user infos about the author
                 db.getUserData(userId)
@@ -733,6 +753,7 @@ io.on("connection", function (socket) {
                         console.log(err);
                     });
             })
+
             .catch((err) => {
                 console.log(err);
             });
