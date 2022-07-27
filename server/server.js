@@ -533,11 +533,12 @@ server.listen(process.env.PORT || 3001, function () {
 // ---------------------------------------------------------- SOCKET COMMUNICATION -----------
 
 const users = {};
+
+//do table instead?
 const messages = {
-    general: [],
-    random: [],
-    jokes: [],
-    javascript: [],
+    general: ["hello000", "hi", "whatever"],
+    arakis: ["hellssssso", "hi", "whatever"],
+    solaris: ["hellaaaao", "hi", "whatever"],
 };
 
 io.on("connection", function (socket) {
@@ -575,21 +576,30 @@ io.on("connection", function (socket) {
 
     socket.on("join-room", (roomName) => {
         socket.join(roomName);
+
+        //which user joined which room
         console.log(
             `user with Id: ${userId}and socket.id ${socket.id} room joined`,
             roomName
         );
-
-        console.log("socket.rooms", socket.rooms);
-        socket.to(roomName).emit(`Thanks for joingin! ${roomName}`);
+        //db query to add user to db???? or to get past messages from chat?
 
         //cb(messages[roomName]); //this callback gives you back the past messages of the room you just joined
         //with callback your sever side code in evoking function that was defined client side
 
-        //socket.emit("joined", messages[roomName]);.... return to this code.
+        const messageObjectRoom = {
+            messages: messages[roomName],
+            user: userId,
+            room: roomName,
+        };
+        socket.emit("joined", messageObjectRoom);
+
         //problem with line above is:
         //in my server side code i have to come up with new event name
         //in client side i need to set up new event listener
+
+        console.log("socket.rooms", socket.rooms);
+        socket.to(roomName).emit(`Thanks for joingin! ${roomName}`);
     });
 
     // make a socket..leave option?

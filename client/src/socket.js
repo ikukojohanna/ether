@@ -2,6 +2,8 @@ import { io } from "socket.io-client";
 import { messagesReceived } from "./redux/messages/slice.js";
 import { addNewMessage } from "./redux/messages/slice.js";
 import { addOnlineUsers } from "./redux/online/slice.js";
+import { addChatroom } from "./redux/chatrooms/slice.js";
+
 export let socket; // let because at this point socket is undefined and ii'm going to have to create a connection
 
 //sockets have access to redux store object. passed as argument for following function
@@ -32,6 +34,11 @@ export const init = (store) => {
         socket.on("online-users", (users) => {
             console.log("server just emitted userlist to add", users);
             store.dispatch(addOnlineUsers(users));
+        });
+
+        socket.on("joined", (messageObject) => {
+            console.log("user joined room with these messages", messageObject);
+            store.dispatch(addChatroom(messageObject));
         });
     }
 };

@@ -1,37 +1,24 @@
-// reducer for messages
+// reducer for chatrooms
 
-export default function messagesReducer(messages = [], action) {
-    if (action.type === "messages/received") {
-        // console.log(action);
-        messages = action.payload.messages.messages.reverse();
+export default function chatroomsReducer(rooms = [], action) {
+    if (action.type === "rooms/add") {
+        console.log("action.pazload inside reducer: ", action.payload.rooms);
+        //depense on if we want user to stay "online" in chat room or not when changing room
+        // rooms = [...rooms, action.payload.rooms];
+
+        rooms = [action.payload.rooms];
     }
 
-    if (action.type === "messages/add") {
-        console.log("action.pazload inside reducer: ", action.payload.message);
-
-        messages = [...messages, action.payload.message];
-
-        // console.log("messages", messages);
-    }
-
-    return messages;
+    return rooms;
 }
 
 //action creators
 
-export function messagesReceived(messages) {
-    //console.log("messages in action creator", messages);
+export function addChatroom(rooms) {
+    console.log("rooms in action creator", rooms);
     return {
-        type: "messages/received",
-        payload: { messages },
-    };
-}
-
-export function addNewMessage(message) {
-    console.log("message in action creator", message);
-    return {
-        type: "messages/add",
-        payload: { message },
+        type: "rooms/add",
+        payload: { rooms },
     };
 }
 

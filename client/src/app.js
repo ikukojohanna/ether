@@ -7,7 +7,7 @@ import { Component } from "react";
 import Uploader from "./uploader";
 import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
-import Chat from "./chat";
+import ChatWindow from "./chat";
 import { Link } from "react-router-dom";
 import ThreeTry from "./threetry";
 import FiberTry from "./fibertry";
@@ -141,7 +141,7 @@ export default class App extends Component {
                             <FiberIsland />
                         </Route>
                         <Route path="/chat">
-                            <Chat />
+                            <ChatWindow />
                         </Route>
 
                         <Route exact path="/">
