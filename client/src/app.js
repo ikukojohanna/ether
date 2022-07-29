@@ -14,6 +14,7 @@ import FiberTry from "./fibertry";
 import FiberIsland from "./island";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
+import SkyBoxfn from "./skybox";
 export default class App extends Component {
     constructor() {
         super();
@@ -143,6 +144,9 @@ export default class App extends Component {
                         <Route path="/chat">
                             <ChatWindow />
                         </Route>
+                        <Route path="/skybox">
+                            <SkyBoxfn />
+                        </Route>
 
                         <Route exact path="/">
                             <Profile
@@ -170,7 +174,6 @@ export default class App extends Component {
                         <Route path="/friendswannabees">
                             <FriendsAndsWannabees />
                         </Route>
-                        <ThreeTry />
                     </div>
                 </BrowserRouter>
 

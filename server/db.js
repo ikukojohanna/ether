@@ -180,6 +180,29 @@ LIMIT 10;`;
     return db.query(q, param);
 };
 
+// --------------------------------------------- DM  ---------------------------------------------------
+module.exports.getDms = (currentUser, otherUser) => {
+    const q = `SELECT dms.id, dms.sender_id, dms.recipient_id, dms.message, users.first, users.last, users.imageUrl
+     FROM dms
+     JOIN users 
+     ON (dms.sender_id = users.id)
+    WHERE (dms.recipient_id = $1 AND dms.sender_id = $2)
+    OR (dms.sender_id = $1 AND dms.recipient_id = $2)
+     ORDER BY dms.id DESC
+     LIMIT 10;`;
+    const param = [currentUser, otherUser];
+    return db.query(q, param);
+};
+// --------------------------------------------- add DM---------------------------------------------------
+
+module.exports.addDm = (currentUser, otherUser, message) => {
+    const q = `INSERT INTO dms (sender_id, recipient_id, message)
+     VALUES ($1, $2, $3)
+      RETURNING *
+    `;
+    const param = [currentUser, otherUser, message];
+    return db.query(q, param);
+};
 // --------------------------------------------- add new message ---------------------------------------------------
 
 module.exports.addMessage = (currentUser, room, message) => {

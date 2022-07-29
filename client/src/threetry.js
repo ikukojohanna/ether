@@ -118,9 +118,7 @@ export default function ThreeTry() {
 
         // Background
 
-        const spaceTexture = new THREE.TextureLoader().load(
-            "https://s3.amazonaws.com/spicedling/IUXjBk-7tc88OYLrLIO6BY8E81ygLfE1.jpg  "
-        );
+        const spaceTexture = new THREE.TextureLoader().load("space.jpg");
         scene.background = spaceTexture;
 
         // Avatar

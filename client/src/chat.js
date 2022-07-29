@@ -7,6 +7,8 @@ import { socket } from "./socket";
 export default function ChatWindow(props) {
     const [channel, setChannel] = useState("");
 
+    //make chatrooms and handleclick dynamic!!!!!
+
     const handleClickGeneral = () => {
         console.log("General has been clicked");
         socket.emit("join-room", "general");
@@ -21,21 +23,24 @@ export default function ChatWindow(props) {
         socket.emit("join-room", "solaris");
     };
     return (
-        <div className="chatElement">
-            <div className="chatdiv">
-                <div className="container-rooms">
+        <div className="chatdiv">
+            <div className="container-rooms">
+                {" "}
+                <div className="titleandspot">
                     <h2>Chatrooms</h2>
+                </div>
+                <div className="roomsli">
                     <p onClick={handleClickGeneral}>General</p>
                     <p onClick={handleClickArakis}>Arakis</p>
                     <p onClick={handleClickSolaris}>Solaris</p>
                 </div>
-                <Chatrooms
-                    userId={props.userId}
-                    setChannel={setChannel}
-                    channel={channel}
-                />
-                <OnlineUsers setChannel={setChannel} />
             </div>
+            <Chatrooms
+                userId={props.userId}
+                setChannel={setChannel}
+                channel={channel}
+            />
+            <OnlineUsers setChannel={setChannel} />
         </div>
     );
 }

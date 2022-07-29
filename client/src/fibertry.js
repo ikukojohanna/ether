@@ -9,7 +9,6 @@ import { Boxes } from "./boxes";
 //postprocessing:
 import {
     EffectComposer,
-    DepthOfField,
     Bloom,
     ChromaticAberration,
 } from "@react-three/postprocessing";
@@ -22,7 +21,11 @@ function Carshow() {
 }
 function Cube() {
     const meshRef = useRef(null);
+    const camRef = useRef(null);
 
+    useEffect(() => {
+        console.log("camera position", camRef.position);
+    }, []);
     useFrame(() => {
         if (!meshRef.current) {
             return;
@@ -33,12 +36,29 @@ function Cube() {
 
     return (
         <>
-            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.45} />
-            <PerspectiveCamera makeDefault fov={50} position={[3, 2, 5]} />
+            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.2} />
+
+            <PerspectiveCamera
+                ref={camRef}
+                makeDefault
+                fov={50}
+                position={[0, -1, -5]}
+            />
             <color args={[0, 0, 0]} attach="background" />
-            <mesh ref={meshRef} onClick={() => console.log("click")}>
-                <boxGeometry attach="geometry" args={[1, 1, 1]} />
-                <meshStandardMaterial attach="material" color="blue" />
+
+            <mesh
+                position={[0, 0.2, -10]}
+                ref={meshRef}
+                onClick={() => console.log("click")}
+            >
+                <sphereBufferGeometry args={[0.2, 30, 30]} attach="geometry" />
+
+                <meshStandardMaterial
+                    attach="material"
+                    color="white"
+                    roughness={0.1}
+                    metalness={0.5}
+                />
             </mesh>
             <mesh position={[5, 5, 5]} onClick={() => console.log("click")}>
                 <boxGeometry attach="geometry" args={[6, 3, 6]} />
@@ -67,12 +87,6 @@ function Cube() {
             <Ground />
             <Rings />
             <EffectComposer>
-                <DepthOfField
-                    focusDistance={0.0035}
-                    focalLength={0.01}
-                    bokehScale={3}
-                    height={480}
-                />
                 <Bloom
                     blendFunction={BlendFunction.ADD}
                     intensity={1.3} // The bloom intensity.
@@ -124,4 +138,7 @@ export default function FiberTry() {
                         enablePan={true}
                         enableZoom={true}
                         enableRotate={true}
-                    />*/
+                        
+                    />
+                    
+                     <boxGeometry attach="geometry" args={[1, 1, 1]} />*/

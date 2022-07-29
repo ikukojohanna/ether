@@ -2,6 +2,8 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS codes;
 DROP TABLE IF EXISTS friendships;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS dms;
+
 
 
 
@@ -45,5 +47,18 @@ ADD bio TEXT;
 
    );
 
+
+CREATE TABLE dms (
+   id SERIAL PRIMARY KEY,
+   sender_id INT REFERENCES users(id) NOT NULL,
+   recipient_id INT REFERENCES users(id) NOT NULL,
+   message TEXT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+   );
+
+
 INSERT INTO messages (user_id, message, room) 
  VALUES (23, 'HI artificial message 6', 'general');
+
+  INSERT INTO dms (sender_id, recipient_id, message)
+  VALUES (10, 45, 'hi 45 from 10 AGAIN');

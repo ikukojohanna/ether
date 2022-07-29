@@ -1,24 +1,28 @@
 // reducer for chatrooms
 
-export default function chatroomsReducer(rooms = [], action) {
-    if (action.type === "rooms/add") {
-        console.log("action.pazload inside reducer: ", action.payload.rooms);
+export default function dmUserReducer(dmUser = [], action) {
+    if (action.type === "user/add") {
+        console.log(
+            "action.pazload inside DM reducer: ",
+            action.payload.userId.otherUser
+        );
         //depense on if we want user to stay "online" in chat room or not when changing room
         // rooms = [...rooms, action.payload.rooms];
 
-        rooms = action.payload.rooms;
+        dmUser = action.payload.userId;
+        console.log("dmUser inside reducer", dmUser);
     }
 
-    return rooms;
+    return dmUser;
 }
 
 //action creators
 
-export function addChatroom(rooms) {
-    console.log("rooms in action creator", rooms);
+export function openDm(userId) {
+    console.log("otheruserid in action creator", userId);
     return {
-        type: "rooms/add",
-        payload: { rooms },
+        type: "user/add",
+        payload: { userId },
     };
 }
 

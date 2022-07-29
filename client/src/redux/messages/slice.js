@@ -4,6 +4,7 @@ export default function messagesReducer(messages = [], action) {
     if (action.type === "messages/received") {
         // console.log(action);
         messages = action.payload.messages.messages.reverse();
+        console.log("messages in messages reducer", messages);
     }
 
     if (action.type === "messages/add") {
@@ -20,7 +21,7 @@ export default function messagesReducer(messages = [], action) {
 //action creators
 
 export function messagesReceived(messages) {
-    //console.log("messages in action creator", messages);
+    console.log("messages in action creator", messages);
     return {
         type: "messages/received",
         payload: { messages },

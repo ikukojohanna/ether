@@ -532,16 +532,14 @@ server.listen(process.env.PORT || 3001, function () {
 
 // ---------------------------------------------------------- SOCKET COMMUNICATION -----------
 
-const users = {};
-
-//do table instead?
-const messages = {
-    general: ["hello000", "hi", "whatever"],
-    arakis: ["hellssssso", "hi", "whatever"],
-    solaris: ["hellaaaao", "hi", "whatever"],
-};
-
+let users = {};
+//const messages = {};
+let dmSocketId = "";
 io.on("connection", function (socket) {
+    socket.onAny((event, ...args) => {
+        console.log(event, args);
+    });
+    console.log("users on connection", users);
     //below only exists when cookieseesion is passed to io
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -551,34 +549,11 @@ io.on("connection", function (socket) {
         `user with Id: ${userId}and socket.id ${socket.id}, just connected`
     );
 
-    //---- conect ----
-    socket.join("general");
-    socket.emit("joined", { room: "general" });
-
-    console.log("general has been joined on connection");
-
-    db.getMessages("general")
-        .then((result) => {
-            console.log("result.rows in getMessages", result.rows);
-            const messages = result.rows;
-            socket.emit("last-10-messages", {
-                messages: messages,
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-
-    //ONE BIG TABLE? DB QUERIES TO GET SPECFIC ONES
-    //FOR DM... ADD RECIPIENT COLUMN... ORR IS ROOM CO:UM THE RECIPIEN?
-
     //users[userId] = users[userId] || [];
     //same line as above but shorter:
     users[userId] ||= [];
 
     users[userId] = [...users[userId], socket.id];
-
-    //console.log("users", users);
 
     (async () => {
         try {
@@ -595,6 +570,7 @@ io.on("connection", function (socket) {
 
     socket.on("join-room", (roomName) => {
         socket.join(roomName);
+        console.log("socket.rooms", socket.rooms);
 
         //which user joined which room
         console.log(
@@ -609,68 +585,152 @@ io.on("connection", function (socket) {
                 socket.emit("last-10-messages", {
                     messages: messages,
                 });
+
+                /*
+                const messageObjectRoom = {
+                    messages: messages,
+                    user: userId,
+                    room: roomName,
+                };
+                socket.to(roomName).emit("joined", messageObjectRoom);*/
             })
             .catch((err) => {
                 console.log(err);
             });
 
-        //db query to add user to db???? or to get past messages from chat?
+        //--------------------1 IS THIS FOR MESSAGES IN SOCKET=? LIEK USER::: JOINED
+        //WHATS THE DIFFERENCE??? between lower two
 
-        //cb(messages[roomName]); //this callback gives you back the past messages of the room you just joined
-        //with callback your sever side code in evoking function that was defined client side
+        //io? instead of socket?
+        // socket.emit("joined", messageObjectRoom);
 
-        const messageObjectRoom = {
-            messages: messages[roomName],
-            user: userId,
-            room: roomName,
-        };
-        socket.emit("joined", messageObjectRoom);
-
-        //problem with line above is:
-        //in my server side code i have to come up with new event name
-        //in client side i need to set up new event listener
-
-        console.log("socket.rooms", socket.rooms);
-        socket.to(roomName).emit(`Thanks for joingin! ${roomName}`);
+        // socket.emit("joined", { room: "general" });
     });
 
-    // make a socket..leave option?
+    socket.on("new-message", (newMsg) => {
+        console.log("received a new msg from client", newMsg);
+        //first we want to know who sent message
+        // console.log("author of message was user with id:", userId);
 
-    socket.on(
-        "send message",
-        //to is either room name or socket id
-        //sending message only to room or socket id depending on what your passing in
-        ({ content, to, sender, chatName, isChannel }) => {
-            //message to a ROOM
-            //room name will be the same for every dingle user
-            if (isChannel) {
-                const payload = {
-                    content,
-                    chatName,
-                    sender,
-                };
+        console.log("received a new msg from client ROOM", newMsg.room);
+        //console.log("received a new msg from client MESSAGE", newMsg.message);
+        if (newMsg.room) {
+            //2nd add this msg to chats table
+            db.addMessage(userId, newMsg.room, newMsg.message)
+                .then((result) => {
+                    console.log("result.rows", result.rows);
+                    const resultAddMessage = result.rows[0];
+                    console.log("resultAddMessafe", resultAddMessage);
 
-                socket, to(to).emit("new message", payload);
-            }
-            //DM to a user
-            //private  "chat" will be called different for both users... the name of the other person
-            else {
-                const payload = {
-                    content,
-                    chatName: sender,
-                    sender,
-                };
-                socket, to(to).emit("new message", payload);
-            }
-            //checking that chatName(room) exists
-            if (messages[chatName]) {
-                messages[chatName].push({
-                    sender,
-                    content, //gettin messages retroactively if joining chat alter
+                    //3 want to retrieve user infos about the author
+                    db.getUserData(userId)
+                        .then((result) => {
+                            console.log("result.rows", result.rows);
+                            //4 compose message object that contains user info and message
+
+                            const messageObject = {
+                                first: result.rows[0].first,
+                                last: result.rows[0].last,
+                                imageurl: result.rows[0].imageurl,
+                                message: resultAddMessage.message,
+                                id: resultAddMessage.id,
+                                user_id: resultAddMessage.userId,
+                            };
+                            // 5 send back to all connect sockets, that there is a new message
+                            console.log("messageObject", messageObject);
+                            io.emit("add-new-message", messageObject);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                })
+
+                .catch((err) => {
+                    console.log(err);
                 });
-            }
+        } else {
+            console.log("NO ROOM which means its a dm");
         }
-    );
+    });
+    //-------------------------2 DM ??
+    // to individual socketid (private message)
+    // io.to(socketId).emit(/* ... */);
+
+    socket.on("dm", (dmuserid) => {
+        // console.log("received a new msg from client", newMsg);
+        //console.log("users", users);
+        //console.log("dmuserid", dmuserid);
+
+        dmSocketId = users[dmuserid];
+
+        //dmedUser[userId] = users.filter((user) => user == dmuserid);
+        //let dmedUser = users.dmuserid;
+
+        //console.log("dmedUser", dmedUser);
+
+        console.log(
+            `user with Id: ${userId} woud like to message user with id ${dmuserid} and socket id ${dmSocketId}`
+        );
+
+        db.getDms(userId, dmuserid)
+            .then((result) => {
+                console.log("result.rows in getDMS", result.rows);
+                const messages = result.rows;
+
+                socket.emit("last-10-messages", {
+                    messages: messages,
+                });
+
+                socket.emit("join-dm", { otherUser: dmuserid });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
+
+    socket.on("new-dm", (newDm) => {
+        db.addDm(userId, newDm.user, newDm.message)
+            .then((result) => {
+                console.log("result.rows in addDMS", result.rows);
+
+                const resultAddDm = result.rows[0];
+                console.log("resultAddDm", resultAddDm);
+                //3 want to retrieve user infos about the author
+                db.getUserData(userId)
+                    .then((result) => {
+                        console.log(
+                            "result.rows after get user data in new dm",
+                            result.rows
+                        );
+                        //4 compose message object that contains user info and message
+
+                        const messageObject = {
+                            first: result.rows[0].first,
+                            last: result.rows[0].last,
+                            imageurl: result.rows[0].imageurl,
+                            message: resultAddDm.message,
+                            id: resultAddDm.id,
+                            user_id: resultAddDm.userId,
+                        };
+                        // 5 send back to all connect sockets, that there is a new message
+                        console.log("messageObject", messageObject);
+                        io.emit("add-new-message", messageObject);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    });
+    // check which sockets are active with that user id
+
+    //query ?
+
+    //-------------------------3 HOW DO I KNOW WHEN IN ROOM ???? CAN IS EE WHO IS IN WHAT ROOM?
+
+    // -------------------------4 make a socket..leave option?
 
     //---- disconnect ----
     socket.on("disconnecting", () => {
@@ -715,49 +775,25 @@ io.on("connection", function (socket) {
 
         console.log("users after deletion", users);
     });
-
-    socket.on("new-message", (newMsg) => {
-        console.log("received a new msg from client", newMsg);
-        //first we want to know who sent message
-        console.log("author of message was user with id:", userId);
-
-        console.log("received a new msg from client ROOM", newMsg.room);
-        console.log("received a new msg from client MESSAGE", newMsg.message);
-
-        //2nd add this msg to chats table
-        db.addMessage(userId, newMsg.room, newMsg.message)
-            .then((result) => {
-                console.log("result.rows", result.rows);
-                const resultAddMessage = result.rows[0];
-                console.log("resultAddMessafe", resultAddMessage);
-
-                //3 want to retrieve user infos about the author
-                db.getUserData(userId)
-                    .then((result) => {
-                        console.log("result.rows", result.rows);
-                        //4 compose message object that contains user info and message
-
-                        const messageObject = {
-                            first: result.rows[0].first,
-                            last: result.rows[0].last,
-                            imageurl: result.rows[0].imageurl,
-                            message: resultAddMessage.message,
-                            id: resultAddMessage.id,
-                            user_id: resultAddMessage.userId,
-                        };
-                        // 5 send back to all connect sockets, that there is a new message
-                        console.log("messageObject", messageObject);
-                        io.emit("add-new-message", messageObject);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            })
-
-            .catch((err) => {
-                console.log(err);
-            });
-    });
 });
 
 //---------------------------  SOCKET ROOMS!
+/*
+    //---- conect ----
+    socket.join("general");
+    socket.emit("joined", { room: "general" });
+
+    console.log("general has been joined on connection");
+
+    db.getMessages("general")
+        .then((result) => {
+            console.log("result.rows in getMessages", result.rows);
+            const messages = result.rows;
+            socket.emit("last-10-messages", {
+                messages: messages,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+*/

@@ -4,14 +4,10 @@ import { MeshReflectorMaterial } from "@react-three/drei";
 import { LinearEncoding, RepeatWrapping, TextureLoader } from "three";
 
 export function Ground() {
-    // thanks to https://polyhaven.com/a/rough_plasterbrick_05 !
-
-    //CANT ACCESS PUBLIC FOLDER???
-
     const [roughness, normal] = useLoader(TextureLoader, [
-        "https://raw.githubusercontent.com/Domenicobrz/R3F-in-practice/main/car-show/public/textures/terrain-roughness.jpg",
+        "textures/terrain-roughness.jpeg",
 
-        "https://raw.githubusercontent.com/Domenicobrz/R3F-in-practice/main/car-show/public/textures/terrain-normal.jpg",
+        "textures/terrain-normal.jpeg",
     ]);
 
     useEffect(() => {

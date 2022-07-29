@@ -11,17 +11,15 @@ export default function Welcome() {
             <Logo />
             <FiberTry />
             <BrowserRouter>
-                <div>
-                    <Route exact path="/">
-                        <Registration />
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route exact path="/reset">
-                        <ResetPassword />
-                    </Route>
-                </div>
+                <Route exact path="/">
+                    <Registration />
+                </Route>
+                <Route path="/login">
+                    <Login />
+                </Route>
+                <Route exact path="/reset">
+                    <ResetPassword />
+                </Route>
             </BrowserRouter>
         </div>
     );

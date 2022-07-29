@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { messagesReceived } from "./redux/messages/slice.js";
 import { addNewMessage } from "./redux/messages/slice.js";
 import { addOnlineUsers } from "./redux/online/slice.js";
-import { addChatroom } from "./redux/chatrooms/slice.js";
+import { openDm } from "./redux/chatrooms/slice.js";
 
 export let socket; // let because at this point socket is undefined and ii'm going to have to create a connection
 
@@ -36,9 +36,10 @@ export const init = (store) => {
             store.dispatch(addOnlineUsers(users));
         });
 
-        socket.on("joined", (messageObject) => {
-            console.log("user joined room with these messages", messageObject);
-            store.dispatch(addChatroom(messageObject));
+        socket.on("join-dm", (userId) => {
+            console.log("join-dm userId", userId);
+
+            store.dispatch(openDm(userId));
         });
     }
 };
