@@ -35,6 +35,11 @@ export function addNewMessage(message) {
         payload: { message },
     };
 }
+//TODO:
+
+//- online users.... filter in server to get users in one room
+//- räume sagen user joined mit socket.to() rest vom code normal
+//world ... on click event filter through array
 
 //_---------------------------------------------------------------------------------------------------------------------------------------
 //_-------------------- RECAP OLI -------------------------

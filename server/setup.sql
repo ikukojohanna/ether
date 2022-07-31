@@ -58,7 +58,7 @@ CREATE TABLE dms (
 
 
 INSERT INTO messages (user_id, message, room) 
- VALUES (23, 'HI artificial message 6', 'general');
+ VALUES (48, 'HI artificial message 7', 'vogsphere');
 
   INSERT INTO dms (sender_id, recipient_id, message)
   VALUES (10, 45, 'hi 45 from 10 AGAIN');

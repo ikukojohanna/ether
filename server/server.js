@@ -592,7 +592,9 @@ io.on("connection", function (socket) {
                     user: userId,
                     room: roomName,
                 };
-                socket.to(roomName).emit("joined", messageObjectRoom);*/
+
+
+                socket.to(roomName).emit("joined", Userobject;*/
             })
             .catch((err) => {
                 console.log(err);

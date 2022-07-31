@@ -15,6 +15,11 @@ import FiberIsland from "./island";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import SkyBoxfn from "./skybox";
+
+import ClickApp from "./objectsclickapp";
+
+//import AppLinks from "./appLinks";
+
 export default class App extends Component {
     constructor() {
         super();
@@ -33,6 +38,34 @@ export default class App extends Component {
     //its going to automatically run WHEN component first renders
 
     componentDidMount() {
+        //addEventListener on the window object and listen for the popstate event.
+        /*window.onpopstate = function (event) {
+            alert(
+                "POPSTATE location: " +
+                    document.location +
+                    ", state: " +
+                    JSON.stringify(event.state)
+            );
+        };
+
+        history.onpushstate = function (event) {
+            console.log(
+                " PUSHSTATE location: " +
+                    document.location +
+                    ", state: " +
+                    JSON.stringify(event.state)
+            );
+            console.log("slice:::", location.pathname.slice(1));
+            console.log("event state", event.state);
+        };*/
+
+        /*window.addEventListener("pushstate", (e) => {
+            console.log("pushstate", location.pathname, e.state);
+            // show whatever is appropriate for the new url
+            // if you need it, e.state has the data you passed to `pushState`
+            this.imgSelected = location.pathname.slice(1);
+        });*/
+
         console.log("app mounted");
 
         fetch("/user")
@@ -94,6 +127,7 @@ export default class App extends Component {
                 console.log("error in logout ", err);
             });
     }
+
     render() {
         return (
             <div className="appdiv">
@@ -128,7 +162,7 @@ export default class App extends Component {
                             }}
                         />
                     </div>
-                    <div>
+                    <div id="middlesection">
                         <Route path="/threetry">
                             <ThreeTry
                                 imageUrl={this.state.imageUrl || "/default.png"}
@@ -137,7 +171,6 @@ export default class App extends Component {
                         <Route path="/fibertry">
                             <FiberTry />
                         </Route>
-
                         <Route path="/island">
                             <FiberIsland />
                         </Route>
@@ -146,6 +179,10 @@ export default class App extends Component {
                         </Route>
                         <Route path="/skybox">
                             <SkyBoxfn />
+                        </Route>
+
+                        <Route path="/clickapp">
+                            <ClickApp />
                         </Route>
 
                         <Route exact path="/">
@@ -164,7 +201,6 @@ export default class App extends Component {
                                 }}
                             />
                         </Route>
-
                         <Route path="/find-people">
                             <FindPeople />
                         </Route>
@@ -211,4 +247,20 @@ export default class App extends Component {
     }
 }
 
-/* für social netwwork upload.... x    <ThreeTry />*/
+/* für social netwwork upload.... x    <ThreeTry />
+
+
+  <Route path="/clickapp">
+                            <ClickApp />
+                        </Route>
+
+
+
+                        <Route
+                            component={({ history }) => {
+                                window.appHistory = history;
+                                return <AppLinks />;
+                            }}
+                        />
+
+*/

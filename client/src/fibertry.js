@@ -2,9 +2,10 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { useRef, useEffect } from "react";
 
-import { Ground } from "./ground";
+//import { Ground } from "./ground";
 import { Rings } from "./rings";
 import { Boxes } from "./boxes";
+import { Ground } from "./ground";
 
 //postprocessing:
 import {
@@ -36,13 +37,12 @@ function Cube() {
 
     return (
         <>
-            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.2} />
-
+            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.5} />
             <PerspectiveCamera
                 ref={camRef}
                 makeDefault
                 fov={50}
-                position={[0, -1, -5]}
+                position={[0, -1, -2]}
             />
             <color args={[0, 0, 0]} attach="background" />
 
@@ -65,6 +65,8 @@ function Cube() {
                 <meshStandardMaterial attach="material" color="red" />
             </mesh>
 
+            <Ground />
+
             <spotLight
                 color={[1, 0.25, 0.7]}
                 intensity={1.5}
@@ -84,7 +86,7 @@ function Cube() {
                 shadow-bias={-0.0001}
             />
             <Boxes />
-            <Ground />
+            <Rings />
             <Rings />
             <EffectComposer>
                 <Bloom
@@ -117,7 +119,11 @@ export default function FiberTry() {
     return (
         <div className="fiberdiv" onScroll={() => console.log("scroll div")}>
             <Suspense fallback={null}>
-                <Canvas onClick={() => console.log("clicked Canvas")} shadows>
+                <Canvas
+                    mode="concurrent"
+                    onClick={() => console.log("clicked Canvas")}
+                    shadows
+                >
                     <Cube />
                     <Carshow />
                 </Canvas>

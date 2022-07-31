@@ -20,11 +20,12 @@ export default function Chatrooms() {
     console.log("rooms in chat component", messages);
     console.log("messages[0]in chat component", messages[0]);
     console.log("dm other user in chat component", dm.otherUser);
-
+    /*
     useEffect(() => {
         socket.emit("join-room", "general");
         console.log("useeffect join general");
-    }, []);
+    }, []);*/
+
     useEffect(() => {
         // on first mount and every time a new message gets added
         // we want to adjust our elements scrollTop to be the scrollHeight minus height

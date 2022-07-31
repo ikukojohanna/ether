@@ -7,7 +7,8 @@ export function Ground() {
     const [roughness, normal] = useLoader(TextureLoader, [
         "textures/terrain-roughness.jpeg",
 
-        "textures/terrain-normal.jpeg",
+        //  "textures/terrain-normal.jpeg",
+        "logo.jpg",
     ]);
 
     useEffect(() => {
@@ -22,14 +23,14 @@ export function Ground() {
     }, [normal, roughness]);
 
     useFrame((state) => {
-        let t = -state.clock.getElapsedTime() * 0.128;
+        let t = -state.clock.getElapsedTime() * 0.0528;
         roughness.offset.set(0, t % 1);
         normal.offset.set(0, t % 1);
     });
 
     return (
-        <mesh rotation-x={-Math.PI * 0.5} castShadow receiveShadow>
-            <planeGeometry args={[30, 30]} />
+        <mesh rotation-x={-Math.PI * 0.4} castShadow receiveShadow>
+            <planeGeometry args={[1000, 1000]} />
             <MeshReflectorMaterial
                 envMapIntensity={0}
                 normalMap={normal}
@@ -54,3 +55,10 @@ export function Ground() {
         </mesh>
     );
 }
+
+/*
+
+        <mesh rotation-x={-Math.PI * 0.5} castShadow receiveShadow>
+
+
+*/

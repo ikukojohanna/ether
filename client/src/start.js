@@ -1,6 +1,7 @@
-import ReactDOM from "react-dom";
+import * as ReactDOMClient from "react-dom/client";
 import Welcome from "./welcome";
 import App from "./app";
+import React from "react";
 
 //----------------------------------------- Initializing IO socket------------------------------------------------------------------------
 import { init } from "./socket";
@@ -25,17 +26,22 @@ fetch("/user/id.json")
     .then((data) => {
         if (!data.userId) {
             //injecting elements into main in index.html
-            ReactDOM.render(<Welcome />, document.querySelector("main"));
+
+            ReactDOMClient.createRoot(document.querySelector("main")).render(
+                <React.StrictMode>
+                    <Welcome />
+                </React.StrictMode>
+            );
         } else {
             //initialize websocket connection and pass the store to it...
             init(store);
-
-            ReactDOM.render(
+            ReactDOMClient.createRoot(document.querySelector("main")).render(
                 //REDUX: wrap App in Provider to pass down accessto reader store
-                <Provider store={store}>
-                    <App />
-                </Provider>,
-                document.querySelector("main")
+                <React.StrictMode>
+                    <Provider store={store}>
+                        <App />
+                    </Provider>
+                </React.StrictMode>
             );
         }
     })

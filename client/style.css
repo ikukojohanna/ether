@@ -20,13 +20,21 @@ canvas {
     top: 0;
     left: 0;
 
-    /* z-index: -1;*/
+    z-index: -1;
+}
+
+.clickdiv {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 /*------ REST OF CODE-------*/
 
 body {
-    background-image: url("/space.jpg");
     color: rgb(239, 241, 255);
     font-family: Georgia, "Times New Roman", Times, serif;
     overflow: hidden;
@@ -114,16 +122,17 @@ a:visited {
 
 /*------------- REGISTER ----------------*/
 .registrationdiv {
-    width: 50vw;
+    width: 60vh;
     height: 60vh;
-    background-color: rgba(32, 40, 67, 0.131);
-    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    background-color: rgba(134, 65, 126, 0.208);
+    box-shadow: 0 0 30px 4px rgb(134, 65, 126);
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 2;
+    border-radius: 50%;
 }
 h1 {
     font-size: 24px;
@@ -149,8 +158,11 @@ h3 {
 }
 
 /*------------- APP JS----------------*/
+/*
 .appdiv {
-    margin-top: 6%;
+    margin: 0;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -158,8 +170,26 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
+    z-index: -1;
+}*/
+.middlesection {
+    display: flex;
+    position: absolute;
 
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(32, 40, 67, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    border-radius: 50px;
+    z-index: 3;
+
+    width: 90vw;
+    height: 70vh;
+
+    margin: 2% 0 5% 0;
+}
 #navbar {
     position: absolute;
     top: 0;
@@ -216,10 +246,10 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(32, 40, 67, 0.131);
+    background-color: rgba(255, 255, 255, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
-    z-index: 1;
+    z-index: 3;
 
     width: 90vw;
     height: 70vh;
@@ -671,7 +701,51 @@ button:active {
     margin-left: 0;
 }
 /* ----------------------------------------------------- CHAT -----------------------------------------------------*/
+/*
+#philia {
+    z-index: 5;
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+    position: absolute;
+    top: 50vh;
+    left: 10vw;
+}
+#solaris {
+    z-index: 5;
 
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+}
+#arakis {
+    z-index: 5;
+
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+}
+#lv-426 {
+    z-index: 5;
+
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+}
+#dagobah {
+    z-index: 5;
+
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+}
+#vogsphere {
+    z-index: 5;
+
+    height: 50px;
+    width: 50px;
+    background-color: #62bd19;
+}*/
 .chatdiv {
     display: flex;
     flex-wrap: wrap;
@@ -681,15 +755,21 @@ button:active {
     background-color: rgba(32, 40, 67, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
-
-    width: 90vw;
+    z-index: 5;
+    width: 60vw;
     height: 70vh;
-
-    margin: 2% 0 5% 0;
+    top: 8rem;
+    left: 5rem;
+    margin: 2% 50% 5% 0;
+    position: fixed;
+    border-radius: 50px;
 }
 .chatmiddle {
+    z-index: 5;
+    border-radius: 50px 0 0 50px;
+
     height: 100%;
-    width: 52%;
+    width: 70%;
     margin: 0%;
     text-align: center;
     display: flex;
@@ -703,6 +783,8 @@ button:active {
 }
 
 .chatmiddle h2 {
+    z-index: 5;
+
     width: 100%;
     height: 10%;
     background-color: rgba(75, 85, 117, 0.131);
@@ -715,6 +797,8 @@ button:active {
 }
 
 .container-rooms {
+    z-index: 5;
+
     height: 100%;
     width: 15%;
     background-color: rgba(75, 85, 117, 0.131);
@@ -732,7 +816,7 @@ button:active {
     display: flex;
     flex-direction: column;
     background-color: rgba(75, 85, 117, 0.131);
-
+    border-radius: 50px 0 0 0;
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
 
     padding: 5%;
@@ -788,6 +872,7 @@ button:active {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    z-index: 5;
 }
 
 .textAreaChat {
