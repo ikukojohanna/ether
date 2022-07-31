@@ -58,7 +58,7 @@ export default function ChatWindow(props) {
             </div>
             <div id="philia"></div>
             <div id="solaris"></div>
-            <div id="arakis"></div>
+            <div id="arrakis"></div>
             <div id="lv-426"></div>
             <div id="dagobah"></div>
             <div id="vogsphere"></div>

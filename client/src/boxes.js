@@ -8,6 +8,7 @@ function Box({ color }) {
     const [position, setPosition] = useState(getInitialPosition());
     const [xRotSpeed] = useState(() => Math.random());
     const [yRotSpeed] = useState(() => Math.random());
+
     const [scale] = useState(() => Math.pow(Math.random(), 2.0) * 0.2 + 0.01);
 
     function getInitialPosition() {

@@ -5,8 +5,7 @@ import { useRef, useEffect } from "react";
 //import { Ground } from "./ground";
 import { Rings } from "./rings";
 import { Boxes } from "./boxes";
-import { Ground } from "./ground";
-
+import { Ground2 } from "./ground2";
 //postprocessing:
 import {
     EffectComposer,
@@ -27,6 +26,7 @@ function Cube() {
     useEffect(() => {
         console.log("camera position", camRef.position);
     }, []);
+
     useFrame(() => {
         if (!meshRef.current) {
             return;
@@ -37,12 +37,12 @@ function Cube() {
 
     return (
         <>
-            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.5} />
+            <OrbitControls target={[0, 0.35, 0]} maxPolarAngle={1.45} />
             <PerspectiveCamera
                 ref={camRef}
                 makeDefault
                 fov={50}
-                position={[0, -1, -2]}
+                position={[0, 2, 5]}
             />
             <color args={[0, 0, 0]} attach="background" />
 
@@ -65,7 +65,7 @@ function Cube() {
                 <meshStandardMaterial attach="material" color="red" />
             </mesh>
 
-            <Ground />
+            <Ground2 />
 
             <spotLight
                 color={[1, 0.25, 0.7]}
