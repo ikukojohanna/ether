@@ -2,9 +2,10 @@ import { Canvas } from "@react-three/fiber";
 //import { Clicks } from "./objectclicked";
 import { PerspectiveCamera } from "@react-three/drei";
 import { Suspense } from "react";
-
+import TextEther from "./textEther";
+//import Sound from "./sound";
 import { useRef, useEffect, useState } from "react";
-import { Sphere, Text } from "@react-three/drei";
+import { Sphere } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Ground } from "./ground";
 import * as THREE from "three";
@@ -12,14 +13,20 @@ import { MeshReflectorMaterial } from "@react-three/drei";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
 //const { OrbitControls } = require("@react-three/drei");
+import { PositionalAudio } from "@react-three/drei";
 
-//postprocessing:
+import { Stars } from "@react-three/drei";
+
+//import Sound2 from "./sound";
+
+//postprocessing
 import {
     EffectComposer,
     Bloom,
     ChromaticAberration,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+
 function Clicks({
     p = new THREE.Vector3(),
     q = new THREE.Quaternion(),
@@ -88,6 +95,13 @@ function Clicks({
         // "logo.jpg",
     ]);
 
+    const [roughness2, normal2] = useLoader(TextureLoader, [
+        "textures/coral_fort_wall_01_diff_4k.jpg",
+        "textures/coral_fort_wall_01_disp_4k.png",
+
+        // "logo.jpg",
+    ]);
+
     // We need to know what object was clicked
     // Keeping track of this in state is not super advisable but this setup
     // relies on a new selection causing a re-render. It's probably better
@@ -107,8 +121,6 @@ function Clicks({
                     history.onpushstate({ state: state });
                 }
 
-                // ... whatever else you want to do
-                // maybe call onhashchange e.handler
                 return pushState.apply(history, arguments);
             };
         })(window.history);
@@ -186,101 +198,65 @@ function Clicks({
             <color args={[0, 0, 0]} attach="background" />
 
             <Ground />
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[0, 15, -5]}
-                fontSize={2}
-            ></Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[0, 7.5, 0]}
-                fontSize={2}
+            <Stars />
+
+            <Sphere
+                ref={meshRef}
+                castShadow
+                args={[0.5, 30, 30]}
+                position={[12, 25, 0]}
+                userData={{ viewPos: [0, 0, 0.5] }}
+                onClick={(e) => {
+                    e.stopPropagation();
+
+                    if (clicked === e.object) {
+                        window.history.pushState("empty", "", "chat");
+
+                        setClicked(null);
+                    } else {
+                        setClicked(e.object);
+                        window.history.pushState("lv-426", "", "lv-426");
+                        console.log("lv clicked");
+                    }
+                }}
+                onPointerMissed={() => {
+                    setClicked(null);
+                    window.history.pushState("empty", "", "chat");
+                }}
             >
                 {" "}
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[-10, 7.5, 0]}
-                fontSize={1}
-            >
-                Arrakis{" "}
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[-20, 7.5, 5]}
-                fontSize={1}
-            >
-                Solaris{" "}
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[-30, 7.5, 10]}
-                fontSize={1}
-            >
-                Philia
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[10, 7.5, 0]}
-                fontSize={1}
-            >
-                LV-426
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[20, 7.5, 5]}
-                fontSize={1}
-            >
-                Dagobah
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[0, 0, 0]}
-                position={[30, 7.5, 10]}
-                fontSize={1}
-            >
-                Vogsphere
-            </Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[Math.PI / 2, Math.PI, 0]}
-                position={[-10, 3, -3]}
-                fontSize={1}
-                onClick={() => history.push({}, "", "arrakis")}
-            ></Text>
-            <Text
-                color="white" // default
-                anchorX="center" // default
-                anchorY="middle" // default
-                rotation={[Math.PI / 2, Math.PI / 2, Math.PI / -2]}
-                position={[12.1, 3, 0]}
-                fontSize={0.3}
-            ></Text>
+                <group position={[12, 25, 0]}>
+                    <PositionalAudio
+                        url="sample-3s.mp3" // Url of the sound file
+                        distance={1} // Camera distance (default=1)
+                        volume={10}
+                        autoplay
+                    />
+                </group>
+                <MeshReflectorMaterial
+                    side={THREE.DoubleSide}
+                    envMapIntensity={0}
+                    normalMap={roughness2}
+                    normalScale={[0.15, 0.15]}
+                    roughnessMap={normal2}
+                    dithering={true}
+                    color={[10, 10, 10]}
+                    roughness={10}
+                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                    mixStrength={80} // Strength of the reflections
+                    mixContrast={1} // Contrast of the reflections
+                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                    debug={0}
+                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                    metalness={1}
+                />{" "}
+            </Sphere>
             <Sphere
                 ref={meshRef}
                 castShadow
@@ -329,7 +305,6 @@ function Clicks({
                     metalness={0.5}
                 />{" "}
             </Sphere>
-
             <Sphere
                 side={THREE.DoubleSide}
                 ref={meshRef2}
@@ -582,6 +557,7 @@ function Clicks({
                 castShadow
                 shadow-bias={-1}
             />
+
             <spotLight
                 color={[0.14, 0.5, 1]}
                 intensity={0.5}
@@ -591,6 +567,7 @@ function Clicks({
                 castShadow
                 shadow-bias={-1}
             />
+
             <EffectComposer>
                 <Bloom
                     blendFunction={BlendFunction.ADD}
@@ -603,7 +580,7 @@ function Clicks({
                 />
                 <ChromaticAberration
                     blendFunction={BlendFunction.NORMAL} // blend mode
-                    offset={[0.0005, 0.00012]} // color offset
+                    offset={[0.0005, 0.0012]} // color offset
                 />
             </EffectComposer>
         </>
@@ -616,6 +593,7 @@ export default function ClickApp() {
                 <Canvas mode="concurrent" shadows>
                     <PerspectiveCamera makeDefault position={[0, 10, 40]} />
                     <Clicks />
+                    <TextEther />
                 </Canvas>
             </Suspense>
         </div>
@@ -628,5 +606,21 @@ export default function ClickApp() {
                 args={[0, 0, 0]}
                 color="transparent"
             >
+
+
+             <PositionalAudio
+                    url="sample-3s.mp3" // Url of the sound file
+                    distance={1} // Camera distance (default=1)
+                    loop // Repat play (default=true)$
+                    play
+                    volume={10}
+                />
+                            //
+                <Sound2 url="sample-3s.mp3" position={[12, 25, 0]} />
+
                 <meshStandardMaterial color={"white"} />
-            </Plane>*/
+            </Plane>
+            
+            
+                               
+*/

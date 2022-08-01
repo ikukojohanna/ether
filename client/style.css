@@ -1,5 +1,5 @@
 /*------ CANVAS ------*/
-
+@import url("https://fonts.googleapis.com/css2?family=Orbitron&display=swap");
 .canvasdiv {
     overflow: scroll;
 }
@@ -34,12 +34,13 @@ canvas {
 
 /*------ REST OF CODE-------*/
 * {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Orbitron", sans-serif;
 }
 body {
     color: rgb(239, 241, 255);
     overflow: hidden;
     box-sizing: border-box;
+    background-color: #000;
 }
 
 a {
@@ -192,6 +193,7 @@ h3 {
 
     margin: 2% 0 5% 0;
 }
+
 #navbar {
     position: absolute;
     top: 0;
@@ -204,6 +206,7 @@ h3 {
     align-items: center;
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     padding: 0.2%;
+    display: hidden;
 }
 
 #logonav {
@@ -635,7 +638,7 @@ button {
     background-color: rgba(65, 82, 137, 0.731);
     color: rgb(255, 255, 255);
     border-radius: 10px;
-    font-family: "Libre Baskerville", serif;
+    font-family: "Orbitron", sans-serif;
     font-weight: 100;
     font-size: 16px;
     width: 45%;
@@ -702,51 +705,7 @@ button:active {
     margin-left: 0;
 }
 /* ----------------------------------------------------- CHAT -----------------------------------------------------*/
-/*
-#philia {
-    z-index: 5;
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-    position: absolute;
-    top: 50vh;
-    left: 10vw;
-}
-#solaris {
-    z-index: 5;
 
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-}
-#arakis {
-    z-index: 5;
-
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-}
-#lv-426 {
-    z-index: 5;
-
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-}
-#dagobah {
-    z-index: 5;
-
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-}
-#vogsphere {
-    z-index: 5;
-
-    height: 50px;
-    width: 50px;
-    background-color: #62bd19;
-}*/
 .chatdiv {
     display: flex;
     flex-wrap: wrap;
@@ -779,6 +738,8 @@ button:active {
     z-index: 5;
     border-radius: 50px 0 0 0;
 
+    text-transform: capitalize;
+
     width: 100%;
     height: 10%;
     background-color: rgba(75, 85, 117, 0.131);
@@ -802,7 +763,6 @@ button:active {
     background-color: rgba(18, 18, 18, 0.717);
     border-radius: 0 0 0 50px;
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
-
     padding: 5%;
 }
 
@@ -843,6 +803,7 @@ button:active {
     background-color: rgba(240, 248, 255, 0.285);
     border-radius: 0 50px 50px 50px;
     width: fit-content;
+    font-family: "Courier New", Courier, monospace;
 }
 .onlineImg {
     height: 50px;
@@ -906,6 +867,9 @@ button:active {
     align-items: center;
     font-size: 15px;
     padding-bottom: 5%;
+}
+.onlineuserli p {
+    font-family: "Courier New", Courier, monospace;
 }
 .titleandspot {
     width: 100%;

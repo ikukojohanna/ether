@@ -133,8 +133,6 @@ export default class App extends Component {
             <div className="appdiv">
                 <BrowserRouter>
                     <div id="navbar">
-                        <img id="logonav" src="/theether.png" />
-
                         <Link to="/find-people">
                             <h3 className="navh3">Find Users</h3>
                         </Link>

@@ -6,6 +6,8 @@ import { useRef, useEffect } from "react";
 import { Rings } from "./rings";
 import { Boxes } from "./boxes";
 import { Ground2 } from "./ground2";
+import { Text } from "@react-three/drei";
+
 //postprocessing:
 import {
     EffectComposer,
@@ -64,6 +66,17 @@ function Cube() {
                 <boxGeometry attach="geometry" args={[6, 3, 6]} />
                 <meshStandardMaterial attach="material" color="red" />
             </mesh>
+            <Text
+                font="https://fonts.gstatic.com/s/orbitron/v9/yMJRMIlzdpvBhQQL_Qq7dys.woff"
+                color="white" // default
+                anchorX="center" // default
+                anchorY="middle" // default
+                rotation={[-0.5, 0, 0]}
+                position={[0, 2.1, -1.5]}
+                fontSize={0.4}
+            >
+                Welcome to the Ether
+            </Text>
 
             <Ground2 />
 
