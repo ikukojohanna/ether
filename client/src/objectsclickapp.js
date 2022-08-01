@@ -196,554 +196,561 @@ function Clicks({
 
     return (
         <>
-            <color args={[0, 0, 0]} attach="background" />
-            <Ground />
-            <Sphere
-                ref={meshRef}
-                castShadow
-                args={[0.5, 30, 30]}
-                position={[50, 39, -50]}
-                userData={{ viewPos: [0, 0, 0] }}
-                onClick={(e) => {
-                    e.stopPropagation();
+            <Suspense fallback={null}>
+                <color args={[0, 0, 0]} attach="background" />
+                <Sphere
+                    ref={meshRef}
+                    castShadow
+                    args={[0.5, 30, 30]}
+                    position={[50, 39, -50]}
+                    userData={{ viewPos: [0, 0, 0] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
 
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
 
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("lv-426", "", "lv-426");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
                         setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("lv-426", "", "lv-426");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                {" "}
-                <MeshReflectorMaterial
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    {" "}
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={roughness}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={normal}
+                        dithering={true}
+                        color={[10, 10, 10]}
+                        roughness={5}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1}
+                    />{" "}
+                </Sphere>
+
+                <Sphere
+                    ref={meshRef}
+                    castShadow
+                    args={[0.5, 30, 30]}
+                    position={[2, 18, 0]}
+                    userData={{ viewPos: [-0.5, 0, -2] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("lv-426", "", "lv-426");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
+                        setClicked(null);
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    {" "}
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={roughness}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={normal}
+                        dithering={true}
+                        color={[10, 10, 10]}
+                        roughness={10}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1}
+                    />{" "}
+                </Sphere>
+
+                <Sphere
+                    ref={meshRef}
+                    castShadow
+                    args={[0.8, 30, 30]}
+                    position={[-7, 20, 0]}
+                    userData={{ viewPos: [-0.5, 0, -0.5] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("lv-426", "", "lv-426");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
+                        setClicked(null);
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    {" "}
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[10, 10, 10]}
+                        roughness={10}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1}
+                    />{" "}
+                </Sphere>
+
+                <Sphere
+                    ref={meshRef}
+                    castShadow
+                    args={[0.8, 30, 30]}
+                    position={[-50, 34, -40]}
+                    userData={{ viewPos: [0, 0, 0] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("lv-426", "", "lv-426");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
+                        setClicked(null);
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    {" "}
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={roughness}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={normal}
+                        dithering={true}
+                        color={[10, 10, 10]}
+                        roughness={5}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1}
+                    />{" "}
+                </Sphere>
+                <Sphere
+                    ref={meshRef}
+                    castShadow
+                    args={[3, 30, 30]}
+                    position={[10, 3, 0]}
+                    userData={{ viewPos: [0, 0, 0.5] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("lv-426", "", "lv-426");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
+                        setClicked(null);
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    {" "}
+                    <PositionalAudio
+                        url="CONTROL.mp3" // Url of the sound file
+                        distance={0.1} // Camera distance (default=1)
+                        volume={0.001}
+                        autoplay
+                    />
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[5, 0.015, 0.015]}
+                        roughness={10}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={0.5}
+                    />{" "}
+                </Sphere>
+                <Sphere
                     side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={roughness}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={normal}
-                    dithering={true}
-                    color={[10, 10, 10]}
-                    roughness={5}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1}
-                />{" "}
-            </Sphere>
+                    ref={meshRef2}
+                    castShadow
+                    args={[2, 30, 30]}
+                    position={[20, 3, 5]}
+                    userData={{ viewPos: [0, 5, 0] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
 
-            <Sphere
-                ref={meshRef}
-                castShadow
-                args={[0.5, 30, 30]}
-                position={[2, 18, 0]}
-                userData={{ viewPos: [-0.5, 0, -2] }}
-                onClick={(e) => {
-                    e.stopPropagation();
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
 
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("dagobah", "", "dagobah");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
                         setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("lv-426", "", "lv-426");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                {" "}
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={roughness}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={normal}
-                    dithering={true}
-                    color={[10, 10, 10]}
-                    roughness={10}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1}
-                />{" "}
-            </Sphere>
-
-            <Sphere
-                ref={meshRef}
-                castShadow
-                args={[0.8, 30, 30]}
-                position={[-7, 20, 0]}
-                userData={{ viewPos: [-0.5, 0, -0.5] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
                         window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    <PositionalAudio
+                        url="Ice.mp3" // Url of the sound file
+                        distance={0.8} // Camera distance (default=1)
+                        volume={0.1}
+                        autoplay
+                    />
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={roughness}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={normal}
+                        dithering={true}
+                        color={[1, 5, 1]}
+                        roughness={1}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0.8} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1.2}
+                    />{" "}
+                </Sphere>
+                <Sphere
+                    ref={meshRef3}
+                    castShadow
+                    args={[3.5, 30, 30]}
+                    position={[30, 3, 10]}
+                    userData={{ viewPos: [5, 7, 0] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
 
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState(
+                                "vogsphere",
+                                "",
+                                "vogsphere"
+                            );
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
                         setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("lv-426", "", "lv-426");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                {" "}
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[10, 10, 10]}
-                    roughness={10}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1}
-                />{" "}
-            </Sphere>
-
-            <Sphere
-                ref={meshRef}
-                castShadow
-                args={[0.8, 30, 30]}
-                position={[-50, 34, -40]}
-                userData={{ viewPos: [0, 0, 0] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
                         window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[5, 10, 5]}
+                        roughness={1}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1}
+                    />{" "}
+                </Sphere>
+                <Sphere
+                    ref={meshRef4}
+                    castShadow
+                    args={[1, 30, 30]}
+                    position={[-10, 3, 0]}
+                    userData={{ viewPos: [-2, 2, -2] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
 
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("arrakis", "", "arrakis");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
                         setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("lv-426", "", "lv-426");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                {" "}
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={roughness}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={normal}
-                    dithering={true}
-                    color={[10, 10, 10]}
-                    roughness={5}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1}
-                />{" "}
-            </Sphere>
-            <Sphere
-                ref={meshRef}
-                castShadow
-                args={[3, 30, 30]}
-                position={[10, 3, 0]}
-                userData={{ viewPos: [0, 0, 0.5] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
                         window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[5, 1, 0]}
+                        roughness={100}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={50} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={0.8}
+                    />{" "}
+                </Sphere>
+                <Sphere
+                    ref={meshRef5}
+                    castShadow
+                    args={[1.8, 30, 30]}
+                    position={[-20, 3, 5]}
+                    userData={{ viewPos: [0, 0, 0] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
 
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("solaris", "", "solaris");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
                         setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("lv-426", "", "lv-426");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                {" "}
-                <PositionalAudio
-                    url="CONTROL.mp3" // Url of the sound file
-                    distance={0.1} // Camera distance (default=1)
-                    volume={0.001}
-                    autoplay
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[2, 3, 5]}
+                        roughness={1}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0.1} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={1.2}
+                    />{" "}
+                </Sphere>
+                <Sphere
+                    ref={meshRef6}
+                    castShadow
+                    args={[3, 30, 30]}
+                    position={[-30, 3, 10]}
+                    userData={{ viewPos: [-6, 0, -5] }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+
+                        if (clicked === e.object) {
+                            window.history.pushState("empty", "", "chat");
+
+                            setClicked(null);
+                        } else {
+                            setClicked(e.object);
+                            window.history.pushState("philia", "", "philia");
+                            console.log("lv clicked");
+                        }
+                    }}
+                    onPointerMissed={() => {
+                        setClicked(null);
+                        window.history.pushState("empty", "", "chat");
+                    }}
+                >
+                    <MeshReflectorMaterial
+                        side={THREE.DoubleSide}
+                        envMapIntensity={0}
+                        normalMap={normal}
+                        normalScale={[0.15, 0.15]}
+                        roughnessMap={roughness}
+                        dithering={true}
+                        color={[10, 0, 2]}
+                        roughness={10}
+                        blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
+                        mixBlur={30} // How much blur mixes with surface roughness (default = 1)
+                        mixStrength={80} // Strength of the reflections
+                        mixContrast={1} // Contrast of the reflections
+                        resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
+                        mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
+                        depthScale={0.1} // Scale the depth factor (0 = no depth, default = 0)
+                        minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
+                        maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
+                        depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
+                        debug={0}
+                        reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
+                        metalness={0.1}
+                    />{" "}
+                </Sphere>
+                <spotLight
+                    color={[1, 0.25, 0.7]}
+                    intensity={0.5}
+                    angle={1}
+                    penumbra={1}
+                    position={[100, 200, -100]}
+                    castShadow
+                    shadow-bias={1}
                 />
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[5, 0.015, 0.015]}
-                    roughness={10}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={0.5}
-                />{" "}
-            </Sphere>
-            <Sphere
-                side={THREE.DoubleSide}
-                ref={meshRef2}
-                castShadow
-                args={[2, 30, 30]}
-                position={[20, 3, 5]}
-                userData={{ viewPos: [0, 5, 0] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
-                        setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("dagobah", "", "dagobah");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                <PositionalAudio
-                    url="Ice.mp3" // Url of the sound file
-                    distance={0.8} // Camera distance (default=1)
-                    volume={0.1}
-                    autoplay
+                <spotLight
+                    color={[0.14, 0.5, 1]}
+                    intensity={0.5}
+                    angle={1}
+                    penumbra={1}
+                    position={[-100, 200, -100]}
+                    castShadow
+                    shadow-bias={-1}
                 />
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={roughness}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={normal}
-                    dithering={true}
-                    color={[1, 5, 1]}
-                    roughness={1}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0.8} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1.2}
-                />{" "}
-            </Sphere>
-            <Sphere
-                ref={meshRef3}
-                castShadow
-                args={[3.5, 30, 30]}
-                position={[30, 3, 10]}
-                userData={{ viewPos: [5, 7, 0] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
-                        setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("vogsphere", "", "vogsphere");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[5, 10, 5]}
-                    roughness={1}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1}
-                />{" "}
-            </Sphere>
-            <Sphere
-                ref={meshRef4}
-                castShadow
-                args={[1, 30, 30]}
-                position={[-10, 3, 0]}
-                userData={{ viewPos: [-2, 2, -2] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
-                        setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("arrakis", "", "arrakis");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[5, 1, 0]}
-                    roughness={100}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={50} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={0.8}
-                />{" "}
-            </Sphere>
-            <Sphere
-                ref={meshRef5}
-                castShadow
-                args={[1.8, 30, 30]}
-                position={[-20, 3, 5]}
-                userData={{ viewPos: [0, 0, 0] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
-                        setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("solaris", "", "solaris");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[2, 3, 5]}
-                    roughness={1}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0.1} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.01} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={1.2}
-                />{" "}
-            </Sphere>
-            <Sphere
-                ref={meshRef6}
-                castShadow
-                args={[3, 30, 30]}
-                position={[-30, 3, 10]}
-                userData={{ viewPos: [-6, 0, -5] }}
-                onClick={(e) => {
-                    e.stopPropagation();
-
-                    if (clicked === e.object) {
-                        window.history.pushState("empty", "", "chat");
-
-                        setClicked(null);
-                    } else {
-                        setClicked(e.object);
-                        window.history.pushState("philia", "", "philia");
-                        console.log("lv clicked");
-                    }
-                }}
-                onPointerMissed={() => {
-                    setClicked(null);
-                    window.history.pushState("empty", "", "chat");
-                }}
-            >
-                <MeshReflectorMaterial
-                    side={THREE.DoubleSide}
-                    envMapIntensity={0}
-                    normalMap={normal}
-                    normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness}
-                    dithering={true}
-                    color={[10, 0, 2]}
-                    roughness={10}
-                    blur={[1000, 400]} // Blur ground reflections (width, heigt), 0 skips blur
-                    mixBlur={30} // How much blur mixes with surface roughness (default = 1)
-                    mixStrength={80} // Strength of the reflections
-                    mixContrast={1} // Contrast of the reflections
-                    resolution={1024} // Off-buffer resolution, lower=faster, higher=better quality, slower
-                    mirror={0} // Mirror environment, 0 = texture colors, 1 = pick up env colors
-                    depthScale={0.1} // Scale the depth factor (0 = no depth, default = 0)
-                    minDepthThreshold={0.9} // Lower edge for the depthTexture interpolation (default = 0)
-                    maxDepthThreshold={1} // Upper edge for the depthTexture interpolation (default = 0)
-                    depthToBlurRatioBias={0.25} // Adds a bias factor to the depthTexture before calculating the blur amount [blurFactor = blurTexture * (depthTexture + bias)]. It accepts values between 0 and 1, default is 0.25. An amount > 0 of bias makes sure that the blurTexture is not too sharp because of the multiplication with the depthTexture
-                    debug={0}
-                    reflectorOffset={0.1} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
-                    metalness={0.1}
-                />{" "}
-            </Sphere>
-            <spotLight
-                color={[1, 0.25, 0.7]}
-                intensity={0.5}
-                angle={1}
-                penumbra={1}
-                position={[100, 200, -100]}
-                castShadow
-                shadow-bias={-1}
-            />
-            <spotLight
-                color={[0.14, 0.5, 1]}
-                intensity={0.5}
-                angle={1}
-                penumbra={1}
-                position={[-100, 200, -100]}
-                castShadow
-                shadow-bias={-1}
-            />
-            <EffectComposer>
-                <Bloom
-                    blendFunction={BlendFunction.ADD}
-                    intensity={0.9} // The bloom intensity.
-                    width={1000} // render width
-                    height={1000} // render height
-                    kernelSize={5} // blur kernel size
-                    luminanceThreshold={0.15} // luminance threshold. Raise this value to mask out darker elements in the scene.
-                    luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
-                />
-                <ChromaticAberration
-                    blendFunction={BlendFunction.NORMAL} // blend mode
-                    offset={[0.0005, 0.0012]} // color offset
-                />
-            </EffectComposer>
+                <EffectComposer>
+                    <Bloom
+                        blendFunction={BlendFunction.ADD}
+                        intensity={0.9} // The bloom intensity.
+                        width={1000} // render width
+                        height={1000} // render height
+                        kernelSize={5} // blur kernel size
+                        luminanceThreshold={0.15} // luminance threshold. Raise this value to mask out darker elements in the scene.
+                        luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1]
+                    />
+                    <ChromaticAberration
+                        blendFunction={BlendFunction.NORMAL} // blend mode
+                        offset={[0.0005, 0.0012]} // color offset
+                    />
+                </EffectComposer>
+            </Suspense>
         </>
     );
 }
 export default function ClickApp() {
     return (
         <div className="clickdiv" onScroll={() => console.log("scroll div")}>
-            <Suspense fallback={null}>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Canvas
                     camera={{ fov: [45], position: [0, 10, 60] }}
                     mode="concurrent"
                     shadows
                 >
+                    <Ground />
+
                     <Stars />
                     <Clicks />
                     <TextEther />

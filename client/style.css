@@ -198,7 +198,7 @@ h3 {
     width: 100vw;
     height: 100vh;
     top: 10rem;
-    margin: 10% 0 10% 0;
+    margin: 10% 10 10% 10;
 }
 
 #navbar {
@@ -213,9 +213,10 @@ h3 {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.052);
-    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
-    padding: 0.2%;
+    background-color: rgba(15, 18, 31, 0.131);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.837);
+    backdrop-filter: blur(2px);
+    padding: 1%;
     visibility: visible;
     z-index: 3;
 }
@@ -262,15 +263,18 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.131);
+    position: absolute;
+
+    background-color: rgba(15, 18, 31, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
-    z-index: 6;
+    z-index: 2;
+    backdrop-filter: blur(5px);
 
     width: 90vw;
     height: 70vh;
 
-    margin: 2% 0 5% 0;
+    margin: 10% 5% 0% 5%;
 }
 
 .profilepicdiv {
@@ -281,7 +285,10 @@ h3 {
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    height: 100%;
     align-items: center;
+    border-radius: 50px 0 0 50px;
 }
 .biodiv {
     height: 90%;
@@ -290,7 +297,6 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: baseline;
-    background-color: rgba(75, 85, 117, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 0 50px 50px 0;
     padding: 5%;
@@ -302,6 +308,7 @@ h3 {
 
 .biodiv p {
     line-height: 2;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .draftBio {
@@ -359,15 +366,17 @@ textarea {
     justify-content: center;
     align-items: center;
     position: absolute;
+
     background-color: rgba(15, 18, 31, 0.131);
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.837);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
+    z-index: 2;
     backdrop-filter: blur(5px);
 
-    width: 80vw;
+    width: 90vw;
     height: 70vh;
 
-    margin: 10% 10% 5% 10%;
+    margin: 10% 5% 0% 5%;
 }
 .middlesection h2 {
     width: 100%;
@@ -380,7 +389,7 @@ textarea {
 }
 .friendswannabeescontent {
     width: 100%;
-    height: 90%;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -533,15 +542,19 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+
     background-color: rgba(15, 18, 31, 0.131);
-    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.837);
-    border-radius: 50px;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     backdrop-filter: blur(5px);
 
-    width: 80vw;
+    border-radius: 50px;
+    z-index: 2;
+
+    width: 90vw;
     height: 70vh;
 
-    margin: 10% 10% 5% 10%;
+    margin: 10% 5% 0% 5%;
 }
 .searchdiv h2 {
     width: 10rem;
@@ -582,26 +595,103 @@ textarea {
     box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
 }
 
+/* ----------------------------------------------------- Uploader-----------------------------------------------------*/
+/* -----------------------------------------------------uploader-----------------------------------------------------*/
+
 .uploaderdiv {
     position: fixed;
     z-index: 1;
     inset: 0;
-    width: 100%;
+    width: 100vw;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 1, 13, 0.838);
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: azure;
+    z-index: 5;
+}
+
+.uploaderdiv #line {
+    opacity: 0;
+}
+#chooseImg {
+    display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px inset !important;
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+::placeholder {
+    color: rgb(255, 255, 255);
+    opacity: 0.7;
+}
+
+input :active {
+    background-color: rgba(255, 255, 255, 0.059);
+}
+
+label {
+    cursor: pointer;
+    background-color: hsla(236, 33%, 100%, 0.623);
+    box-shadow: 0 0 15px 1px #27294d45;
+    width: 50%;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+.uploaderdiv button {
+    width: 56%;
+    margin-top: 5%;
+}
+
+label:hover {
+    background-color: #ccc;
+}
+
+.uploaderdiv form {
+    width: 100%;
+    flex-direction: column;
+}
+.uploaderdiv input {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .close {
     position: absolute;
-    right: 5%;
-    top: 5%;
+    right: 10%;
+    top: 10%;
     cursor: pointer;
+    font-size: large;
 }
+
+#uploaderimg {
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+    box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
+}
+
+.uploaderbuttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+}
+/* -----------------------------------------------------Form -----------------------------------------------------*/
 
 form {
     border-radius: 10px;
@@ -634,8 +724,10 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    box-shadow: 0 0 0 30px rgb(4, 10, 102) inset !important;
-    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+    /* remove default behavior */
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: 0 0 25px 4px rgba(0, 0, 0, 0.06);
 }
 ::placeholder {
     color: rgb(255, 255, 255);
@@ -699,24 +791,34 @@ button:active {
 
 .otherprofilediv {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
 
-    background-color: rgba(32, 40, 67, 0.131);
+    background-color: rgba(15, 18, 31, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
+    z-index: 2;
+    backdrop-filter: blur(5px);
 
     width: 90vw;
     height: 70vh;
 
-    margin: 2% 0 5% 0;
+    margin: 10% 5% 0% 5%;
 }
 
 .otherprofilepicdiv {
+    z-index: 3;
+
     width: 40%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    height: 100%;
     align-items: center;
     border-radius: 50px 0 0 50px;
 }
@@ -733,10 +835,10 @@ button:active {
 .otherprofilebio {
     height: auto;
     width: 50%;
+    height: 100%;
     overflow: auto;
     display: flex;
     flex-direction: column;
-    background-color: rgba(75, 85, 117, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 0 50px 50px 0;
     padding: 5%;
@@ -753,15 +855,21 @@ button:active {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    z-index: 5;
-    width: 60vw;
+    position: absolute;
+
+    background-color: rgba(15, 18, 31, 0.131);
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    backdrop-filter: blur(5px);
+
+    border-radius: 50px;
+    z-index: 2;
+
+    width: 90vw;
     height: 70vh;
-    top: 8rem;
-    left: 5rem;
-    margin: 2% 50% 5% 0;
-    position: fixed;
+
+    margin: 10% 5% 0% 5%;
 }
 .chatmiddle {
     z-index: 5;
@@ -915,11 +1023,20 @@ button:active {
     font-family: "Courier New", Courier, monospace;
 }
 .titleandspot {
+    z-index: 5;
+    border-radius: 50px 0 0 0;
+
+    text-transform: capitalize;
+
     width: 100%;
+    height: 10%;
+    background-color: rgba(75, 85, 117, 0.131);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
 }
 /* ----------------------------------------------------- GREEN DOT -----------------------------------------------------*/
 

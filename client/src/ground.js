@@ -5,11 +5,13 @@ import { LinearEncoding, RepeatWrapping, TextureLoader } from "three";
 import { Suspense } from "react";
 
 export function Ground() {
-    const [roughness, normal] = useLoader(TextureLoader, [
-        "textures/terrain-roughness.jpeg",
+    const roughness = useLoader(
+        TextureLoader,
 
-        "textures/terrain-normal.jpeg",
-    ]);
+        "/textures/terrain-roughness.jpeg"
+    );
+
+    const normal = useLoader(TextureLoader, "/textures/terrain-normal.jpeg");
 
     /* const normal = useTexture("logo.jpg");
 

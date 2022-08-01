@@ -128,14 +128,17 @@ export default class App extends Component {
             <div id="appdiv">
                 <BrowserRouter>
                     <div id="navbar">
+                        <Link to="/">
+                            <h3 className="navh3">Back to Chat</h3>
+                        </Link>
+                        <Link to="/profile">
+                            <h3 className="navh3">Profile</h3>
+                        </Link>
                         <Link to="/find-people">
                             <h3 className="navh3">Search</h3>
                         </Link>
                         <Link to="/friendswannabees">
                             <h3 className="navh3">Friends</h3>
-                        </Link>
-                        <Link to="/profile">
-                            <h3 className="navh3">My Profile</h3>
                         </Link>
                         <Link to="/">
                             <h3 className="navh3" onClick={() => this.logout()}>
@@ -186,6 +189,7 @@ export default class App extends Component {
 
                 {this.state.uploaderIsVisible && (
                     <Uploader
+                        imageUrl={this.state.imageUrl}
                         passDownToggleModal={() => {
                             this.toggleModal();
                         }}

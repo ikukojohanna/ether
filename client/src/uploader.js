@@ -64,20 +64,28 @@ export default class Uploader extends Component {
     render() {
         return (
             <div className="uploaderdiv">
-                <h2 className="uploader-text">This is my uploader component</h2>
+                <img
+                    id="uploaderimg"
+                    src={this.props.imageUrl || "/default.png"}
+                />
+                <img id="line" src="/linie.png" />
 
-                <form onSubmit={(e) => this.uploadImg(e)}>
-                    <label htmlFor="chooseImg"> Upload</label>
-                    <input
-                        id="chooseImg"
-                        name="image"
-                        type="file"
-                        accept="image/*"
-                        required
-                    />
-                    <button>Submit</button>
-                </form>
-
+                <div className="uploaderbuttons">
+                    <form onSubmit={(e) => this.uploadImg(e)}>
+                        <label htmlFor="chooseImg">
+                            {" "}
+                            Update profile picture
+                        </label>
+                        <input
+                            id="chooseImg"
+                            name="image"
+                            type="file"
+                            accept="image/*"
+                            required
+                        />
+                        <button>Submit</button>
+                    </form>
+                </div>
                 <div
                     onClick={() => this.props.passDownToggleModal()}
                     className="close"

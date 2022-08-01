@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 //import functions from slice(subreducer)
 import { makeFriend } from "./redux/friends/slice";
 import { unfriend } from "./redux/friends/slice";
@@ -102,9 +101,6 @@ export default function FriendsAndsWannabees() {
     return (
         <>
             <div className="friendsAndWannabeesdiv">
-                <Link to="/">
-                    <h2>Back to Chat</h2>
-                </Link>
                 <div className="friendswannabeescontent">
                     <div className="friends">
                         <h1 className="title">Friends</h1>
