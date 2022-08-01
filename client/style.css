@@ -7,7 +7,7 @@ canvas {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background-color: #62bd19;
+    background-color: #000000;
     position: fixed;
     top: 0;
     left: 0;
@@ -161,8 +161,21 @@ h3 {
 }
 
 /*------------- APP JS----------------*/
-/*
-.appdiv {
+/*{
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+}
+
+#appdiv {
     margin: 0;
     top: 0;
     left: 0;
@@ -175,23 +188,17 @@ h3 {
     align-items: center;
     z-index: -1;
 }*/
+
 .middlesection {
     display: flex;
-    position: absolute;
-
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(32, 40, 67, 0.131);
-    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
-    border-radius: 50px;
-    z-index: 3;
-
-    width: 90vw;
-    height: 70vh;
-
-    margin: 2% 0 5% 0;
+    width: 100vw;
+    height: 100vh;
+    top: 10rem;
+    margin: 10% 0 10% 0;
 }
 
 #navbar {
@@ -206,9 +213,11 @@ h3 {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.052);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     padding: 0.2%;
     visibility: visible;
+    z-index: 3;
 }
 
 #logonav {
@@ -228,6 +237,7 @@ h3 {
     height: 4rem;
     width: 4rem;
     border-radius: 50%;
+    z-index: 3;
 
     top: 5%;
     right: 2%;
@@ -255,7 +265,7 @@ h3 {
     background-color: rgba(255, 255, 255, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
-    z-index: 3;
+    z-index: 6;
 
     width: 90vw;
     height: 70vh;
@@ -264,6 +274,8 @@ h3 {
 }
 
 .profilepicdiv {
+    z-index: 3;
+
     width: 40%;
     display: flex;
     flex-wrap: wrap;
@@ -282,6 +294,7 @@ h3 {
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     border-radius: 0 50px 50px 0;
     padding: 5%;
+    z-index: 3;
 }
 .bio {
     display: inline;
@@ -313,6 +326,7 @@ textarea {
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.629);
     padding: 2%;
     margin-top: 5%;
+    z-index: 3;
 }
 
 #profilepicProfile {
@@ -323,6 +337,7 @@ textarea {
     background-color: rgba(32, 40, 67, 0.178);
     box-shadow: 0 0 15px 4px rgba(117, 147, 255, 0.296);
     border-radius: 50%;
+    z-index: 3;
 }
 #profilepicProfile:hover {
     cursor: pointer;
@@ -333,6 +348,7 @@ textarea {
 .biodiv button {
     margin-left: 0;
     margin-top: 5%;
+    z-index: 3;
 }
 
 /* ----------------------------------------------------- Friends -----------------------------------------------------*/
@@ -340,15 +356,36 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-
-    background-color: rgba(32, 40, 67, 0.131);
-    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: rgba(15, 18, 31, 0.131);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
+    backdrop-filter: blur(5px);
 
-    width: 90vw;
+    width: 80vw;
     height: 70vh;
 
-    margin: 2% 0 5% 0;
+    margin: 10% 10% 5% 10%;
+}
+.middlesection h2 {
+    width: 100%;
+    height: 3.1rem;
+    text-align: center;
+    margin: 0;
+    display: fixed;
+    top: 10rem;
+    left: 10rem;
+}
+.friendswannabeescontent {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .friendlist {
@@ -366,7 +403,6 @@ textarea {
 
 /* friends */
 .friends {
-    background-color: rgba(32, 40, 67, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     width: 50%;
     height: 100%;
@@ -376,7 +412,9 @@ textarea {
 
 .friend {
     margin: 1%;
-    background-color: rgba(32, 40, 67, 0.131);
+    background-color: rgba(67, 68, 69, 0.131);
+    backdrop-filter: blur(10px);
+
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.345);
     width: 15rem;
     height: 5rem;
@@ -423,11 +461,10 @@ textarea {
 
 /* wannabees */
 .wannabees {
-    background-color: rgba(32, 40, 67, 0.131);
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     width: 50%;
     height: 100%;
-
+    bottom: 0;
     border-radius: 0 50px 50px 0;
 }
 
@@ -469,7 +506,7 @@ textarea {
 
 .wannabee {
     margin: 1%;
-    background-color: rgba(32, 40, 67, 0.131);
+    background-color: rgba(67, 68, 69, 0.131);
     box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.345);
     width: 15rem;
     height: 5rem;
@@ -496,14 +533,18 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(32, 40, 67, 0.131);
-    box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
+    background-color: rgba(15, 18, 31, 0.131);
+    box-shadow: 0 0 50px 4px rgba(0, 0, 0, 0.837);
     border-radius: 50px;
+    backdrop-filter: blur(5px);
 
-    width: 90vw;
+    width: 80vw;
     height: 70vh;
 
-    margin: 2% 0 5% 0;
+    margin: 10% 10% 5% 10%;
+}
+.searchdiv h2 {
+    width: 10rem;
 }
 .searchinput {
     width: 40%;
@@ -593,7 +634,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px rgb(4, 10, 102) inset !important;
+    box-shadow: 0 0 0 30px rgb(4, 10, 102) inset !important;
     -webkit-text-fill-color: rgb(255, 255, 255) !important;
 }
 ::placeholder {
@@ -899,17 +940,17 @@ button:active {
 
 .ringring {
     border: 3px solid #62bd19;
-    -webkit-border-radius: 30px;
+    border-radius: 30px;
     height: 25px;
     width: 25px;
     position: absolute;
     top: 7px;
     left: -47px;
-    -webkit-animation: pulsate 1s ease-out;
-    -webkit-animation-iteration-count: infinite;
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite;
     opacity: 0;
 }
-@-webkit-keyframes pulsate {
+@keyframes pulsate {
     0% {
         -webkit-transform: scale(0.1, 0.1);
         opacity: 0;

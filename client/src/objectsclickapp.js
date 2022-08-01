@@ -8,6 +8,7 @@ import { useRef, useEffect, useState } from "react";
 import { Sphere } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Ground } from "./ground";
+//import { Ground2 } from "./ground2";
 import * as THREE from "three";
 import { MeshReflectorMaterial } from "@react-three/drei";
 import { TextureLoader } from "three";
@@ -94,14 +95,14 @@ function Clicks({
 
         // "logo.jpg",
     ]);
-
+    /*
     const [roughness2, normal2] = useLoader(TextureLoader, [
         "textures/coral_fort_wall_01_diff_4k.jpg",
         "textures/coral_fort_wall_01_disp_4k.png",
 
         // "logo.jpg",
     ]);
-
+*/
     // We need to know what object was clicked
     // Keeping track of this in state is not super advisable but this setup
     // relies on a new selection causing a re-render. It's probably better
@@ -196,7 +197,7 @@ function Clicks({
     return (
         <>
             <color args={[0, 0, 0]} attach="background" />
-
+            <Ground />
             <Sphere
                 ref={meshRef}
                 castShadow
@@ -227,7 +228,7 @@ function Clicks({
                     envMapIntensity={0}
                     normalMap={roughness}
                     normalScale={[0.15, 0.15]}
-                    roughnessMap={normal2}
+                    roughnessMap={normal}
                     dithering={true}
                     color={[10, 10, 10]}
                     roughness={5}
@@ -275,9 +276,9 @@ function Clicks({
                 <MeshReflectorMaterial
                     side={THREE.DoubleSide}
                     envMapIntensity={0}
-                    normalMap={roughness2}
+                    normalMap={roughness}
                     normalScale={[0.15, 0.15]}
-                    roughnessMap={normal2}
+                    roughnessMap={normal}
                     dithering={true}
                     color={[10, 10, 10]}
                     roughness={10}
@@ -327,7 +328,7 @@ function Clicks({
                     envMapIntensity={0}
                     normalMap={normal}
                     normalScale={[0.15, 0.15]}
-                    roughnessMap={roughness2}
+                    roughnessMap={roughness}
                     dithering={true}
                     color={[10, 10, 10]}
                     roughness={10}
@@ -350,7 +351,7 @@ function Clicks({
             <Sphere
                 ref={meshRef}
                 castShadow
-                args={[1.5, 30, 30]}
+                args={[0.8, 30, 30]}
                 position={[-50, 34, -40]}
                 userData={{ viewPos: [0, 0, 0] }}
                 onClick={(e) => {
@@ -362,8 +363,8 @@ function Clicks({
                         setClicked(null);
                     } else {
                         setClicked(e.object);
-                        window.history.pushState("profilewin", "", "profilwin");
-                        console.log("profilewin clicked");
+                        window.history.pushState("lv-426", "", "lv-426");
+                        console.log("lv clicked");
                     }
                 }}
                 onPointerMissed={() => {
@@ -377,7 +378,7 @@ function Clicks({
                     envMapIntensity={0}
                     normalMap={roughness}
                     normalScale={[0.15, 0.15]}
-                    roughnessMap={normal2}
+                    roughnessMap={normal}
                     dithering={true}
                     color={[10, 10, 10]}
                     roughness={5}
@@ -743,7 +744,6 @@ export default function ClickApp() {
                     mode="concurrent"
                     shadows
                 >
-                    <Ground />
                     <Stars />
                     <Clicks />
                     <TextEther />

@@ -9,11 +9,9 @@ import OtherProfile from "./otherProfile";
 import FriendsAndsWannabees from "./friends-wannabees";
 import ChatWindow from "./chat";
 import { Link } from "react-router-dom";
+
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
-import SkyBoxfn from "./skybox";
-import Logout from "./logout";
-import ClickApp from "./objectsclickapp";
 
 //import AppLinks from "./appLinks";
 
@@ -28,7 +26,6 @@ export default class App extends Component {
             //once we have information we pass it down to procile pic component
             uploaderIsVisible: false,
             bio: "",
-            profileVisible: false,
         };
     }
 
@@ -36,18 +33,35 @@ export default class App extends Component {
     //its going to automatically run WHEN component first renders
 
     componentDidMount() {
-        console.log("app mounted");
+        //addEventListener on the window object and listen for the popstate event.
+        /*window.onpopstate = function (event) {
+            alert(
+                "POPSTATE location: " +
+                    document.location +
+                    ", state: " +
+                    JSON.stringify(event.state)
+            );
+        };
 
         history.onpushstate = function (event) {
-            //   console.log("slice:::", location.pathname.slice(1));
-            // console.log("event state", event.state);
+            console.log(
+                " PUSHSTATE location: " +
+                    document.location +
+                    ", state: " +
+                    JSON.stringify(event.state)
+            );
+            console.log("slice:::", location.pathname.slice(1));
+            console.log("event state", event.state);
+        };*/
 
-            if (event.state == "profilewin") {
-                console.log("profilewin was clicked");
+        /*window.addEventListener("pushstate", (e) => {
+            console.log("pushstate", location.pathname, e.state);
+            // show whatever is appropriate for the new url
+            // if you need it, e.state has the data you passed to `pushState`
+            this.imgSelected = location.pathname.slice(1);
+        });*/
 
-                this.setState({ profileVisible: true });
-            }
-        };
+        console.log("app mounted");
 
         fetch("/user")
             .then((resp) => resp.json())
@@ -67,6 +81,16 @@ export default class App extends Component {
             .catch((err) => {
                 console.log("error in fetch/user:  ", err);
             });
+
+        //here fetch request to get infos users
+        //this information is living in state of app
+        //the profile pic componentn will need access to information of url of pic so it can render it
+        // but the information lives in app
+        //so we have to pass information ot child
+
+        // WITH PROPS: parents passes information down to childern
+        //syntax changes
+        //prop we want to pass down is the pic URL
     }
 
     toggleModal() {
@@ -101,27 +125,23 @@ export default class App extends Component {
 
     render() {
         return (
-            <div className="appdiv">
-                <div className="clickappdiv">
-                    <ClickApp />
-                </div>
-
+            <div id="appdiv">
                 <BrowserRouter>
                     <div id="navbar">
                         <Link to="/find-people">
-                            <h3 className="navh3">Find Users</h3>
+                            <h3 className="navh3">Search</h3>
                         </Link>
                         <Link to="/friendswannabees">
                             <h3 className="navh3">Friends</h3>
                         </Link>
-                        <Link to="/">
-                            <h3 className="navh3">Chat</h3>
-                        </Link>
                         <Link to="/profile">
                             <h3 className="navh3">My Profile</h3>
                         </Link>
-
-                        <Link to="/doyouwanttologout">LOGOUT</Link>
+                        <Link to="/">
+                            <h3 className="navh3" onClick={() => this.logout()}>
+                                Logout{" "}
+                            </h3>
+                        </Link>{" "}
                         <ProfilePic
                             first={this.state.first}
                             last={this.state.last}
@@ -132,25 +152,8 @@ export default class App extends Component {
                         />
                     </div>
                     <div id="middlesection">
-                        {this.state.profileVisible && (
-                            <div>
-                                <Profile />
-                            </div>
-                        )}
-
-                        <Route path="/doyouwanttologout">
-                            <Logout />
-                        </Route>
-
                         <Route path="/">
                             <ChatWindow />
-                        </Route>
-                        <Route path="/skybox">
-                            <SkyBoxfn />
-                        </Route>
-
-                        <Route path="/clickapp">
-                            <ClickApp />
                         </Route>
 
                         <Route exact path="/profile">

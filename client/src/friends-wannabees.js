@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
+import { Link } from "react-router-dom";
 //import functions from slice(subreducer)
 import { makeFriend } from "./redux/friends/slice";
 import { unfriend } from "./redux/friends/slice";
@@ -100,65 +100,72 @@ export default function FriendsAndsWannabees() {
         //two action creat ors... need to devine in slice.js}
     };
     return (
-        <div className="friendsAndWannabeesdiv">
-            <div className="friends">
-                <h1 className="title">Friends</h1>
-                <div className="friendlist">
-                    {/* Display your friends */}
-                    {friends?.map((friend) => {
-                        return (
-                            <div className="friend" key={friend.id}>
-                                <img
-                                    className="friendImg"
-                                    src={friend.imageurl}
-                                />
-                                <div className="friendtext">
-                                    <p>
-                                        {friend.first} {friend.last}
-                                    </p>
-                                    <button
-                                        onClick={() =>
-                                            handleUnfriend(friend.id)
-                                        }
-                                    >
-                                        Unfriend
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+        <>
+            <div className="friendsAndWannabeesdiv">
+                <Link to="/">
+                    <h2>Back to Chat</h2>
+                </Link>
+                <div className="friendswannabeescontent">
+                    <div className="friends">
+                        <h1 className="title">Friends</h1>
+                        <div className="friendlist">
+                            {/* Display your friends */}
+                            {friends?.map((friend) => {
+                                return (
+                                    <div className="friend" key={friend.id}>
+                                        <img
+                                            className="friendImg"
+                                            src={friend.imageurl}
+                                        />
+                                        <div className="friendtext">
+                                            <p>
+                                                {friend.first} {friend.last}
+                                            </p>
+                                            <button
+                                                onClick={() =>
+                                                    handleUnfriend(friend.id)
+                                                }
+                                            >
+                                                Unfriend
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
 
-            <div className="wannabees">
-                <h1 className="title">Wannabees</h1>
-                <div className="wannabeelist">
-                    {wannabees?.map((wannabee) => {
-                        return (
-                            <div className="wannabee" key={wannabee.id}>
-                                <img
-                                    className="wannabeeImg"
-                                    src={wannabee.imageurl}
-                                />
-                                <div className="wannabeetext">
-                                    <p>
-                                        {wannabee.first}
-                                        {wannabee.last}
-                                    </p>
-                                    <button
-                                        onClick={() =>
-                                            handleAccept(wannabee.id)
-                                        }
-                                    >
-                                        Accept
-                                    </button>
-                                </div>
-                            </div>
-                        );
-                    })}
+                    <div className="wannabees">
+                        <h1 className="title">Requests</h1>
+                        <div className="wannabeelist">
+                            {wannabees?.map((wannabee) => {
+                                return (
+                                    <div className="wannabee" key={wannabee.id}>
+                                        <img
+                                            className="wannabeeImg"
+                                            src={wannabee.imageurl}
+                                        />
+                                        <div className="wannabeetext">
+                                            <p>
+                                                {wannabee.first}
+                                                {wannabee.last}
+                                            </p>
+                                            <button
+                                                onClick={() =>
+                                                    handleAccept(wannabee.id)
+                                                }
+                                            >
+                                                Accept
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
