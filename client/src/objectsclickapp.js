@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 //import { Clicks } from "./objectclicked";
-import { PerspectiveCamera } from "@react-three/drei";
+//import { PerspectiveCamera } from "@react-three/drei";
 import { Suspense } from "react";
 import TextEther from "./textEther";
 //import Sound from "./sound";
@@ -166,7 +166,7 @@ function Clicks({
         } else {
             // If nothing is clicked we want to set p back to our start position.
             // In our case we are just hardcoding our camera position back in.
-            p.set(0, 2, 60);
+            p.set(0, 0, 65);
 
             // .identity() resets a quaternion to no rotation.
             // This doesn't bring us back to our original rotation that we set on line 27.
@@ -196,10 +196,8 @@ function Clicks({
     return (
         <>
             <color args={[0, 0, 0]} attach="background" />
-
             <Ground />
             <Stars />
-
             <Sphere
                 ref={meshRef}
                 castShadow
@@ -225,14 +223,6 @@ function Clicks({
                 }}
             >
                 {" "}
-                <group position={[12, 25, 0]}>
-                    <PositionalAudio
-                        url="sample-3s.mp3" // Url of the sound file
-                        distance={1} // Camera distance (default=1)
-                        volume={10}
-                        autoplay
-                    />
-                </group>
                 <MeshReflectorMaterial
                     side={THREE.DoubleSide}
                     envMapIntensity={0}
@@ -281,6 +271,13 @@ function Clicks({
                     window.history.pushState("empty", "", "chat");
                 }}
             >
+                {" "}
+                <PositionalAudio
+                    url="CONTROL.mp3" // Url of the sound file
+                    distance={0.1} // Camera distance (default=1)
+                    volume={0.001}
+                    autoplay
+                />
                 <MeshReflectorMaterial
                     side={THREE.DoubleSide}
                     envMapIntensity={0}
@@ -547,7 +544,6 @@ function Clicks({
                     metalness={0.1}
                 />{" "}
             </Sphere>
-
             <spotLight
                 color={[1, 0.25, 0.7]}
                 intensity={0.5}
@@ -557,7 +553,6 @@ function Clicks({
                 castShadow
                 shadow-bias={-1}
             />
-
             <spotLight
                 color={[0.14, 0.5, 1]}
                 intensity={0.5}
@@ -567,7 +562,6 @@ function Clicks({
                 castShadow
                 shadow-bias={-1}
             />
-
             <EffectComposer>
                 <Bloom
                     blendFunction={BlendFunction.ADD}
@@ -590,8 +584,11 @@ export default function ClickApp() {
     return (
         <div className="clickdiv" onScroll={() => console.log("scroll div")}>
             <Suspense fallback={null}>
-                <Canvas mode="concurrent" shadows>
-                    <PerspectiveCamera makeDefault position={[0, 10, 40]} />
+                <Canvas
+                    camera={{ fov: [45], position: [0, 10, 60] }}
+                    mode="concurrent"
+                    shadows
+                >
                     <Clicks />
                     <TextEther />
                 </Canvas>
@@ -607,6 +604,8 @@ export default function ClickApp() {
                 color="transparent"
             >
 
+                            <PerspectiveCamera makeDefault fov={50} position={[0, 10, 40]} />
+   
 
              <PositionalAudio
                     url="sample-3s.mp3" // Url of the sound file
