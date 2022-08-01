@@ -1,68 +1,42 @@
 import Chatrooms from "./chatrooms";
-
+//import Profile from "./profile";
 import OnlineUsers from "./onlineusers";
 import { useState } from "react";
 import { socket } from "./socket";
-import ClickApp from "./objectsclickapp";
+//import ClickApp from "./objectsclickapp";
 import { useEffect } from "react";
 export default function ChatWindow(props) {
     const [channel, setChannel] = useState("");
     const [planetClicked, setPlanetClicked] = useState(false);
-    //make chatrooms and handleclick dynamic!!!!!
     useEffect(() => {
-        window.onpopstate = function (event) {
-            alert(
-                "POPSTATE location: " +
-                    document.location +
-                    ", state: " +
-                    JSON.stringify(event.state)
-            );
-        };
-
+        console.log("props in chat", props);
         history.onpushstate = function (event) {
-            console.log(
-                " PUSHSTATE location: " +
-                    document.location +
-                    ", state: " +
-                    JSON.stringify(event.state)
-            );
-            console.log("slice:::", location.pathname.slice(1));
-            console.log("event state");
-            if (event.state != "empty") {
-                setPlanetClicked(true);
-                socket.emit("join-room", event.state);
+            //   console.log("slice:::", location.pathname.slice(1));
+            // console.log("event state", event.state);
+
+            if (event.state == "logoutwin") {
+                console.log("logout was clicked");
+                setPlanetClicked(false);
             }
             if (event.state == "empty") {
                 setPlanetClicked(false);
             }
+            if (
+                event.state == "arrakis" ||
+                event.state == "solaris" ||
+                event.state == "philia" ||
+                event.state == "lv-426" ||
+                event.state == "vogsphere" ||
+                event.state == "dagobah"
+            ) {
+                setPlanetClicked(true);
+                socket.emit("join-room", event.state);
+            }
         };
     }, []);
-    /*
-    const handleClickGeneral = () => {
-        console.log("General has been clicked");
-        socket.emit("join-room", "general");
-    };
 
-    const handleClickArakis = () => {
-        console.log("Arakis has been clicked");
-        socket.emit("join-room", "arakis");
-    };
-    const handleClickSolaris = () => {
-        console.log("Solaris has been clicked");
-        socket.emit("join-room", "solaris");
-    };*/
     return (
         <div>
-            <div className="clickappdiv">
-                <ClickApp />
-            </div>
-            <div id="philia"></div>
-            <div id="solaris"></div>
-            <div id="arrakis"></div>
-            <div id="lv-426"></div>
-            <div id="dagobah"></div>
-            <div id="vogsphere"></div>
-
             {planetClicked && (
                 <div className="chatdiv">
                     <Chatrooms

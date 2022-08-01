@@ -197,6 +197,8 @@ h3 {
 #navbar {
     position: absolute;
     top: 0;
+    visibility: hidden;
+
     left: 0;
     width: 100%;
     display: flex;
@@ -206,7 +208,7 @@ h3 {
     align-items: center;
     box-shadow: 0 0 30px 4px rgba(0, 0, 0, 0.837);
     padding: 0.2%;
-    display: hidden;
+    visibility: visible;
 }
 
 #logonav {

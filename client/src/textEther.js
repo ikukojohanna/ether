@@ -4,6 +4,58 @@ export default function TextEther() {
     return (
         <>
             <Text
+                font="https://fonts.gstatic.com/s/orbitron/v9/yMJRMIlzdpvBhQQL_Qq7dys.woff"
+                color="pink" // default
+                anchorX="center" // default
+                anchorY="middle" // default
+                rotation={[0, 0, 0]}
+                position={[50, 42, -50]}
+                fontSize={2}
+            >
+                {" "}
+                Logout
+            </Text>
+
+            <Text
+                font="https://fonts.gstatic.com/s/orbitron/v9/yMJRMIlzdpvBhQQL_Qq7dys.woff"
+                color="pink" // default
+                anchorX="center" // default
+                anchorY="middle" // default
+                rotation={[0, 0, 0]}
+                position={[-50, 37.5, -40]}
+                fontSize={1.9}
+            >
+                {" "}
+                Profile
+            </Text>
+
+            <Text
+                font="https://fonts.gstatic.com/s/orbitron/v9/yMJRMIlzdpvBhQQL_Qq7dys.woff"
+                color="pink" // default
+                anchorX="center" // default
+                anchorY="middle" // default
+                rotation={[0, 0, 0]}
+                position={[-7, 22, 0]}
+                fontSize={1.2}
+            >
+                {" "}
+                Friends{" "}
+            </Text>
+
+            <Text
+                font="https://fonts.gstatic.com/s/orbitron/v9/yMJRMIlzdpvBhQQL_Qq7dys.woff"
+                color="pink" // default
+                anchorX="center" // default
+                anchorY="middle" // default
+                rotation={[0, 0, 0]}
+                position={[2, 19.5, 0]}
+                fontSize={1.2}
+            >
+                {" "}
+                Search{" "}
+            </Text>
+
+            <Text
                 color="white" // default
                 anchorX="center" // default
                 anchorY="middle" // default
