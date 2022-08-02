@@ -395,8 +395,8 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="lvplanetsound.wav" // Url of the sound file
-                        distance={0.08} // Camera distance (default=1)
-                        volume={0.01}
+                        distance={2} // Camera distance (default=1)
+                        volume={3}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -450,8 +450,8 @@ function Clicks({
                 >
                     <PositionalAudio
                         url="calmBellnoisesdoro.wav" // Url of the sound file
-                        distance={1} // Camera distance (default=1)
-                        volume={1}
+                        distance={10} // Camera distance (default=1)
+                        volume={20}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -509,8 +509,8 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="123.wav" // Url of the sound file
-                        distance={0.1} // Camera distance (default=1)
-                        volume={1}
+                        distance={1} // Camera distance (default=1)
+                        volume={3}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -564,8 +564,8 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="firesyntharrakis.wav" // Url of the sound file
-                        distance={0.06} // Camera distance (default=1)
-                        volume={0.001}
+                        distance={1} // Camera distance (default=1)
+                        volume={1}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -619,8 +619,8 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="killusive.wav" // Url of the sound file
-                        distance={1} // Camera distance (default=1)
-                        volume={1}
+                        distance={10} // Camera distance (default=1)
+                        volume={3}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -674,8 +674,8 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="Rashiyah3.wav" // Url of the sound file
-                        distance={0.08} // Camera distance (default=1)
-                        volume={0.001}
+                        distance={0.8} // Camera distance (default=1)
+                        volume={10}
                         autoplay
                     />
                     <MeshReflectorMaterial
