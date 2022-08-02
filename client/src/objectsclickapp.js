@@ -563,7 +563,7 @@ function Clicks({
                 >
                     {" "}
                     <PositionalAudio
-                        url="firesynth.wav" // Url of the sound file
+                        url="firesyntharrakis.wav" // Url of the sound file
                         distance={0.06} // Camera distance (default=1)
                         volume={0.001}
                         autoplay
