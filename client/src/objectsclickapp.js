@@ -564,7 +564,7 @@ function Clicks({
                     {" "}
                     <PositionalAudio
                         url="firesyntharrakis.wav" // Url of the sound file
-                        distance={1} // Camera distance (default=1)
+                        distance={0.8} // Camera distance (default=1)
                         volume={1}
                         autoplay
                     />
@@ -620,7 +620,7 @@ function Clicks({
                     <PositionalAudio
                         url="killusive.wav" // Url of the sound file
                         distance={10} // Camera distance (default=1)
-                        volume={3}
+                        volume={20}
                         autoplay
                     />
                     <MeshReflectorMaterial
