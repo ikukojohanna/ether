@@ -106,7 +106,7 @@ export default function Chatrooms() {
             <div className="chatright">
                 <div className="container-online">
                     <div className="titleandspot">
-                        <h2>Other online users:</h2>
+                        <h2>Online users:</h2>
                     </div>
 
                     <div className="onlineusersdiv">

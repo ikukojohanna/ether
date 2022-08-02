@@ -1,24 +1,16 @@
 import { Canvas } from "@react-three/fiber";
-//import { Clicks } from "./objectclicked";
-//import { PerspectiveCamera } from "@react-three/drei";
 import { Suspense } from "react";
 import TextEther from "./textEther";
-//import Sound from "./sound";
 import { useRef, useEffect, useState } from "react";
 import { Sphere } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Ground } from "./ground";
-//import { Ground2 } from "./ground2";
 import * as THREE from "three";
 import { MeshReflectorMaterial } from "@react-three/drei";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
-//const { OrbitControls } = require("@react-three/drei");
 import { PositionalAudio } from "@react-three/drei";
-
 import { Stars } from "@react-three/drei";
-
-//import Sound2 from "./sound";
 
 //postprocessing
 import {
@@ -208,21 +200,15 @@ function Clicks({
                         e.stopPropagation();
 
                         if (clicked === e.object) {
-                            window.history.pushState("empty", "", "chat");
-
                             setClicked(null);
                         } else {
                             setClicked(e.object);
-                            window.history.pushState("lv-426", "", "lv-426");
-                            console.log("lv clicked");
                         }
                     }}
                     onPointerMissed={() => {
                         setClicked(null);
-                        window.history.pushState("empty", "", "chat");
                     }}
                 >
-                    {" "}
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}
@@ -258,21 +244,15 @@ function Clicks({
                         e.stopPropagation();
 
                         if (clicked === e.object) {
-                            window.history.pushState("empty", "", "chat");
-
                             setClicked(null);
                         } else {
                             setClicked(e.object);
-                            window.history.pushState("lv-426", "", "lv-426");
-                            console.log("lv clicked");
                         }
                     }}
                     onPointerMissed={() => {
                         setClicked(null);
-                        window.history.pushState("empty", "", "chat");
                     }}
                 >
-                    {" "}
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}
@@ -303,23 +283,18 @@ function Clicks({
                     castShadow
                     args={[0.8, 30, 30]}
                     position={[-7, 20, 0]}
-                    userData={{ viewPos: [-0.5, 0, -0.5] }}
+                    userData={{ viewPos: [-2, 0, -5] }}
                     onClick={(e) => {
                         e.stopPropagation();
 
                         if (clicked === e.object) {
-                            window.history.pushState("empty", "", "chat");
-
                             setClicked(null);
                         } else {
                             setClicked(e.object);
-                            window.history.pushState("lv-426", "", "lv-426");
-                            console.log("lv clicked");
                         }
                     }}
                     onPointerMissed={() => {
                         setClicked(null);
-                        window.history.pushState("empty", "", "chat");
                     }}
                 >
                     {" "}
@@ -358,18 +333,14 @@ function Clicks({
                         e.stopPropagation();
 
                         if (clicked === e.object) {
-                            window.history.pushState("empty", "", "chat");
-
                             setClicked(null);
                         } else {
                             setClicked(e.object);
-                            window.history.pushState("lv-426", "", "lv-426");
                             console.log("lv clicked");
                         }
                     }}
                     onPointerMissed={() => {
                         setClicked(null);
-                        window.history.pushState("empty", "", "chat");
                     }}
                 >
                     {" "}
@@ -423,9 +394,9 @@ function Clicks({
                 >
                     {" "}
                     <PositionalAudio
-                        url="CONTROL.mp3" // Url of the sound file
-                        distance={0.1} // Camera distance (default=1)
-                        volume={0.001}
+                        url="lvplanetsound.wav" // Url of the sound file
+                        distance={0.08} // Camera distance (default=1)
+                        volume={0.01}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -478,9 +449,9 @@ function Clicks({
                     }}
                 >
                     <PositionalAudio
-                        url="Ice.mp3" // Url of the sound file
-                        distance={0.8} // Camera distance (default=1)
-                        volume={0.1}
+                        url="calmBellnoisesdoro.wav" // Url of the sound file
+                        distance={1} // Camera distance (default=1)
+                        volume={1}
                         autoplay
                     />
                     <MeshReflectorMaterial
@@ -535,6 +506,13 @@ function Clicks({
                         window.history.pushState("empty", "", "chat");
                     }}
                 >
+                    {" "}
+                    <PositionalAudio
+                        url="123.wav" // Url of the sound file
+                        distance={0.1} // Camera distance (default=1)
+                        volume={1}
+                        autoplay
+                    />
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}
@@ -583,6 +561,13 @@ function Clicks({
                         window.history.pushState("empty", "", "chat");
                     }}
                 >
+                    {" "}
+                    <PositionalAudio
+                        url="firesynth.wav" // Url of the sound file
+                        distance={0.06} // Camera distance (default=1)
+                        volume={0.001}
+                        autoplay
+                    />
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}
@@ -631,6 +616,13 @@ function Clicks({
                         window.history.pushState("empty", "", "chat");
                     }}
                 >
+                    {" "}
+                    <PositionalAudio
+                        url="killusive.wav" // Url of the sound file
+                        distance={1} // Camera distance (default=1)
+                        volume={1}
+                        autoplay
+                    />
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}
@@ -679,6 +671,13 @@ function Clicks({
                         window.history.pushState("empty", "", "chat");
                     }}
                 >
+                    {" "}
+                    <PositionalAudio
+                        url="Rashiyah3.wav" // Url of the sound file
+                        distance={0.08} // Camera distance (default=1)
+                        volume={0.001}
+                        autoplay
+                    />
                     <MeshReflectorMaterial
                         side={THREE.DoubleSide}
                         envMapIntensity={0}

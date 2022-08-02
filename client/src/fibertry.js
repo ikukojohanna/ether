@@ -5,7 +5,8 @@ import { useRef, useEffect } from "react";
 //import { Ground } from "./ground";
 import { Rings } from "./rings";
 import { Boxes } from "./boxes";
-import { Ground2 } from "./ground2";
+import { GroundBeginning } from "./groundBeginning";
+
 import { Text } from "@react-three/drei";
 
 //postprocessing:
@@ -78,7 +79,7 @@ function Cube() {
                 Welcome to the Ether
             </Text>
 
-            <Ground2 />
+            <GroundBeginning />
 
             <spotLight
                 color={[1, 0.25, 0.7]}

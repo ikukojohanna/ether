@@ -1,6 +1,5 @@
 import Chatrooms from "./chatrooms";
 //import Profile from "./profile";
-import OnlineUsers from "./onlineusers";
 import { useState } from "react";
 import { socket } from "./socket";
 import ClickApp from "./objectsclickapp";
@@ -48,7 +47,6 @@ export default function ChatWindow(props) {
                         setChannel={setChannel}
                         channel={channel}
                     />
-                    <OnlineUsers setChannel={setChannel} />
                 </div>
             )}
         </div>

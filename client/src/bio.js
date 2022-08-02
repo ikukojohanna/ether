@@ -77,7 +77,7 @@ export default class Bio extends Component {
 
                 {!this.state.showTextArea && this.props.bio && (
                     <div>
-                        <p>{this.props.bio}</p>
+                        <h2>{this.props.bio}</h2>
 
                         <button onClick={() => this.editBio()}>Edit Bio</button>
                     </div>

@@ -53,8 +53,6 @@ export default class Registration extends Component {
     render() {
         return (
             <div className="registrationdiv">
-                <h2>Register</h2>
-
                 {this.state.error && (
                     <h1 className="error">Something went wrong, try again.</h1>
                 )}
@@ -84,10 +82,11 @@ export default class Registration extends Component {
                 />
                 <button onClick={() => this.handleSubmit()}>Submit</button>
                 <img id="line" src="/linie.png" />
-
-                <Link to="/login">
-                    <p> Log in</p>
-                </Link>
+                <div className="links">
+                    <Link to="/login">
+                        <p> Log in</p>
+                    </Link>
+                </div>
             </div>
         );
     }
